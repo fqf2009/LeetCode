@@ -96,6 +96,28 @@ class TreeNodeUtil:
 
         return root
 
+    # Create a Binary Search Tree
+    @staticmethod
+    def fromListToBST(nums: list[int]) -> Optional[TreeNode]:
+        def addToBST(root: TreeNode, n: int):
+            if n < root.val:
+                if root.left == None:
+                    root.left = TreeNode(n)
+                else:
+                    addToBST(root.left, n)
+            else:
+                if root.right == None:
+                    root.right = TreeNode(n)
+                else:
+                    addToBST(root.right, n)
+ 
+        if len(nums) == 0:
+            return None
+        root = TreeNode(nums[0])
+        for i in range(1, len(nums)):
+            addToBST(root, nums[i])
+        return root
+
 
 if __name__ == "__main__":
     # test case

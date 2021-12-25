@@ -67,7 +67,7 @@ class Solution1:
 
 
 if __name__ == "__main__":
-    sol = Solution1()
+    sol = Solution()
 
     s = "catsanddog"
     wordDict = ["cat", "cats", "and", "sand", "dog"]
