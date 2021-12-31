@@ -14,10 +14,10 @@
 # - The first item is always root node
 # - Root item divide the list into left sub tree (L items) and right sub tree (R items).
 # - For a specific LSB and RSB, i.e., assume L items in left list does not change order
-#   so does R items in right list, however, the order of items between LSB and RSB does
-#   not matter, because: LSB items' value < root < RSB items' value. So there are
+#   so does R items in right list. However, the order of items between LSB and RSB does
+#   not matter, because: LSB items' value < root.val < RSB items' value. So there are
 #   C(L+R, L) combinations possible ways to interleave LSB and RSB items.
-# - Recursively, assume LSB and RSB each has Ways(LSB) and Ways(RSB) to form BST.
+# - Recursively, assume LSB and RSB, each has Ways(LSB) and Ways(RSB) to form BST.
 # - So for entire BST:
 #       Ways(BST) = C(L+R, L) * Ways(LSB) * Ways(RSB)
 
@@ -32,7 +32,7 @@ class TreeNode:
         self.right: Optional[TreeNode] = right
 
 
-# DFS + Recursion
+# DFS + Recursion + Combination
 class Solution:
     # Create a Binary Search Tree
     @staticmethod
