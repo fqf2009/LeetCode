@@ -7,7 +7,30 @@
 # use two pointers to point to the center of palindrome, this works for
 # both odd or even length of palindrome strings.
 # Time complexity: O(n^2)
+
+# slight change: just use poiner, defer string manipulation until return
 class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        def maxPallindromeAt(p1: int, p2: int):
+            pdLen = 0
+            while p1 >= 0 and p2 < len(s) and s[p1] == s[p2]:
+                pdLen = p2 - p1 + 1
+                p1 -= 1
+                p2 += 1
+            return pdLen
+    
+        maxLen = 1
+        pdStart = 0
+        for i in range(len(s) - 1):
+            pdLen = max(maxPallindromeAt(i, i), maxPallindromeAt(i, i + 1))
+            if pdLen > maxLen:
+                maxLen = pdLen
+                pdStart = i - (pdLen - 1) // 2
+                
+        return s[pdStart: pdStart + maxLen]
+
+
+class Solution1:
     def longestPalindrome(self, s: str) -> str:
         # p1, p2 pointing to the center of palindrome
         def palindromeLength(p1: int, p2: int) -> int:
@@ -33,18 +56,22 @@ class Solution:
 
 
 if __name__ == "__main__":
-    r = Solution().longestPalindrome('babad')
-    print(r)
-    assert(r == 'bab' or r == 'aba')
+    def unitTest(sol):
+        r = Solution().longestPalindrome('babad')
+        print(r)
+        assert(r == 'bab' or r == 'aba')
 
-    r = Solution().longestPalindrome('cbbd')
-    print(r)
-    assert(r == 'bb')
+        r = Solution().longestPalindrome('cbbd')
+        print(r)
+        assert(r == 'bb')
 
-    r = Solution().longestPalindrome('a')
-    print(r)
-    assert(r == 'a')
+        r = Solution().longestPalindrome('a')
+        print(r)
+        assert(r == 'a')
 
-    r = Solution().longestPalindrome('ac')
-    print(r)
-    assert(r == 'a' or r == 'c')
+        r = Solution().longestPalindrome('ac')
+        print(r)
+        assert(r == 'a' or r == 'c')
+
+    unitTest(Solution())
+    unitTest(Solution1())
