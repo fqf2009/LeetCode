@@ -22,6 +22,34 @@
 
 class Solution:
     def intToRoman(self, num: int) -> str:
+        romanValue = [('M', 1000),
+                      ('CM', 900),
+                      ('D', 500),
+                      ('CD', 400),
+                      ('C', 100),
+                      ('XC', 90),
+                      ('L', 50),
+                      ('XL', 40),
+                      ('X', 10),
+                      ('IX', 9),
+                      ('V', 5),
+                      ('IV', 4),
+                      ('III', 3),
+                      ('II', 2),
+                      ('I', 1)]
+        res = ''
+        i = 0
+        while num > 0:
+            while romanValue[i][1] > num:
+                i += 1
+            res += romanValue[i][0]
+            num -= romanValue[i][1]
+
+        return res
+
+
+class Solution1:
+    def intToRoman(self, num: int) -> str:
         symbols = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']
         values = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]
         res = ''
@@ -36,24 +64,27 @@ class Solution:
 
 
 if __name__ == '__main__':
-    sol = Solution()
+    def unitTest(sol):
+        r = sol.intToRoman(3)
+        print(r)
+        assert(r == 'III')
 
-    r = sol.intToRoman(3)
-    print(r)
-    assert(r == 'III')
+        r = sol.intToRoman(4)
+        print(r)
+        assert(r == 'IV')
 
-    r = sol.intToRoman(4)
-    print(r)
-    assert(r == 'IV')
+        r = sol.intToRoman(9)
+        print(r)
+        assert(r == 'IX')
 
-    r = sol.intToRoman(9)
-    print(r)
-    assert(r == 'IX')
+        r = sol.intToRoman(58)
+        print(r)
+        assert(r == 'LVIII')
 
-    r = sol.intToRoman(58)
-    print(r)
-    assert(r == 'LVIII')
+        r = sol.intToRoman(1994)
+        print(r)
+        assert(r == 'MCMXCIV')
 
-    r = sol.intToRoman(1994)
-    print(r)
-    assert(r == 'MCMXCIV')
+    unitTest(Solution())
+    unitTest(Solution1())
+    

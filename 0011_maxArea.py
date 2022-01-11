@@ -26,3 +26,6 @@ if __name__ == '__main__':
     a = maxArea([1,8,6,2,5,4,8,3,7])
     print(a); assert(a == 49)
     
+    a = maxArea([1,1])
+    print(a); assert(a == 1)
+    
