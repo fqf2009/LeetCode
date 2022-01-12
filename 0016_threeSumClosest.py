@@ -9,22 +9,23 @@ from typing import List
 # Two pointers: O(n^2)
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
-        nums = sorted(nums)
-        diff = float('inf')
-        for i in range(0, len(nums) - 2):
+        nums.sort()
+        res = nums[0] + nums[1] + nums[2]
+        for i in range(0, len(nums)-2):
             j, k = i + 1, len(nums) - 1
             while j < k:
-                delta = target - (nums[i] + nums[j] + nums[k])
-                if abs(delta) < abs(diff):
-                    diff = delta
-                if delta == 0:
-                    break
-                elif delta > 0:
+                sum3 = nums[i] + nums[j] + nums[k]
+                if abs(res - target) > abs(sum3 - target):
+                    res = sum3
+                if sum3 < target:
                     j += 1
-                else:
+                elif sum3 > target:
                     k -= 1
-
-        return target - int(diff)
+                else:
+                    j += 1
+                    k -= 1
+                    
+        return res
 
 
 # Brute Force: O(n^3)
@@ -41,8 +42,13 @@ class Solution1:
 
 
 if __name__ == '__main__':
-    sol = Solution()
+    def unitTest(sol):
+        r = sol.threeSumClosest([-1, 2, 1, -4], 1)
+        print(r)
+        assert(r == 2)
 
-    r = sol.threeSumClosest([-1, 2, 1, -4], 1)
-    print(r)
-    assert(r == 2)
+        r = sol.threeSumClosest([0, 0, 0], 1)
+        print(r)
+        assert(r == 0)
+
+    unitTest(Solution())
