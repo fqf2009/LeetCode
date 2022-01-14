@@ -15,16 +15,12 @@ class Solution:
                 return
             if left < n:
                 stk.append('(')
-                left += 1
-                genPar(stk, left, right)
+                genPar(stk, left+1, right)
                 stk.pop()
-                left -= 1
             if left > right:
                 stk.append(')')
-                right += 1
-                genPar(stk, left, right)
+                genPar(stk, left, right+1)
                 stk.pop()
-                right -= 1
 
         res = []
         genPar()
