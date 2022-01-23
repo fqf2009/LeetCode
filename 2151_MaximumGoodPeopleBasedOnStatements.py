@@ -17,7 +17,7 @@
 from typing import List
 
 
-# Improvement:
+# Improvement: O(n*(2^n))
 #  - use an integer and its bits (1s, 0s) to represent the good and bad person.
 #  - use bit Xor to test conflict, and no statement (2) situation should be masked away.
 class Solution:
@@ -50,9 +50,9 @@ class Solution:
         return res
 
 
-# Backtrack: O(2^n),  i.e. n^2 * 2^n
-#  - use backtrack to simulate all conbination (2)
-#  - test every good person's statements
+# Backtrack: O((n^2)*(2^n))
+#  - use backtrack to simulate all conbination of good and bad person (2^n)
+#  - test every good person's statements against it.
 class Solution1:
     def maximumGood(self, statements: List[List[int]]) -> int:
         i, res, n = 0, 0, len(statements)
