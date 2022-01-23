@@ -59,6 +59,7 @@ select id,
  ;
 
  -- How about n or more rows?
+ -- Note this is not perfect if there is gap in id!!!
 select id,
        visit_date,
        people
@@ -87,5 +88,47 @@ select id,
          where start100 = 1 and (end_id - start_id + 1 >= 3)  -- parameter n = 3, note n > 1 !!!
        ) c
     on s.id between c.start_id and c.end_id
+ order by s.visit_date
+ ;
+
+-- Works even if there is gap in id
+select id,
+       visit_date,
+       people
+  from (
+        select id,
+               visit_date,
+               people,
+               count(*) over (partition by rn) cnt -- how many rows in this range
+          from stadium s
+          join (
+                select start_id, 
+                       end_id, 
+                       row_number() over () rn  -- differenciate each range
+                  from (
+                        select id start_id, 
+                               start100,
+                               lead(id, 1) over (order by id) end_id
+                          from (
+                                select id,
+                                       case when people >= 100 and 
+                                                 coalesce(lag(people, 1) over
+                                                      (order by id), 0) < 100 then 1
+                                            else 0
+                                        end start100,
+                                       case when people >= 100 and 
+                                                 coalesce(lead(people, 1) over
+                                                      (order by id), 0) < 100 then 1
+                                            else 0
+                                        end stop100
+                                  from stadium
+                               ) c
+                         where (start100 + stop100) = 1
+                       ) c
+                 where start100 = 1
+               ) c
+            on s.id between c.start_id and c.end_id
+       ) s
+ where cnt >= 3   -- parameter for n consecutive
  order by s.visit_date
  ;
