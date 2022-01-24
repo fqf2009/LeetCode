@@ -71,18 +71,19 @@ class Solution1:
                 i += 1
                 continue
 
-            success = True
+            good = 0
+            conflict = False
             for j in range(n):
                 if persons[j] == 1:
+                    good += 1
                     for k in range(n):
                         if statements[j][k] != 2 and statements[j][k] != persons[k]:
-                            success = False
+                            conflict = True
                             break
-                if not success:
+                if conflict:
                     break
-
-            if success:
-                res = max(res, persons.count(1))
+            else:
+                res = max(res, good)
 
         return res
 
@@ -96,6 +97,14 @@ if __name__ == '__main__':
         r = sol.maximumGood(statements = [[2,0],[0,2]])
         print(r)
         assert(r == 1)
+
+        r = sol.maximumGood(statements =[[2,2,2,2],
+                                         [1,2,1,0],
+                                         [0,2,2,2],
+                                         [0,0,0,2]])
+        print(r)
+        assert(r == 1)
+
 
     unitTest(Solution())
     unitTest(Solution1())
