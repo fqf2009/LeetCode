@@ -19,10 +19,11 @@ class Solution:
                 left = mid + 1
             else:
                 p1 = mid
+                p2 = max(p1, p2)    # p2 set to the largest pos ever found
                 right = mid - 1
 
-        if p1 != -1:
-            left, right = p1, len(nums) - 1
+        if p2 != -1:
+            left, right = p2 + 1, len(nums) - 1
             while left <= right:
                 mid = (left + right) // 2
                 if target < nums[mid]:
@@ -37,14 +38,17 @@ class Solution:
 
 
 if __name__ == "__main__":
-    r = Solution().searchRange(nums=[5, 7, 7, 8, 8, 10], target=8)
-    print(r)
-    assert(r == [3, 4])
+    def unitTest(sol):
+        r = sol.searchRange(nums=[5, 7, 7, 8, 8, 10], target=8)
+        print(r)
+        assert(r == [3, 4])
 
-    r = Solution().searchRange(nums=[5, 7, 7, 8, 8, 10], target=6)
-    print(r)
-    assert(r == [-1, -1])
+        r = sol.searchRange(nums=[5, 7, 7, 8, 8, 10], target=6)
+        print(r)
+        assert(r == [-1, -1])
 
-    r = Solution().searchRange(nums=[], target=0)
-    print(r)
-    assert(r == [-1, -1])
+        r = sol.searchRange(nums=[], target=0)
+        print(r)
+        assert(r == [-1, -1])
+
+    unitTest(Solution())
