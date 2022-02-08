@@ -8,18 +8,15 @@
 # Return the maximum profit you can achieve from this transaction. 
 # If you cannot achieve any profit, return 0.
 
-
 from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        low = prices[0]
+        minPrice = prices[0]
         profit = 0
-        for n in prices[1:]:
-            if n < low:
-                low = n
-            elif n - low > profit:
-                profit = n - low
+        for p in prices[1:]:
+            minPrice = min(minPrice, p)
+            profit = max(profit, p - minPrice)
 
         return profit
 
