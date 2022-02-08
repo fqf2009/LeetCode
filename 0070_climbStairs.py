@@ -1,9 +1,20 @@
 # You are climbing a staircase. It takes n steps to reach the top. Each time you 
 # can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
 
-# Actually this is Fibonacci problem in disguise.
-# Dynamic Programming: time complexity: O(n)
+from functools import cache
+
+# Recursion, DP, Memo
 class Solution:
+    @cache
+    def climbStairs(self, n: int) -> int:
+        if n <= 1:
+            return 1
+        return self.climbStairs(n-1) + self.climbStairs(n-2)
+
+
+# Actually this is Fibonacci problem in disguise.
+# Iteration, DP (Dynamic Programming): time complexity: O(n)
+class Solution1:
     def climbStairs(self, n: int) -> int:
         if n == 1:
             return 1
@@ -16,11 +27,12 @@ class Solution:
 
         return dp[n]
 
- 
-    # How about different ways to reach the N’th stair with M different steps?
-    # ways(n, m) = ways(n-1, m) + ways(n-2, m) + ... + ways(n-m, m)
-    # Time Complexity: O(n*m)
-    def climbStairs2(self, n: int, m: int) -> int:
+
+# How about different ways to reach the N’th stair with M different steps?
+# ways(n, m) = ways(n-1, m) + ways(n-2, m) + ... + ways(n-m, m)
+# Time Complexity: O(n*m)
+class Solution2:
+    def climbStairsM(self, n: int, m: int) -> int:
         dp = [0] * (n + 1)
         dp[0] = 1
         for i in range(1, n + 1):
@@ -30,38 +42,44 @@ class Solution:
 
 
 if __name__ == '__main__':
-    r = Solution().climbStairs(2)
-    print(r)
-    assert(r == 2)
+    def unit_test(sol):
+        r = sol.climbStairs(2)
+        print(r)
+        assert(r == 2)
 
-    r = Solution().climbStairs(3)
-    print(r)
-    assert(r == 3)
+        r = sol.climbStairs(3)
+        print(r)
+        assert(r == 3)
 
-    r = Solution().climbStairs(5)
-    print(r)
-    assert(r == 8)
+        r = sol.climbStairs(5)
+        print(r)
+        assert(r == 8)
 
-    r = Solution().climbStairs2(2, 2)
-    print(r)
-    assert(r == 2)
+    def unit_test2(sol):
+        r = sol.climbStairsM(2, 2)
+        print(r)
+        assert(r == 2)
 
-    r = Solution().climbStairs2(3, 2)
-    print(r)
-    assert(r == 3)
+        r = sol.climbStairsM(3, 2)
+        print(r)
+        assert(r == 3)
 
-    r = Solution().climbStairs2(5, 2)
-    print(r)
-    assert(r == 8)
+        r = sol.climbStairsM(5, 2)
+        print(r)
+        assert(r == 8)
 
-    r = Solution().climbStairs2(2, 3)
-    print(r)
-    assert(r == 2)
+        r = sol.climbStairsM(2, 3)
+        print(r)
+        assert(r == 2)
 
-    r = Solution().climbStairs2(3, 3)
-    print(r)
-    assert(r == 4)
+        r = sol.climbStairsM(3, 3)
+        print(r)
+        assert(r == 4)
 
-    r = Solution().climbStairs2(5, 3)
-    print(r)
-    assert(r == 13)
+        r = sol.climbStairsM(5, 3)
+        print(r)
+        assert(r == 13)
+
+    unit_test(Solution())
+    unit_test(Solution())
+    unit_test2(Solution2())
