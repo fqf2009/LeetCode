@@ -22,8 +22,23 @@ class Solution:
         return dumbHead.next
 
 
-# Put nodes in an array: Space complexity: O(n)
+# Two pointers
 class Solution1:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        p1 = p2 = h0 = ListNode(next = head)
+        for i in range(n):
+            p2 = p2.next                # type:ignore
+        
+        while p2 and p2.next:
+            p1, p2 = p1.next, p2.next   # type:ignore
+        
+        p1.next = p1.next.next          # type:ignore
+
+        return h0.next
+
+
+# Put nodes in an array: Space complexity: O(n)
+class Solution2:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         nodes = [ListNode(next=head)]
         p = head
@@ -43,19 +58,20 @@ if __name__ == "__main__":
         h2 = Solution().removeNthFromEnd(h1, 2)
         lst = ListNodeUtil.toArrayList(h2)
         print(lst)
-        assert(lst == [1, 2, 3, 5])
+        assert lst == [1, 2, 3, 5]
 
         h1 = ListNodeUtil.createLinkedList([1])
         h2 = Solution().removeNthFromEnd(h1, 1)
         lst = ListNodeUtil.toArrayList(h2)
         print(lst)
-        assert(lst == [])
+        assert lst == []
 
         h1 = ListNodeUtil.createLinkedList([1, 2])
         h2 = Solution().removeNthFromEnd(h1, 1)
         lst = ListNodeUtil.toArrayList(h2)
         print(lst)
-        assert(lst == [1])
+        assert lst == [1]
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
