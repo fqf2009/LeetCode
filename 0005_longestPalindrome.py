@@ -30,6 +30,7 @@ class Solution:
         return s[pdStart: pdStart + maxLen]
 
 
+# Expand around the center: T/S: O(n^2), O(1)
 class Solution1:
     def longestPalindrome(self, s: str) -> str:
         # p1, p2 pointing to the center of palindrome
