@@ -8,9 +8,25 @@ from typing import List, Optional
 # The 'total' is the cumulative_sum when visiting each int. Any time
 # (total - k) is also in csum dict, it means that the sum between two csum
 # is k, and csum(total - k) is count of the distinct continous subarrays.
+from collections import defaultdict
+
+# use defaultdict
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        csum = defaultdict(int)
+        csum[0] = 1
+        res, total = 0, 0
+        for v in nums:
+            total += v
+            if total - k in csum:
+                res += csum[total - k]
+            csum[total] = csum[total] + 1
+            
+        return res
+
 
 # Time complexity: O(n), Space complexity: O(n)
-class Solution:
+class Solution1:
     def subarraySum(self, nums: List[int], k: int) -> int:
         res = 0
         csum = {0: 1}
@@ -25,7 +41,7 @@ class Solution:
 
 
 # Brute Force: O(n^2)
-class Solution1:
+class Solution2:
     def subarraySum(self, nums: List[int], k: int) -> int:
         res = 0
         for i in range(len(nums)):
@@ -39,14 +55,19 @@ class Solution1:
 
 
 if __name__ == "__main__":
-    r = Solution().subarraySum([1, -3, -2, 9, -8, 6, 2, 7, 4, 3, 1, 1], 2)
-    print(r)
-    assert(r == 3)
+    def unitTest(sol):
+        r = sol.subarraySum([1, -3, -2, 9, -8, 6, 2, 7, 4, 3, 1, 1], 2)
+        print(r)
+        assert(r == 3)
 
-    r = Solution().subarraySum([1, 1, 1], 2)
-    print(r)
-    assert(r == 2)
+        r = sol.subarraySum([1, 1, 1], 2)
+        print(r)
+        assert(r == 2)
 
-    r = Solution().subarraySum([1, 2, 3], 3)
-    print(r)
-    assert(r == 2)
+        r = sol.subarraySum([1, 2, 3], 3)
+        print(r)
+        assert(r == 2)
+
+    unitTest(Solution())
+    unitTest(Solution1())
+    unitTest(Solution2())
