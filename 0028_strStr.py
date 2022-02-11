@@ -1,21 +1,16 @@
-# Implement strStr().
-
-# Return the index of the first occurrence of needle in haystack,
-# or -1 if needle is not part of haystack.
-
+# Implement strStr(). Return the index of the first occurrence of needle in 
+# haystack, or -1 if needle is not part of haystack.
 # Clarification:
-# What should we return when needle is an empty string? This is a great
-# question to ask during an interview.
-# For the purpose of this problem, we will return 0 when needle is an
-# empty string. This is consistent to C's strstr() and Java's indexOf().
-
+#  - What should we return when needle is an empty string? This is a great
+#    question to ask during an interview.
+#  - For the purpose of this problem, we will return 0 when needle is an
+#    empty string. This is consistent to C's strstr() and Java's indexOf().
 # Constraints:
-#   0 <= haystack.length, needle.length <= 5 * 104
+#   0 <= haystack.length, needle.length <= 5 * 10^4
 #   haystack and needle consist of only lower-case English characters.
 
 
-# KMP is difficult to understand, difficult to code
-# Rolling hash is much easier to understand and code: O(n)
+# Rolling hash is somewhat easier to understand: O(n)
 # https://en.wikipedia.org/wiki/Rolling_hash
 #  - suppose len(needle) = k
 #  - hash = ( c1*p^(k-1) + c2*p^(k-2) + ... + ck*p^0 ) % m, where k, m are constant
@@ -48,35 +43,45 @@ class Solution:
         return -1
 
 
-# KMP algorithm: O(n+m)
+# KMP (Knuth–Morris–Pratt) algorithm: O(n+m)
 # - https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
-# - https://www.youtube.com/watch?v=JoF0Z7nVSrA
-# LPS (Longest Prefix Suffix)
+# - LPS (Longest common Prefix Suffix)
+#   lps[i]: at position i, longest length of common prefix and suffix in string
+# - e.g.: for the string "ababcababa":
+#   i     lps[i]        substring           longest-common-prefix-suffix
+#   0     0             a                   <empty>
+#   1     0             ab                  <empty>
+#   2     1             aba                 a
+#   3     2             abab                ab
+#   4     0             ababc               <empty>
+#   5     1             ababca              a
+#   6     2             ababcab             ab
+#   7     3             ababcaba            aba
+#   8     4             ababcabab           abab
+#   9     3             ababcababa          aba
+# - to calculate lps[i], start with the previousLPS (not the lps[i-1])
 class Solution1:
     def strStr(self, haystack: str, needle: str) -> int:
-        if len(needle) == 0:
+        n, m = len(haystack), len(needle)
+        if m == 0:
             return 0
 
-        lps = [0] * len(needle)
-        prevLps, i = 0, 1
-        while i < len(needle):
-            if needle[prevLps] == needle[i]:
-                lps[i] = prevLps + 1
-                i += 1
-                prevLps += 1
-            elif prevLps == 0:
-                lps[i] = 0
-                i += 1
-            else:
-                prevLps = lps[prevLps - 1]
+        lps = [0] * m
+        for i in range(1, m):
+            t = lps[i-1]
+            while (t > 0 and needle[i] != needle[t]):
+                t = lps[t-1]
+            if needle[i] == needle[t]:
+                t += 1
+            lps[i] = t
 
-        i = 0  # pointer to haystack
-        j = 0  # pointer to needle
-        while i < len(haystack):
+        i = 0  # point to haystack
+        j = 0  # point to needle
+        while i < n:
             if haystack[i] == needle[j]:
                 i += 1
                 j += 1
-                if j == len(needle):
+                if j == m:
                     return i - j
             elif j == 0:
                 i += 1
@@ -86,7 +91,7 @@ class Solution1:
         return -1
 
 
-# Time exceeded.
+# Brute force. Time exceeded.
 # Worse case: O(n*m), where n = len(haystack), m = len(needle)
 class Solution2:
     def strStr(self, haystack: str, needle: str) -> int:
