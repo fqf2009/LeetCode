@@ -21,6 +21,28 @@
 
 from typing import List
 
+# Simplify the code
+class Solution:
+    def earliestAcq(self, logs: List[List[int]], n: int) -> int:
+        uf = {}
+        groups = n
+
+        def find(x):                # find root
+            if x != uf.setdefault(x, x):
+                uf[x] = find(uf[x])  # path compression
+            return uf[x]
+
+        logs.sort(key=lambda x: x[0])
+        for t, x, y in logs:
+            r1, r2 = find(x), find(y)
+            if r1 != r2:
+                uf[r1] = r2
+                groups -= 1
+                if groups == 1:
+                    return t
+
+        return -1
+
 
 # Union Find: O(n + m*log(m) + m*a(n)), where
 #   n is to initialize the UnionFind,
@@ -64,7 +86,7 @@ class UnionFind:
         return self.grpCnt
 
 
-class Solution:
+class Solution1:
     def earliestAcq(self, logs: List[List[int]], n: int) -> int:
         uf = UnionFind(n)
         logs.sort(key=lambda x: x[0])
@@ -78,6 +100,11 @@ class Solution:
 
 if __name__ == '__main__':
     def unit_test(sol):
+        logs = [[9, 3, 0], [0, 2, 1], [8, 0, 1], [1, 3, 2], [2, 2, 0], [3, 3, 1]]
+        r = sol.earliestAcq(logs, 4)
+        print(r)
+        assert r == 2
+
         logs = [[20190101, 0, 1], [20190104, 3, 4], [20190107, 2, 3],
                 [20190211, 1, 5], [20190224, 2, 4], [20190301, 0, 3],
                 [20190312, 1, 2], [20190322, 4, 5]]
@@ -91,3 +118,4 @@ if __name__ == '__main__':
         assert r == 3
 
     unit_test(Solution())
+    unit_test(Solution1())
