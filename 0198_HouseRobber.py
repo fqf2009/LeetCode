@@ -10,18 +10,16 @@
 from typing import List
 from functools import cache
 
+# DP + Memo + Recursion
 class Solution:
     def rob(self, nums: List[int]) -> int:
         @cache
-        def rob(i):
-            if i == 0:
-                return nums[0]
-            elif i == 1:
-                return max(nums[:2])
-            else:
-                return max(rob(i-1), rob(i-2)+nums[i])
+        def dp(i: int) -> int:
+            if i < 0: return 0
+            if i == 0: return nums[0]
+            return max(dp(i-1), dp(i-2) + nums[i])
         
-        return rob(len(nums)-1)
+        return dp(len(nums) - 1)
 
 
 # DP + Memo + Iteration - T/S: O(n), O(1)
