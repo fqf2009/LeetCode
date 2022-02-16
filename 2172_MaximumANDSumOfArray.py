@@ -33,7 +33,11 @@ from functools import cache
 #       before: CacheInfo(hits=98416, misses=19683, maxsize=None, currsize=19683)
 #       after : CacheInfo(hits=1793, misses=512, maxsize=None, currsize=512)
 # - However, if nums[i] is outside of then [1..numSlots] range,
-#   this over optimization is meaningless.
+#   this over optimization is meaningless?
+# - Actually, e.g. numSlots = 9, i.e. b1001, only the (nums[i] % 16) part is useful.
+#   16 is b10000, so we can check (nums[i] % 16) with the slot no.
+#   here is the result:
+#       CacheInfo(hits=315, misses=127, maxsize=None, currsize=127)
 class Solution:
     def maximumANDSum(self, nums: List[int], numSlots: int) -> int:
         @cache
@@ -46,16 +50,19 @@ class Solution:
                     res = max(res, (A[i] & slot) + dp(i + 1, mask - b))
             return res
 
-        A = []
-        mask = 3 ** numSlots - 1
-        res = 0
+        ns, slotMask = numSlots, 1
+        while ns: ns >>= 1; slotMask <<= 1
+        A, res, mask = [], 0, 3 ** numSlots - 1
         for v in nums:
-            b = 3**(v-1)
-            if v <= numSlots and mask // b % 3 > 0:
-                mask -= b
-                res += v
-            else:
-                A.append(v)
+            v %= slotMask
+            if v == 0: continue
+            if 1 <= v <= numSlots:
+                b = 3**(v-1)
+                if mask // b % 3 > 0:
+                    mask -= b
+                    res += v
+                    continue
+            A.append(v)     # not match with slot, or no place available
         res += dp(0, mask)
         print(dp.cache_info())
         return res
