@@ -16,15 +16,9 @@ class Solution:
 # Iteration, DP (Dynamic Programming): time complexity: O(n)
 class Solution1:
     def climbStairs(self, n: int) -> int:
-        if n == 1:
-            return 1
-
-        dp = [0] * (n + 1)
-        dp[1] = 1
-        dp[2] = 2
-        for i in range(3, n + 1):
+        dp = [1] * (n + 1)
+        for i in range(2, n + 1):
             dp[i] = dp[i - 1] + dp[i - 2]
-
         return dp[n]
 
 
@@ -81,5 +75,5 @@ if __name__ == '__main__':
         assert(r == 13)
 
     unit_test(Solution())
-    unit_test(Solution())
+    unit_test(Solution1())
     unit_test2(Solution2())
