@@ -10,9 +10,7 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         def countPal(i: int, j: int) -> int:
             res = 0
-            while i >= 0 and j < n:
-                if s[i] != s[j]:
-                    break
+            while i >= 0 and j < n and s[i] == s[j]:
                 res += 1
                 i -= 1
                 j += 1
