@@ -39,6 +39,17 @@ class TreeNodeUtil:
         res.append(root.val)
         return res
 
+    @staticmethod
+    def dfsFind(root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if root == None:
+            return None
+        if root.val == val:
+            return root
+        res = TreeNodeUtil.dfsFind(root.left, val)
+        if not res:
+            res = TreeNodeUtil.dfsFind(root.right, val)
+        return res
+
     # Breadth First Search (Traversal)
     @staticmethod
     def toBfsList(root: Optional[TreeNode]) -> list[Optional[int]]:
