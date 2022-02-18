@@ -9,7 +9,21 @@
 #     output represents the signed integer -1073741825.
 
 
+# Bit Manipulation
+# - similar problem:
+#   swap alternate bits in a number: (x & 0xaaaaaaaa) >> 1 | (x & 0x55555555) << 1
+#   swap two bits ...
 class Solution:
+    def reverseBits(self, n: int) -> int:
+        n = n >> 16 | n << 16
+        n = (n & 0xff00ff00) >> 8 | (n & 0x00ff00ff) << 8
+        n = (n & 0xf0f0f0f0) >> 4 | (n & 0x0f0f0f0f) << 4
+        n = (n & 0xcccccccc) >> 2 | (n & 0x33333333) << 2
+        n = (n & 0xaaaaaaaa) >> 1 | (n & 0x55555555) << 1
+        return n
+
+
+class Solution1:
     def reverseBits(self, n: int) -> int:
         res = 0
         for i in range(32):
@@ -19,7 +33,7 @@ class Solution:
         return res
 
 
-class Solution1:
+class Solution2:
     def reverseBits(self, n: int) -> int:
         res = 0
         for i in reversed(range(32)):
@@ -42,3 +56,4 @@ if __name__ == "__main__":
     
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
