@@ -33,16 +33,31 @@ class Solution:
                 if mat[i][j] == 1:
                     dp[0][j] = dp[0][j-1] + 1 if j > 0 else 1       # horizonal
                     dp[1][j] = dp[1][j] + 1                         # vertical
+                    dp[3][j] = dp[3][j+1] + 1 if j+1 < n else 1     # anti-diagonal
+                else:
+                    dp[0][j] = dp[1][j] = dp[3][j] = 0
+
+                if mat[i][n-1-j] == 1:
                     # diagonal - iterate from right to left
                     dp[2][n-1-j] = dp[2][n-2-j] + 1 if n-1-j > 0 else 1
-                    dp[3][j] = dp[3][j+1] + 1 if j+1 < n else 1     # anti-diagonal
-            res = max(res, max(max(dp[k]) for k in range(len(dp))))
+                else:
+                    dp[2][n-1-j] = 0
+
+            res = max(res, max(max(dp[k]) for k in range(4)))
 
         return res
 
 
 if __name__ == '__main__':
     def unitTest(sol):
+        r = sol.longestLine([[0, 1, 0, 1, 1],
+                             [1, 1, 0, 0, 1],
+                             [0, 0, 0, 1, 0],
+                             [1, 0, 1, 1, 1],
+                             [1, 0, 0, 0, 1]])
+        print(r)
+        assert r == 3
+
         r = sol.longestLine([[0, 1, 1, 0],
                              [0, 1, 1, 0],
                              [0, 0, 0, 1]])
