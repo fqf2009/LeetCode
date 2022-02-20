@@ -16,9 +16,9 @@ def getPrimes(n: int) -> List[int]:
 
 def getFactors(n: int) -> List[int]:
     fac = []
-    primes = getPrimes(int(sqrt(n)))
+    primes = getPrimes(int(sqrt(n))+1)
     i = 0
-    while n > 1:
+    while n > 1 and i < len(primes):
         if n % primes[i] == 0:
             fac.append(primes[i])
             n = n // primes[i]
@@ -48,6 +48,10 @@ if __name__ == '__main__':
     r = getFactors(100)
     print(r)
     assert r == [2, 2, 5, 5]
+
+    r = getFactors(7591)
+    print(r)
+    assert r == [7591]
 
     r = sorted(getDivisors(12))
     print(r)
