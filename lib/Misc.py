@@ -17,13 +17,16 @@ def getPrimes(n: int) -> List[int]:
 def getFactors(n: int) -> List[int]:
     fac = []
     primes = getPrimes(int(sqrt(n))+1)
-    i = 0
-    while n > 1 and i < len(primes):
-        if n % primes[i] == 0:
+    i, m = 0, n
+    while m > 1 and i < len(primes):
+        if m % primes[i] == 0:
             fac.append(primes[i])
-            n = n // primes[i]
+            m = m // primes[i]
         else:
             i += 1
+
+    if m > 1:
+        fac.append(m)
     return fac
 
 
