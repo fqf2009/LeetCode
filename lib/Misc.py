@@ -42,6 +42,37 @@ def getDivisors(n: int) -> List[int]:
     return div
 
 
+def base62Encode(n: int, minlen: int = 1) -> str:
+    charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+    chs = []
+    while n > 0:
+        n, r = divmod(n, 62)
+        chs.append(charset[r])
+
+    if len(chs) == 0:
+        s = '0'
+    else:
+        s = ''.join(chs[::-1])
+
+    return charset[0] * max(minlen - len(s), 0) + s
+
+
+def base62Decode(s: str) -> int:
+    res = 0
+    for ch in s:
+        if '0' <= ch <= '9':
+            v = ord(ch) - ord('0')
+        elif 'A' <= ch <= 'Z':
+            v = ord(ch) - ord('A') + 10
+        elif 'a' <= ch <= 'z':
+            v = ord(ch) - ord('a') + 36
+        else:
+            raise ValueError(f'{s} is not a valid Base 62 string!')
+        res = res*62 + v
+
+    return res
+
+
 if __name__ == '__main__':
     r = getPrimes(100)
     print(r)
@@ -59,3 +90,19 @@ if __name__ == '__main__':
     r = sorted(getDivisors(12))
     print(r)
     assert r == [1, 2, 3, 4, 6, 12]
+
+    r = base62Encode(123456789)
+    print(r)
+    assert r == '8M0kX'
+
+    r = base62Encode(34441886726)
+    print(r)
+    assert r == 'base62'
+
+    r = base62Decode('8M0kX')
+    print(r)
+    assert r == 123456789
+
+    r = base62Decode('base62')
+    print(r)
+    assert r == 34441886726
