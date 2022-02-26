@@ -1,13 +1,38 @@
-from typing import List
-
 # Given an array of integers nums sorted in non-decreasing order, find the 
 # starting and ending position of a given target value.
 # If target is not found in the array, return [-1, -1].
 # You must write an algorithm with O(log n) runtime complexity.
+from typing import List
 
 
 # Binary search in sorted array
+# - Simplify the code, reduce redundancy or duplicate
 class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        def binarySearch(left, right, leftEdge: bool = True) -> int:
+            res = -1
+            while left <= right:
+                mid = (left + right) // 2
+                if target < nums[mid]:
+                    right = mid - 1
+                elif target > nums[mid]:
+                    left = mid + 1
+                else:
+                    res = mid
+                    if leftEdge:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+            return res
+
+        n = len(nums)
+        p1 = binarySearch(0, n - 1)
+        p2 = binarySearch(p1, n - 1, False) if p1 != -1 else -1
+        return [p1, p2]
+
+
+# Binary search in sorted array
+class Solution1:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         left, right = 0, len(nums) - 1
         p1, p2 = -1, -1
@@ -52,3 +77,4 @@ if __name__ == "__main__":
         assert(r == [-1, -1])
 
     unitTest(Solution())
+    unitTest(Solution1())

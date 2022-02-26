@@ -8,38 +8,47 @@
 # the index of target if it is in nums, or -1 if it is not in nums.
 # You must write an algorithm with O(log n) runtime complexity.
 
+# Constraints:
+#   1 <= nums.length <= 5000
+#   -10^4 <= nums[i] <= 10^4
+#   All values of nums are unique.
+#   nums is an ascending array that is possibly rotated.
+#   -10^4 <= target <= 10^4
 from typing import List
 
 
-# Analysis, if there is a pivot, then:
-#  - nums[right] < nums[left]
-#  - if nums[left] < nums[mid] (and left != mid), then pivot is at right side
-#    else pivot is at left side
 # iteration: O(log(n))
+# Analysis
+# - if there is a pivot, then nums[right] < nums[left]
+# - if nums[left] < nums[mid] (and left != mid), then if there is pivot, 
+#   it is at right side;
+#   else (i.e. nums[left] > nums[mid]) pivot is already at left side, so that
+#   nums[mid] < nums[right].
+# - So the algorithm is:
+#   a. find middle point, check if middle value is target, return if found;
+#   b. make sure left point is not the middle point, increase left by 1 if true;
+#   c. if nums[left] < nums[mid], piviot is at right side, then check whether
+#      target is inside left side of values, to determine next direction;
+#   d. else piviot is already at left side, then check whether target is inside
+#      right side of values, to determine next direction.
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         left, right = 0, len(nums) - 1
         while left <= right:
             mid = (left + right) // 2
-            if nums[mid] == target:
-                return mid
+            if nums[mid] == target: return mid
             if left == mid:
                 left = mid + 1
-                continue
-            if nums[left] < nums[mid]:
+            elif nums[left] < nums[mid]:    # if there is pivot, it is at right side
                 if nums[left] <= target and target < nums[mid]:
                     right = mid - 1
-                    continue
                 else:
                     left = mid + 1
-                    continue
-            else:  # now nums[mid] < nums[right]
+            else:  # now pivot is at left side, so that nums[mid] < nums[right]
                 if nums[mid] < target and target <= nums[right]:
                     left = mid + 1
-                    continue
                 else:
                     right = mid - 1
-                    continue
 
         return -1
 
