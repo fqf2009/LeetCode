@@ -1,23 +1,51 @@
-from typing import List
-
 # Given an integer array nums, return all triplets [nums[i], nums[j], nums[k]] 
 # such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
 # Notice that the solution set must not contain duplicate triplets.
+# Constraints:
+#   0 <= nums.length <= 3000
+#   -10^5 <= nums[i] <= 10^5
+from typing import List
+from collections import Counter
+
+
+# Set, no sort, inner loop is like 2-Sum
+# T/S: O(n^2), O(n)
+class Solution0:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = set()
+        dups = set()
+        seen = {}
+        for i, v1 in enumerate(nums):
+            if v1 in dups: continue
+            dups.add(v1)
+            for v2 in nums[i+1:]:
+                complement = -v1 - v2
+                if complement in seen and seen[complement] == i:
+                    res.add(tuple(sorted((v1, v2, complement))))
+                seen[v2] = i
+
+        return [list(x) for x in res]
 
 
 # Two pointers - code is more elegant than other solutions
 # Time complexity: O(n^2), including sort: O(n*log(n))
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
+        freq = Counter(nums)
+        N = []
+        for v, cnt in sorted(freq.items()):
+            N.extend([v] * min(cnt, 3))
+        N.sort()
+
         target = 0
-        nums = sorted(nums)
         res = set()
-        for i in range(0, len(nums) - 2):
-            j, k = i + 1, len(nums) - 1
+        for i in range(0, len(N) - 2):
+            if N[i] > target: break
+            j, k = i + 1, len(N) - 1
             while j < k:
-                total = (nums[i] + nums[j] + nums[k])
+                total = (N[i] + N[j] + N[k])
                 if total == target:
-                    res.add((nums[i], nums[j], nums[k]))
+                    res.add((N[i], N[j], N[k]))
                     j += 1
                     k -= 1
                 elif total < target:
@@ -142,9 +170,10 @@ if __name__ == '__main__':
         r.sort()
         print(r)
 
+    unitTest(Solution0())
     unitTest(Solution())
-    unitTest(Solution1())
-    unitTest(Solution2())
+    # unitTest(Solution1())
 
     # too slow
+    # unitTest(Solution2())
     # unitTest(Solution3())
