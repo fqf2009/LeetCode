@@ -5,10 +5,43 @@
 # a different word or phrase, typically using all the original letters
 # exactly once.
 
+# Constraints:
+#   1 <= s.length, p.length <= 3 * 104
+#   s and p consist of lowercase English letters.
 from typing import List
+from collections import defaultdict
+
+
+# moving window + counter
+# - to simplify the code
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        def updateCmp(ch: str, add_remove: int) -> int:   # return diff delta
+            res = 0
+            if cmp[ch] == 0: res += 1
+            cmp[ch] += 1 * add_remove
+            if cmp[ch] == 0: res = -1
+            return res
+
+        cmp = defaultdict(int)
+        for ch in p:
+            cmp[ch] += 1
+        diff = len(cmp)
+
+        m = len(p)
+        res = []
+        for i, ch in enumerate(s):
+            diff += updateCmp(ch, -1)
+            if i >= m:
+                diff += updateCmp(s[i-m], 1)
+            if diff == 0:
+                res.append(i-m+1)
+
+        return res            
+        
 
 # moving window + counter: O(n)
-class Solution:
+class Solution1:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         if len(p) > len(s):
             return []
@@ -61,3 +94,4 @@ if __name__ == '__main__':
         assert r == [0,1,2]
 
     unitTest(Solution())
+    unitTest(Solution1())
