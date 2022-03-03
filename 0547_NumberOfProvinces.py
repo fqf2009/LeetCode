@@ -16,10 +16,38 @@
 #   isConnected[i][i] == 1
 #   isConnected[i][j] == isConnected[j][i]
 from typing import List, Optional
+from collections import defaultdict
+
+
+# DFS + Graph (adjdency list)
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        def dfsVisit(i):
+            visited[i] = True
+            for j in graph[i]:
+                if not visited[j]:
+                    dfsVisit(j)
+
+        n = len(isConnected)
+        graph = defaultdict(set)
+        for i in range(n):
+            for j in range(0, i):
+                if isConnected[i][j] == 1:
+                    graph[i].add(j)
+                    graph[j].add(i)
+
+        visited = {i: False for i in range(n)}
+        res = 0
+        for i in visited.keys():
+            if not visited[i]:
+                res += 1
+                dfsVisit(i)
+
+        return res
 
 
 # Union Find
-class Solution:
+class Solution1:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         uf = {}
         def find(x):
@@ -38,7 +66,7 @@ class Solution:
 
 if __name__ == '__main__':
     def unitTest(sol):
-        r = sol.findCircleNum(isConnected=[[1, 1, 0],
+        r = sol.findCircleNum(isConnected=[[1, 1, 0],   # adjdency matrix
                                            [1, 1, 0], 
                                            [0, 0, 1]])
         print(r)
@@ -51,3 +79,4 @@ if __name__ == '__main__':
         assert r == 3
 
     unitTest(Solution())
+    unitTest(Solution1())
