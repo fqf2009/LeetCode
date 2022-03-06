@@ -14,7 +14,8 @@ def getPrimes(n: int) -> List[int]:
     return primes
 
 
-def getFactors(n: int) -> List[int]:
+# too slow, calculate all prime is unnecessary
+def getFactors2(n: int) -> List[int]:
     fac = []
     primes = getPrimes(int(sqrt(n))+1)
     i, m = 0, n
@@ -22,6 +23,21 @@ def getFactors(n: int) -> List[int]:
         if m % primes[i] == 0:
             fac.append(primes[i])
             m = m // primes[i]
+        else:
+            i += 1
+
+    if m > 1:
+        fac.append(m)
+    return fac
+
+
+def getFactors(n: int) -> List[int]:
+    m, i = n, 2
+    fac = []
+    while m > 1 and i <= n**0.5 + 1:
+        if m % i == 0:
+            fac.append(i)
+            m //= i
         else:
             i += 1
 
@@ -84,6 +100,14 @@ if __name__ == '__main__':
     assert r == [2, 2, 5, 5]
 
     r = getFactors(7591)
+    print(r)
+    assert r == [7591]
+
+    r = getFactors2(100)
+    print(r)
+    assert r == [2, 2, 5, 5]
+
+    r = getFactors2(7591)
     print(r)
     assert r == [7591]
 
