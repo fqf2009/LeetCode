@@ -1,14 +1,77 @@
 # Given a collection of candidate numbers (candidates) and a target 
-# number (target), find all unique combinations in candidates where the candidate numbers sum to target.
-
+# number (target), find all unique combinations in candidates where 
+# the candidate numbers sum to target.
 # Each number in candidates may only be used once in the combination.
-
 # Note: The solution set must not contain duplicate combinations.
+# Constraints:
+#   1 <= candidates.length <= 100
+#   1 <= candidates[i] <= 50
+#   1 <= target <= 30
 from typing import List
 from collections import Counter
 
-# Recursion, Counter
+
+# Backtracking, Counter
+# - Combination, not permutation
+# - more like template for backtracking
 class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        comb = []
+        counter = Counter(candidates)
+        nums = sorted(counter.keys())   # not necessary to sort, just for testing
+
+        def backtrack(remain, start):
+            if remain == 0:
+                res.append(comb.copy())
+                return
+            if remain < 0:
+                return
+
+            for i in range(start, len(nums)):
+                v = nums[i]
+                if counter[v] > 0:
+                    comb.append(v)
+                    counter[v] -= 1
+                    backtrack(remain - v, i)
+                    comb.pop()
+                    counter[v] += 1
+
+        backtrack(target, 0)
+        return res
+
+
+# Backtracking, Counter
+# - this is permutation, then use set to dedup into combination,
+#   so the performance is not optimal
+class Solution1:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = set()
+        comb = []
+        counter = Counter(candidates)
+
+        def backtrack(remain):
+            if remain == 0:
+                res.add(tuple(sorted(comb)))
+                return
+            if remain < 0:
+                return
+
+            for v in counter.keys():
+                if counter[v] > 0:
+                    comb.append(v)
+                    counter[v] -= 1
+                    backtrack(remain - v)
+                    comb.pop()
+                    counter[v] += 1
+
+        backtrack(target)
+        return [list(x) for x in res]
+
+
+# Backtracking, Counter
+# - better performance
+class Solution2:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         def combSumBackward(target, pos) -> List[List[int]]:
             num, freq = candidates2[pos]
@@ -36,7 +99,7 @@ class Solution:
 
 # Time exceeded!
 # Recursion
-class Solution1:
+class Solution3:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
         def combSumBackward(target, pos) -> List[List[int]]:
             if pos == 0:
@@ -69,12 +132,14 @@ if __name__ == '__main__':
         sol = Solution()
 
         r = sol.combinationSum2(candidates=[10, 1, 2, 7, 6, 1, 5], target=8)
-        print(r)
+        print(sorted(r))
         assert sorted(r) == [[1, 1, 6], [1, 2, 5], [1, 7], [2, 6]]
 
         r = sol.combinationSum2(candidates=[2, 5, 2, 1, 2], target=5)
-        print(r)
+        print(sorted(r))
         assert sorted(r) == [[1, 2, 2], [5]]
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
+    unitTest(Solution3())
