@@ -18,8 +18,32 @@
 from typing import List
 
 
-# Recursion and Backtracking
+# Backtracking + Recursion 
+# - more like backtracking template, easier to write and understand
 class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        comb = []
+
+        def backtrack(remain, start):
+            if remain == 0:
+                res.append(comb.copy())
+                return
+            if remain < 0:
+                return
+
+            for i in range(start, len(candidates)):
+                comb.append(candidates[i])
+                backtrack(remain - candidates[i], i)
+                comb.pop()
+
+        backtrack(target, 0)
+        return res
+
+
+# Backtracking + Recursion
+# - seems better performance
+class Solution1:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         def combSumBackward(target, pos) -> List[List[int]]:
             if pos == 0:
@@ -40,7 +64,7 @@ class Solution:
                         res.append(x)
             return res
 
-        candidates.sort()
+        # candidates.sort()     # unnecessary
         return combSumBackward(target, len(candidates) - 1)
 
 
@@ -59,3 +83,4 @@ if __name__ == '__main__':
         assert r == [[2, 2, 2, 2], [2, 3, 3], [3, 5]]
 
     unitTest(Solution())
+    unitTest(Solution1())
