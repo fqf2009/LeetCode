@@ -22,7 +22,6 @@ class Solution:
             if i == 0 and j == 0: return 1
             return dp(i-1, j) + dp(i, j-1)
 
-        if m*n == 1: return 1
         return dp(m-1, n-1)
 
 
