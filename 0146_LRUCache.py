@@ -1,5 +1,3 @@
-from typing import Optional
-
 # Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
 # Implement the LRUCache class:
 # LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
@@ -12,6 +10,14 @@ from typing import Optional
 # Use dict (hash table) for fast get/put operations (O(1)), and use double linked list to achieve
 # LRU functionality, i.e., move to head of list when accessing, pop and delete from tail when
 # capacity is not enough.
+# Constraints:
+#   1 <= capacity <= 3000
+#   0 <= key <= 10^4
+#   0 <= value <= 10^5
+#   At most 2 * 10^5 calls will be made to get and put.
+from typing import Optional
+
+
 class DLinkedNode:
     def __init__(self, key=None, val=None, prev=None, next=None):
         self.key = key
