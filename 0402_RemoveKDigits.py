@@ -2,12 +2,12 @@
 # and an integer k, return the smallest possible integer 
 # after removing k digits from num.
 # Constraints:
-#   1 <= k <= num.length <= 105
+#   1 <= k <= num.length <= 10^5
 #   num consists of only digits.
 #   num does not have any leading zeros except for the zero itself.
 
 
-# Stack
+# Stack (Monotonic Stack)
 # - iterate over digits, if keep increasing or the same as previous,
 #   push into stack, if descreasing, pop up from stack and remove it
 # - be careful about cleanup:
