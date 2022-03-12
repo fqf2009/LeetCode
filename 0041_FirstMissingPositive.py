@@ -1,8 +1,7 @@
 # Given an unsorted integer array nums, return the smallest missing positive integer.
 # You must implement an algorithm that runs in O(n) time and uses constant extra space.
 # Constraints:
-#       1 <= nums.length <= 5 * 105
-
+#   1 <= nums.length <= 5 * 10^5
 from typing import List
 
 
@@ -20,20 +19,14 @@ from typing import List
 class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         n = len(nums)
-        for i in range(len(nums)):
-            v = nums[i]
+        for i, v in enumerate(nums):
             j = i
-            while v >= 1 and v <= n and v != j + 1:
-                j = v - 1
-                v1 = nums[j]
+            while 1 <= v <= n and v != j + 1:
+                j, v1 = v-1, nums[v-1]
                 nums[j] = v
                 v = v1
-            
-        for i in range(len(nums)):
-            if nums[i] != i + 1:
-                return i + 1
 
-        return n + 1
+        return next((i + 1 for i, v in enumerate(nums) if v != i + 1), n + 1)
 
 
 if __name__ == '__main__':
