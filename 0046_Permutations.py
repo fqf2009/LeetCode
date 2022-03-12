@@ -9,25 +9,27 @@ from itertools import permutations
 
 
 # Backtracking + Recursion
+# - ref 0047_PermutationsII: similar, but use Counter
+# - both problems can use either set or Counter
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
         res = []
         usedIdx = set()
         perm = []
-        def backtrack(pos: int):
-            if pos == n:
+        def backtrack():
+            if len(perm) == n:
                 res.append(perm.copy())
                 return
             for i, v in enumerate(nums):
                 if i not in usedIdx:
                     usedIdx.add(i)
                     perm.append(v)
-                    backtrack(pos + 1)
+                    backtrack()
                     perm.pop()
                     usedIdx.remove(i)
         
-        backtrack(0)
+        backtrack()
         return res
 
 
