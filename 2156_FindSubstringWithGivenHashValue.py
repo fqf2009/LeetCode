@@ -48,7 +48,7 @@ class Solution:
             return s[res: res+k]
 
 
-# moving window:
+# moving window: Time Limit Exceeded
 # - calculate hash for the first substring of len k, if hash matches, return.
 # - remove old first char from hash, add a new char into hash:
 #       new_hash = (old_hash - val(first_char)) / p + val(new_char)*p^(k-1)
@@ -79,6 +79,8 @@ class Solution1:
             h = (h - (ord(s[i-k]) - ord('a') + 1)) // power + (ord(s[i]) - ord('a') + 1) * p
             if h % modulo == hashValue:
                 return s[i-k+1: i+1]
+
+        return ''
 
 
 if __name__ == '__main__':
