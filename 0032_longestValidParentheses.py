@@ -52,7 +52,7 @@ class Solution:
 class Solution1:
     def longestValidParentheses(self, s: str) -> int:
         def maxLenMatched(s: str, reversed: bool = False) -> int:
-            maxLen, nLen, nLeft, nRight = 0, 0, 0, 0
+            maxLen, nLeft, nRight = 0, 0, 0
             for  ch in s:
                 if ch == '(' and not reversed or ch == ')' and reversed:
                     nLeft += 1
