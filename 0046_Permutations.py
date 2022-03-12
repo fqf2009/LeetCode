@@ -8,8 +8,31 @@ from typing import List
 from itertools import permutations
 
 
-# Backtracking
+# Backtracking + Recursion
 class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        res = []
+        usedIdx = set()
+        perm = []
+        def backtrack(pos: int):
+            if pos == n:
+                res.append(perm.copy())
+                return
+            for i, v in enumerate(nums):
+                if i not in usedIdx:
+                    usedIdx.add(i)
+                    perm.append(v)
+                    backtrack(pos + 1)
+                    perm.pop()
+                    usedIdx.remove(i)
+        
+        backtrack(0)
+        return res
+
+
+# Backtracking + Iteration
+class Solution1:
     def permute(self, nums: List[int]) -> List[List[int]]:
         res = []
         n = len(nums)
@@ -38,20 +61,20 @@ class Solution:
 
 
 # using Python supplied library
-class Solution1:
+class Solution2:
     def permute(self, nums: List[int]) -> List[List[int]]:
         return [list(x) for x in permutations(nums)]
 
 
 if __name__ == '__main__':
     def unit_test(sol):
-        r = sol.permute([1,2,3])
+        r = sol.permute([1, 2, 3])
         print(r)
-        assert sorted(r) == [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+        assert sorted(r) == [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
 
-        r = sol.permute([0,1])
+        r = sol.permute([0, 1])
         print(r)
-        assert sorted(r) == [[0,1],[1,0]]
+        assert sorted(r) == [[0, 1], [1, 0]]
 
         r = sol.permute([1])
         print(r)
@@ -59,3 +82,4 @@ if __name__ == '__main__':
 
     unit_test(Solution())
     unit_test(Solution1())
+    unit_test(Solution2())
