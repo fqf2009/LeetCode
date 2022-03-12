@@ -12,9 +12,19 @@ class Solution:
         return self.climbStairs(n-1) + self.climbStairs(n-2)
 
 
+# DP + Interative: T/S: O(n), O(1)
+class Solution1:
+    def climbStairs(self, n: int) -> int:
+        dp0, dp1, dp2 = 1, 1 ,1
+        for _ in range(1, n):
+            dp2 = dp0 + dp1
+            dp1, dp0 = dp2, dp1
+        return dp2
+
+
 # Actually this is Fibonacci problem in disguise.
 # Iteration, DP (Dynamic Programming): time complexity: O(n)
-class Solution1:
+class Solution2:
     def climbStairs(self, n: int) -> int:
         dp = [1] * (n + 1)
         for i in range(2, n + 1):
@@ -25,7 +35,7 @@ class Solution1:
 # How about different ways to reach the N’th stair with M different steps?
 # ways(n, m) = ways(n-1, m) + ways(n-2, m) + ... + ways(n-m, m)
 # Time Complexity: O(n*m)
-class Solution2:
+class Solution3:
     def climbStairsM(self, n: int, m: int) -> int:
         dp = [0] * (n + 1)
         dp[0] = 1
@@ -37,43 +47,48 @@ class Solution2:
 
 if __name__ == '__main__':
     def unit_test(sol):
+        r = sol.climbStairs(1)
+        print(r)
+        assert r == 1
+
         r = sol.climbStairs(2)
         print(r)
-        assert(r == 2)
+        assert r == 2
 
         r = sol.climbStairs(3)
         print(r)
-        assert(r == 3)
+        assert r == 3
 
         r = sol.climbStairs(5)
         print(r)
-        assert(r == 8)
+        assert r == 8
 
     def unit_test2(sol):
         r = sol.climbStairsM(2, 2)
         print(r)
-        assert(r == 2)
+        assert r == 2
 
         r = sol.climbStairsM(3, 2)
         print(r)
-        assert(r == 3)
+        assert r == 3
 
         r = sol.climbStairsM(5, 2)
         print(r)
-        assert(r == 8)
+        assert r == 8
 
         r = sol.climbStairsM(2, 3)
         print(r)
-        assert(r == 2)
+        assert r == 2
 
         r = sol.climbStairsM(3, 3)
         print(r)
-        assert(r == 4)
+        assert r == 4
 
         r = sol.climbStairsM(5, 3)
         print(r)
-        assert(r == 13)
+        assert r == 13
 
     unit_test(Solution())
     unit_test(Solution1())
-    unit_test2(Solution2())
+    unit_test(Solution2())
+    unit_test2(Solution3())
