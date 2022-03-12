@@ -5,8 +5,20 @@ from typing import List
 # Constraints:
 #   1 <= strs.length
 
-# Time complexity: O(n*m), n is len(strs), m is len(longest common prefix)
+# Pythonic way
 class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        if len(strs) == 1: return strs[0]
+        prefixLen = 0
+        for chars in zip(*strs):    # '*' is the key, each string is an iterable
+            if len(set(chars)) != 1:
+                return strs[0][:prefixLen]
+            prefixLen += 1
+        return strs[0][:prefixLen]
+
+
+# Time complexity: O(n*m), n is len(strs), m is len(longest common prefix)
+class Solution1:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         if len(strs) == 1:
             return strs[0]
@@ -35,3 +47,4 @@ if __name__ == '__main__':
         assert(r == '')
 
     unitTest(Solution())
+    unitTest(Solution1())
