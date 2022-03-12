@@ -17,8 +17,9 @@ from functools import cache
 # - Assume s_len = len(s), p_len = len(p)
 # - Use tow pointers i and j to loop over s and p
 # - if s[i] = p[j], or p[j] = '?', continue the loop
-# - if p[j] = '*', save i, j (i_save, j_star) for backtracking, if it later fails
-#   fist, try let '*' match zero char, i.e., j += 1, i remains, loop
+# - if p[j] = '*', save i, j (i_save, j_star) for backtracking, in case
+#   if it later fails. But now, first try let '*' match zero char, i.e.,
+#   j += 1, i remains the same, loop;
 # - if fails, check saved i_save, if exists, i = i_save + 1, continue loop
 #   if no saved i_save, fail.
 # - when i reaches s_len, check j, if j reaches p_len, or remaining char in p are
