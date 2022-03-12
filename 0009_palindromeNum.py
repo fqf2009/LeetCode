@@ -30,6 +30,12 @@ class Solution1:
         return True
 
 
+class Solution2:
+    def isPalindrome(self, x: int) -> bool:
+        s = str(x)
+        return s == s[::-1]
+
+
 if __name__ == '__main__':
     def unitTest(sol):
         r = sol.isPalindrome(121)
@@ -50,3 +56,4 @@ if __name__ == '__main__':
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
