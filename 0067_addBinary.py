@@ -41,11 +41,11 @@ class Solution1:
 
 if __name__ == '__main__':
     def unitTest(sol):
-        r = Solution().addBinary("11", "1")
+        r = sol.addBinary("11", "1")
         print(r)
         assert r == '100'
     
-        r = Solution().addBinary("1010", "1011")
+        r = sol.addBinary("1010", "1011")
         print(r)
         assert r == '10101'
 
