@@ -8,8 +8,47 @@ from typing import List
 from itertools import combinations
 
 
-# Backtracking
+# Backtracking + Recursion
 class Solution:
+    # Combination
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        comb = []
+        def backtrack(start):
+            if len(comb) == k:
+                res.append(comb.copy())
+                return
+            for i in range(start, n+1):
+                comb.append(i)
+                backtrack(i + 1)
+                comb.pop()
+        
+        backtrack(1)
+        return res
+
+    # Permutation
+    def permute(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        comb = []
+        used = {x: False for x in range(1, n+1)}
+        def backtrack():
+            if len(comb) == k:
+                res.append(comb.copy())
+                return
+            for i in range(1, n+1):
+                if not used[i]:
+                    used[i] = True
+                    comb.append(i)
+                    backtrack()
+                    comb.pop()
+                    used[i] = False
+        
+        backtrack()
+        return res
+
+
+# Backtracking + Iteration
+class Solution1:
     def combine(self, n: int, k: int) -> List[List[int]]:
         res = []
         cmb = [0] * k           # initial state for all positions
@@ -35,7 +74,7 @@ class Solution:
 
 
 # using Python supplied library
-class Solution1:
+class Solution2:
     def combine(self, n: int, k: int) -> List[List[int]]:
         return [list(x) for x in combinations(range(1, n+1), k)]
 
@@ -52,3 +91,6 @@ if __name__ == '__main__':
 
     unit_test(Solution())
     unit_test(Solution1())
+    unit_test(Solution2())
+
+    print(Solution().permute(4, 2))
