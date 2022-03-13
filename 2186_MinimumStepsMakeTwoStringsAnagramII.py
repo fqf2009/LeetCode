@@ -8,10 +8,21 @@
 #   s and t consist of lowercase English letters.
 from collections import Counter
 
+# - not via Counter
+# - Actually slower, mostly because native class is compiled with C
+class Solution:
+    def minSteps(self, s: str, t: str) -> int:
+        cnt = [0] * 26
+        for ch in s:
+            cnt[ord(ch) - ord('a')] += 1
+        for ch in t:
+            cnt[ord(ch) - ord('a')] -= 1
+        return sum(abs(v) for v in cnt)
+
 
 # Counter: T/S: O(m+n), O(m+n), where m = len(s), n = len(t)
 # - Note in Python: sum([]) = 0
-class Solution:
+class Solution1:
     def minSteps(self, s: str, t: str) -> int:
         freq1 = Counter(s)
         freq2 = Counter(t)
@@ -30,3 +41,4 @@ if __name__ == '__main__':
         assert r == 0
         
     unitTest(Solution())
+    unitTest(Solution1())
