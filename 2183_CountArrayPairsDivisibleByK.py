@@ -24,7 +24,7 @@ class Solution:
 
         res = 0
         cnt = defaultdict(int)
-        for i, v in enumerate(nums):
+        for v in nums:
             res += cnt[k // math.gcd(k, v)]
             for d in div:
                 if v % d == 0:
@@ -49,12 +49,39 @@ class Solution1:
 
         res = 0
         cnt = [0] * (k + 1)
-        for i, v in enumerate(nums):
+        for v in nums:
             res += cnt[k // math.gcd(k, v)]
             for d in div:
                 if v % d == 0:
                     cnt[d] += 1
+
         return res
+
+
+# - a little bit easier to understand??
+# - but why the result is not correct??
+class Solution2:
+    def countPairs(self, nums: List[int], k: int) -> int:
+        div = []
+        i = 1
+        while i * i <= k:
+            if k % i == 0:
+                div.append(i)
+            if i * i < k:
+                div.append(k // i)
+            i += 1
+
+        cnt = [0] * (k + 1)     # only use index 1..k
+        for v in nums:
+            for d in div:
+                if v % d == 0:
+                    cnt[d] += 1
+
+        res = 0
+        for v in nums:
+            res += cnt[k // math.gcd(k, v)]
+
+        return res // 2
 
 
 if __name__ == '__main__':
@@ -69,3 +96,4 @@ if __name__ == '__main__':
 
     unitTest(Solution())
     unitTest(Solution1())
+    # unitTest(Solution2())
