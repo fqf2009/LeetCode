@@ -28,50 +28,96 @@
 # - assume dp[i] is u(s[:i+1]), when adding a new char ch:
 #   we only need two most recent left places where ch appeared,
 #   asseume these two places are p1, p2, then approximately:
-#   dp[i] = dp[i-1] - (p2 - p1 + 1) + (i - p2) + 1
+#   dp[i] = dp[i-1] - (p2 - p1) + (i - p2)
 #   then, set p1, p2 = p2, i + 1
 class Solution:
     def uniqueLetterString(self, s: str) -> int:
         p1, p2 = [-1] * 26, [-1] * 26
-        dp0, dp  = 0, 0     # u(i-1), u(i)
+        dp = 0
+        res = 0
         for i, ch in enumerate(s):
             j = ord(ch) - ord('A')
-            # dpDelta = u(i) - u(i-1), i.e., only those incremental
-            # counts coming from previous char is useful to the current char
-            dpDelta = dp - dp0  
-            dp0 = dp
-            # if p2[j] == -1:
-            #     dp += dpDelta + i + 1
-            # elif p1[j] == -1:
-            #     dp += dpDelta - (p2[j] + 1) + (i - p2[j])
-            # else:
-            #     dp += dpDelta - (p2[j] - p1[j]) + (i - p2[j])
-            dp += dpDelta - (p2[j] - p1[j]) + (i - p2[j])
+            dp += - (p2[j] - p1[j]) + (i - p2[j])
             p1[j], p2[j] = p2[j], i
+            res += dp
 
-        return dp
+        return res
+
+
+# What if we need to count distinct numbers of letters in all substring
+# - Note the difference with the problem above:
+#   for substring 'ABB', we count 1 unique char in above problem,
+#   we count 2 (letter 'A', 'B') in this problem.
+# - Assume:
+#   dp[i] is distinct number of letters for all substring ending with s[i];
+#   p[s[i]] (p[ch]) is char s[i]'s previous pos before position i;
+# - all substring (ending with pos i), if starting pos is before (inclusive)
+#   p[ch], ch is already counted, after p[ch], need to count it:
+# - dp[i] = dp[i-1] + i - p[ch]
+class Solution1:
+    def countDistinctLettersInAllSubstring(self, s: str) -> int:
+        p = [-1] * 26
+        dp = 0
+        res = 0
+        for i, ch in enumerate(s):
+            j = ord(ch) - ord('A')
+            dp += i - p[j]
+            res += dp
+            p[j] = i
+
+        return res
 
 
 if __name__ == '__main__':
-    def unitTest(sol):
+    def unitTest1(sol):
         r = sol.uniqueLetterString("A")
         print(r)
-        # assert r == 1
+        assert r == 1
 
         r = sol.uniqueLetterString("AB")
         print(r)
-        # assert r == 4
+        assert r == 4
 
         r = sol.uniqueLetterString("ABC")
         print(r)
-        # assert r == 10
+        assert r == 10
 
         r = sol.uniqueLetterString("ABA")
         print(r)
-        # assert r == 8
+        assert r == 8
+
+        r = sol.uniqueLetterString("TEST")
+        print(r)
+        assert r == 18
 
         r = sol.uniqueLetterString("LEETCODE")
         print(r)
-        # assert r == 92
+        assert r == 92
 
-    unitTest(Solution())
+    def unitTest2(sol):
+        r = sol.countDistinctLettersInAllSubstring("A")
+        print(r)
+        assert r == 1
+
+        r = sol.countDistinctLettersInAllSubstring("AB")
+        print(r)
+        assert r == 4
+
+        r = sol.countDistinctLettersInAllSubstring("ABC")
+        print(r)
+        assert r == 10
+
+        r = sol.countDistinctLettersInAllSubstring("ABA")
+        print(r)
+        assert r == 9
+
+        r = sol.countDistinctLettersInAllSubstring("TEST")
+        print(r)
+        assert r == 19
+
+        r = sol.countDistinctLettersInAllSubstring("LEETCODE")
+        print(r)
+        assert r == 105
+
+    unitTest1(Solution())
+    unitTest2(Solution1())
