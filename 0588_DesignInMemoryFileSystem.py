@@ -27,66 +27,120 @@
 # -  1 <= content.length <= 50
 # -  At most 300 calls will be made to ls, mkdir, addContentToFile, and
 #    readContentFromFile.
-from typing import List
+from typing import List, Optional
 
 
-class FNode:
-    def __init__(self, name: str, isFile: bool, content: str = '') -> None:
-        self.name = name
-        self.children = {}
-        self.isFile = isFile
-        self.content = content
-    
+class FSNode:
+    def __init__(self, name: str):
+        self._name = name
+
+    def isFile(self) -> bool:
+        return False
+
     def ls(self) -> List[str]:
-        if self.isFile:
-            return [self.name]
-        else:
-            return sorted(self.children.keys())
-    
-    def mkdir(self, name: str) -> 'FNode':
-        if name not in self.children:
-            self.children[name] = FNode(name, isFile=False)
-        return self.children[name]
+        return []
+
+
+class FileNode(FSNode):
+    def __init__(self, name, content: str = ''):
+        super().__init__(name)
+        self._content = content
+
+    def isFile(self) -> bool:
+        return True
+
+    def ls(self) -> List[str]:
+        return [self._name]
+
+    def appendContent(self, content: str = ''):
+        self._content += content
+
+
+class DirNode(FSNode):
+    def __init__(self, name):
+        super().__init__(name)
+        self._children = {}
+
+    def isFile(self) -> bool:
+        return False
+
+    def ls(self) -> List[str]:
+        return sorted(self._children.keys())
+
+    def mkDir(self, name: str) -> 'DirNode':
+        if name not in self._children:
+            self._children[name] = DirNode(name)
+        return self.getDir(name)
+
+    def getDir(self, name: str) -> 'DirNode':
+        node = self._children[name]
+        assert isinstance(node, DirNode)
+        return node
+
+    def getFile(self, name: str) -> 'FileNode':
+        node = self._children[name]
+        assert isinstance(node, FileNode)
+        return node
+
+    def getFSNode(self, name: str) -> 'FSNode':
+        node = self._children[name]
+        return node
+
+    def fileExists(self, name: str) -> bool:
+        return name in self._children and isinstance(self._children[name], FileNode)
+
+    def dirExists(self, name: str) -> bool:
+        return name in self._children and isinstance(self._children[name], DirNode)
+
+    def addFile(self, name: str, node: 'FileNode'):
+        self._children[name] = node
+
 
 class FileSystem:
     def __init__(self):
-        self.root = FNode(name = '', isFile=False)
+        self.root = DirNode(name = '/')
+
+    def _getFSNode(self, path: str) -> Optional[FSNode]:
+        if path == '/': return self.root
+        names = str.split(path.lstrip('/'), '/')
+        dir = self.root
+        for name in names[:-1]:
+            if dir.dirExists(name):
+                dir = dir.getDir(name)
+            else:
+                return None
+        if dir.fileExists(names[-1]) or dir.dirExists(names[-1]):
+            return dir.getFSNode(names[-1])
+        else:
+            return None
 
     def ls(self, path: str) -> List[str]:
-        if path == '/':
-            return self.root.ls()
-        stems = path.split('/')
-        node = self.root
-        for stem in stems[1:]:
-            node = node.children[stem]
-        return node.ls()
+        node = self._getFSNode(path)
+        return node.ls() if node else []
+
+    def _mkdir(self, path: str) -> DirNode:
+        dir = self.root
+        for folderName in path.split('/')[1:]:
+            dir = dir.mkDir(folderName)
+        return dir
 
     def mkdir(self, path: str) -> None:
-        stems = path.split('/')
-        node = self.root
-        for stem in stems[1:]:
-            if stem not in node.children:
-                node = node.mkdir(stem)
-            else:
-                node = node.children[stem]
+        self._mkdir(path)
 
     def addContentToFile(self, filePath: str, content: str) -> None:
-        stems = filePath.split('/')
-        node = self.root
-        for stem in stems[1:-1]:
-            node = node.children[stem]
-        filename = stems[-1]
-        if filename in node.children:
-            node.children[filename].content += content
+        names = filePath.split('/')
+        dirPath = '/'.join(names[:-1])
+        dir = self._mkdir(dirPath)
+        filename = names[-1]
+        if not dir.fileExists(filename):
+            dir.addFile(filename, FileNode(filename, content=content))
         else:
-            node.children[filename] = FNode(filename, isFile=True, content=content)
+            dir.getFile(filename).appendContent(content)
 
     def readContentFromFile(self, filePath: str) -> str:
-        stems = filePath.split('/')
-        node = self.root
-        for stem in stems[1:]:
-            node = node.children[stem]
-        return node.content
+        node = self._getFSNode(filePath)
+        assert isinstance(node, FileNode)
+        return node._content
 
 
 if __name__ == '__main__':
