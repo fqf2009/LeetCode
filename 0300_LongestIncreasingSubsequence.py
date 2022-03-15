@@ -3,6 +3,10 @@
 # from an array by deleting some or no elements without changing the order
 # of the remaining elements. For example, [3,6,2,7] is a subsequence of
 # the array [0,3,1,6,2,2,7].
+# Constraints:
+#   1 <= nums.length <= 2500
+#   -10^4 <= nums[i] <= 10^4
+
 from typing import List, Optional
 import bisect
 
@@ -54,13 +58,13 @@ class Solution1:
             i, j = 0, len(dp) - 1
             while i <= j:
                 k = (i + j) // 2
-                if v == dp[k]:
+                if dp[k] == v:  # bisect_left pos
                     break
-                if v > dp[k]:
-                    i = k + 1
+                if dp[k] < v:
+                    i = k + 1   # potential bisect_left pos
                 else:
                     j = k - 1
-            else:   # safe because n <= dp[-1] and n != dp[k]
+            else:   # safe because v <= dp[-1] and v != dp[k]
                 dp[i] = v
 
         return len(dp)
@@ -68,12 +72,15 @@ class Solution1:
 
 # DP (Dynamic Porgramming) - T/S: O(n^2), O(n)
 # - dp[i] is LIS length with ending number of nums[i]
+# - if j < i and nums[j] < nums[i], then:
+#   another LIS ending with (..., nums[j], nums[i]) is found,
+#   so, dp[i] = max(dp[i], dp[j] + 1)
 class Solution2:
     def lengthOfLIS(self, nums: List[int]) -> int:
         dp = [1] * len(nums)
-        for i in range(len(nums)):
-            for j in range(i):
-                if nums[j] < nums[i]:
+        for i, vi in enumerate(nums):
+            for j, vj in enumerate(nums[:i]):
+                if vj < vi:
                     dp[i] = max(dp[i], dp[j] + 1)
 
         return max(dp)
@@ -94,6 +101,10 @@ if __name__ == '__main__':
         assert(r == 4)
 
         r = sol.lengthOfLIS([7, 7, 7, 7, 7, 7, 7])
+        print(r)
+        assert(r == 1)
+
+        r = sol.lengthOfLIS([7])
         print(r)
         assert(r == 1)
 
