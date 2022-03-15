@@ -1,25 +1,33 @@
 # Given a string s and a dictionary of strings wordDict, return true if s can 
 # be segmented into a space-separated sequence of one or more dictionary words.
 # Note that same word in dictionary may be reused multiple times in segmentation.
+# Constraints:
+#   1 <= s.length <= 300
+#   1 <= wordDict.length <= 1000
+#   1 <= wordDict[i].length <= 20
+#   s and wordDict[i] consist of only lowercase English letters.
+#   All the strings of wordDict are unique.
+
 from typing import DefaultDict, List
 from functools import cache
 
 
-# Simplify the code
-# DFS + DP + Memo
+# DFS or Backtrack? similar to both templates
+# - Time:  O(n*w), where n = len(s), w = len(wordDict)
+# - Space: O(n)
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        n = len(s)
         @cache
-        def dfsWordBreak(pos: int) -> bool:
-            if len(s[pos:]) == 0:
+        def backtrack(pos: int) -> bool:
+            if pos == n:
                 return True
             for w in wordDict:
-                if s.startswith(w, pos):
-                    if dfsWordBreak(pos + len(w)):
-                        return True
+                if s.startswith(w, pos) and backtrack(pos + len(w)):
+                    return True
             return False
 
-        return dfsWordBreak(0)
+        return backtrack(0)
 
 
 # DFS + DP + Memorization
