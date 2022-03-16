@@ -7,26 +7,48 @@
 #   1 <= coins.length <= 12
 #   1 <= coins[i] <= 2^31 - 1
 #   0 <= amount <= 10^4
+from typing import List
 from functools import cache
 from itertools import chain
-from typing import List
+from collections import deque
 
 
-# DP + Iteration - T/S: O(n*m), O(n), where n = len(coins), m = amount
+# LeetCode - faster than 98.60% of Python3 online submissions
+# BFS + Iteration (using deque)
+# - Time:  Best  O(n*(m/C)), where n = len(coins), m = amount, C = max(coins)
+# -        Worst O(n*(m/c)), where c = min(coins)
+# - Space: Best  O(n*(m/C))
+#          Worst O(n*(m/c)), this is bad only if n is big, and result is -1
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         if amount == 0: return 0
-        dp = [-1] * (amount + 1)
+        pending = set()         # very import to reduce duplicate steps
+        dq = deque([[0, 0]])    # (amt, step)
+        while dq:
+            amt, step = dq.popleft()
+            for coin in coins:
+                amt1 = amt + coin
+                if amt1 == amount:
+                    return step + 1
+                elif amt1 < amount and amt1 not in pending:
+                    dq.append([amt1, step + 1])
+                    pending.add(amt1)
+        return -1
+
+
+# DP + Iteration - T/S: O(n*m), O(m), where n = len(coins), m = amount
+class Solution1:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if amount == 0: return 0
+        dp = [amount*10] * (amount + 1)
         dp[0] = 0
         for i in range(amount):
-            if dp[i] == -1: continue
+            if dp[i] > amount: continue
             for c in coins:
                 if i + c <= amount:
-                    if dp[i + c] == -1:
-                        dp[i + c] = dp[i] + 1
-                    else:
-                        dp[i + c] = min(dp[i + c], dp[i] + 1)
-        return dp[amount]
+                    dp[i + c] = min(dp[i + c], dp[i] + 1)
+
+        return dp[amount] if dp[amount] <= amount else -1
 
 
 # DP + Recursion + Memo
@@ -35,7 +57,7 @@ class Solution:
 # - assume dp[amount] is minimum number of coins to make up amount
 # - iterate through each coin:
 #   dp[amount] = min(dp[amount - coin_value]+1 for each coin in coins)
-class Solution1:
+class Solution2:
     def coinChange(self, coins: List[int], amount: int) -> int:
         @cache
         def dp(n) -> int:
@@ -59,6 +81,10 @@ if __name__ == '__main__':
         print(r)
         assert r == 3
 
+        r = sol.coinChange(coins=[1, 2, 5], amount=100)
+        print(r)
+        assert r == 20
+
         r = sol.coinChange(coins=[5, 10, 100, 200], amount=1055)
         print(r)
         assert r == 11
@@ -73,3 +99,4 @@ if __name__ == '__main__':
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
