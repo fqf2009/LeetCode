@@ -3,27 +3,31 @@
 # Constraints:
 #     0 <= left <= right <= 2^31 - 1
 
-
+# Math, bitwise
 # Analysis:
 # e.g. left:  1011101010101 => 0011100000000, can clear all remaining '0's
 #                 ^                ^
 #      right: 1011011111111
 #                 ^
 # - Only the leading common bits matter.
-# - Any bit starting from the first mismatch bit, does not matter.
+#   Any bit starting from the first mismatch bit, does not matter:
+#   Proof: two int:         1aaaaaaaa
+#                           0bbbbbbbb
+#   obviously:  0bbbbbbbb < 100000000 <= 1aaaaaaaa
+#   AND of 3 int, will get: 000000000
 # Complexity: O(1), because max is 32, constant
 class Solution:
     def rangeBitwiseAnd(self, left: int, right: int) -> int:
         res = 0
-        for i in reversed(range(32)):
-            hignBitLeft = left & 2**31
+        for i in range(32):
+            highBitLeft = left & 2**31
             highBitRight = right & 2**31
             left <<= 1
             right <<= 1
-            if hignBitLeft ^ highBitRight == 0:
-                res = res * 2 + int(hignBitLeft != 0)
+            if highBitLeft ^ highBitRight == 0: # hign bits are the same
+                res = res * 2 + int(highBitLeft != 0)
             else:
-                return res * (2 ** (i+1))
+                return res * (2 ** (32-i))
 
         return res
 
