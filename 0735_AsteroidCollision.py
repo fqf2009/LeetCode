@@ -17,7 +17,7 @@ class Solution:
     def asteroidCollision(self, asteroids: List[int]) -> List[int]:
         stk = []
         for v in asteroids:
-            while stk and stk[-1] * v < 0:
+            while stk and stk[-1] > 0 and v < 0: # be careful: stk[-1]*v < 0 is not correct
                 if abs(v) == abs(stk[-1]):
                     stk.pop()
                     break
@@ -33,6 +33,10 @@ class Solution:
 
 if __name__ == '__main__':
     def unitTest(sol):
+        r = sol.asteroidCollision([-2, -1, 1, 2])
+        print(r)
+        assert r == [-2, -1, 1, 2]
+
         r = sol.asteroidCollision([5, 10, -5])
         print(r)
         assert r == [5, 10]
