@@ -84,12 +84,12 @@ if __name__ == '__main__':
         nums = [-561, 644]
         r = sol.subArrayRanges(nums)
         print(r)
-        # assert r == 139349
+        assert r == 1205
 
         nums = [-561, 644, -637, 786, -32, 771, -22, 419, -837, 947, -359, -874, 489, 195]
         r = sol.subArrayRanges(nums)
         print(r)
-        # assert r == 139349
+        assert r == 139349
 
         r = sol.subArrayRanges([1, 2, 3])
         print(r)
