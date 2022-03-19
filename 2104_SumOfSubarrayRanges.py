@@ -17,7 +17,8 @@ from typing import List
 #   - if new value (v2) is smaller than stack top item, keep push value
 #     (or its index) into stack
 #   - otherwise, pop one item from stack, it is v1, new stack top is v0,
-#     obviously: v0 > v1, and v1 <= v2
+#     obviously: v0 > v1, and v1 <= v2; so v1 is maximum value in subarray
+#     (v0, ..., v1, ... v2) non-inclusive!!!
 #   - the contributions of v1 as maximum is as below:
 #     assume: p0, p1, p2 is the pos or index of each value
 #     nLeft = (p1-p0-1), nRight = (p2-p1-1), i.e. how many items at the
