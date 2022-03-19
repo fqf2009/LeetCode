@@ -28,17 +28,20 @@
 # -  At most 300 calls will be made to ls, mkdir, addContentToFile, and
 #    readContentFromFile.
 from typing import List, Optional
+from abc import ABC, abstractmethod
 
 
-class FSNode:
+class FSNode(ABC):
     def __init__(self, name: str):
         self._name = name
 
+    @abstractmethod
     def isFile(self) -> bool:
-        return False
+        pass
 
+    @abstractmethod
     def ls(self) -> List[str]:
-        return []
+        pass
 
 
 class FileNode(FSNode):
@@ -54,6 +57,10 @@ class FileNode(FSNode):
 
     def appendContent(self, content: str = ''):
         self._content += content
+
+    @property
+    def content(self):
+        return self._content
 
 
 class DirNode(FSNode):
@@ -140,7 +147,7 @@ class FileSystem:
     def readContentFromFile(self, filePath: str) -> str:
         node = self._getFSNode(filePath)
         assert isinstance(node, FileNode)
-        return node._content
+        return node.content
 
 
 if __name__ == '__main__':
