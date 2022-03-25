@@ -5,7 +5,7 @@ from typing import Optional
 
 class TreeNode:
     def __init__(self, val=-1, left=None, right=None):
-        self.val: int = val
+        self.val = val
         self.left: Optional[TreeNode] = left
         self.right: Optional[TreeNode] = right
 
@@ -13,7 +13,7 @@ class TreeNode:
 class TreeNodeUtil:
     # Depth First Search (Traversal)
     @staticmethod
-    def toInorderList(root: Optional[TreeNode]) -> list[int]:
+    def toInorderList(root: Optional[TreeNode]) -> list:
         if root is None:
             return []
         res = TreeNodeUtil.toInorderList(root.left)
@@ -22,7 +22,7 @@ class TreeNodeUtil:
         return res
 
     @staticmethod
-    def toPreorderList(root: Optional[TreeNode]) -> list[int]:
+    def toPreorderList(root: Optional[TreeNode]) -> list:
         if root == None:
             return []
         res = [root.val]
