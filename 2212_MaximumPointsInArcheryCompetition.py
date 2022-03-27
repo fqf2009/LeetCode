@@ -40,10 +40,10 @@ class Solution:
                     res[0] = bobPoints
                     res[1] = bobArrows.copy()
             else:
-                backtracking(i+1, arrows, bobPoints)
+                backtracking(i + 1, arrows, bobPoints)
                 if arrows > aliceArrows[i]:
                     bobArrows[i] = aliceArrows[i] + 1
-                    backtracking(i+1, arrows - bobArrows[i], bobPoints + i)
+                    backtracking(i + 1, arrows - bobArrows[i], bobPoints + i)
                     bobArrows[i] = 0
 
         bobArrows = [0] * len(aliceArrows)
@@ -55,25 +55,28 @@ class Solution:
 
 # DP - T/S: O(2^n) in worst case scenario
 # - DP can get the max points, as well as states!!!
+# - need more space but faster than Backtracking
 class Solution1:
     def maximumBobPoints(self, numArrows: int, aliceArrows: List[int]) -> List[int]:
         n = len(aliceArrows)
+
         @cache
         def dp(i, arrows) -> int:
             if i == 0 or arrows == 0:
                 return 0
             if arrows > aliceArrows[i]:
-                dp1 = dp(i-1, arrows - aliceArrows[i] - 1) + i
-                dp2 = dp(i-1, arrows)
+                dp1 = dp(i - 1, arrows - aliceArrows[i] - 1) + i
+                dp2 = dp(i - 1, arrows)
                 return max(dp1, dp2)
             else:
-                return dp(i-1, arrows)
+                return dp(i - 1, arrows)
 
         # dp(n - 1, numArrows)  # no need do this, will be called later
         bobArrows = [0] * n
         arrowsLeft = numArrows
         for i in reversed(range(n)):
-            if dp(i, arrowsLeft) > dp(i-1, arrowsLeft): 
+            if (i > 0 and dp(i, arrowsLeft) > dp(i - 1, arrowsLeft)) \
+                    or (i == 0 and dp(i, arrowsLeft) > 0):
                 bobArrows[i] = aliceArrows[i] + 1
                 arrowsLeft -= bobArrows[i]
 
@@ -81,8 +84,14 @@ class Solution1:
         return bobArrows
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+
     def unitTest(sol):
+        r = sol.maximumBobPoints(89, [3, 2, 28, 1, 7, 1, 16, 7, 3, 13, 3, 5])
+        print(r)
+        assert r == [0, 3, 0, 2, 8, 2, 17, 8, 4, 14, 4, 27] or \
+               r == [21, 3, 0, 2, 8, 2, 17, 8, 4, 14, 4, 6]
+
         r = sol.maximumBobPoints(9, [1, 1, 0, 1, 0, 0, 2, 1, 0, 1, 2, 0])
         print(r)
         assert r == [0, 0, 0, 0, 1, 1, 0, 0, 1, 2, 3, 1]
