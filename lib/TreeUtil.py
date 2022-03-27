@@ -3,11 +3,13 @@ from typing import Optional
 
 # Some utility functions to facilitate the code testing of the algorithm using trees
 
+
 class TreeNode:
-    def __init__(self, val=-1, left=None, right=None):
+    def __init__(self, val=-1, left=None, right=None, parent=None):
         self.val = val
         self.left: Optional[TreeNode] = left
         self.right: Optional[TreeNode] = right
+        self.parent: Optional[TreeNode] = parent
 
 
 class TreeNodeUtil:
@@ -45,10 +47,8 @@ class TreeNodeUtil:
             return None
         if root.val == val:
             return root
-        res = TreeNodeUtil.dfsFind(root.left, val)
-        if not res:
-            res = TreeNodeUtil.dfsFind(root.right, val)
-        return res
+        node = TreeNodeUtil.dfsFind(root.left, val)
+        return node if node else TreeNodeUtil.dfsFind(root.right, val)
 
     # Breadth First Search (Traversal)
     @staticmethod
@@ -91,16 +91,16 @@ class TreeNodeUtil:
         dq = deque()
         dq.append(root)
         isLeft = True
-        for n in nums[1:]:
+        for v in nums[1:]:
             node = dq[0]
             if isLeft:
-                if n != None:
-                    node.left = TreeNode(n)
+                if v != None:
+                    node.left = TreeNode(val=v, parent=node)
                     dq.append(node.left)
                 isLeft = False
             else:
-                if n != None:
-                    node.right = TreeNode(n)
+                if v != None:
+                    node.right = TreeNode(val=v, parent=node)
                     dq.append(node.right)
                 isLeft = True
                 dq.popleft()
@@ -110,18 +110,18 @@ class TreeNodeUtil:
     # Create a Binary Search Tree
     @staticmethod
     def fromListToBST(nums: list[int]) -> Optional[TreeNode]:
-        def addToBST(root: TreeNode, n: int):
-            if n < root.val:
+        def addToBST(root: TreeNode, v: int):
+            if v < root.val:
                 if root.left == None:
-                    root.left = TreeNode(n)
+                    root.left = TreeNode(val=v, parent=root)
                 else:
-                    addToBST(root.left, n)
+                    addToBST(root.left, v)
             else:
                 if root.right == None:
-                    root.right = TreeNode(n)
+                    root.right = TreeNode(val=v, parent=root)
                 else:
-                    addToBST(root.right, n)
- 
+                    addToBST(root.right, v)
+
         if len(nums) == 0:
             return None
         root = TreeNode(nums[0])
