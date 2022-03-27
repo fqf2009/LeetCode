@@ -54,10 +54,10 @@ class Solution:
 
 
 # DP - T/S: O(2^n) in worst case scenario
-# - DP can get the max points, but no way to accurately save the intermediate state.
-# - because can DP find the best ways, but with hindsight, not at the moment.
+# - DP can get the max points, as well as states!!!
 class Solution1:
     def maximumBobPoints(self, numArrows: int, aliceArrows: List[int]) -> List[int]:
+        n = len(aliceArrows)
         @cache
         def dp(i, arrows) -> int:
             if i == 0 or arrows == 0:
@@ -69,9 +69,15 @@ class Solution1:
             else:
                 return dp(i-1, arrows)
 
-        bobArrows = [0] * len(aliceArrows)
-        print(dp(len(aliceArrows) - 1, numArrows))
+        # dp(n - 1, numArrows)  # no need do this, will be called later
+        bobArrows = [0] * n
+        arrowsLeft = numArrows
+        for i in reversed(range(n)):
+            if dp(i, arrowsLeft) > dp(i-1, arrowsLeft): 
+                bobArrows[i] = aliceArrows[i] + 1
+                arrowsLeft -= bobArrows[i]
 
+        bobArrows[0] += arrowsLeft
         return bobArrows
 
 
@@ -86,3 +92,4 @@ if __name__ == '__main__':
         assert r == [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0]
 
     unitTest(Solution())
+    unitTest(Solution1())
