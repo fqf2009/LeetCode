@@ -15,6 +15,15 @@ from typing import List
 
 
 # global cumulative sum + current cumulative sum
+# Analysis:
+# - assume global csum is total_tank, current cumulative sum is curr_tank
+# - if total_tank < 0, not enough gas for whole circle, obviously
+# - if curr_tank < 0, means from start_station to curr_station, not enough
+#   gas to travel, so try to start from next station, obviously it is better
+#   than current station, and obviously from last station to current station
+#   the net gas is deficit.
+# - when it runs to end, if total_tank >= 0, then start_station will be the
+#   first station which meets the condition.
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
         total_tank, curr_tank, start_station = 0, 0, 0
@@ -23,6 +32,7 @@ class Solution:
             total_tank += gas[i] - cost[i]
             if curr_tank < 0:
                 curr_tank = 0
+                # start_station = i, also ok; 0 is tried before, already failed.
                 start_station = (i + 1) % len(gas)
 
         if total_tank < 0:
