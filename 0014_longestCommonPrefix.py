@@ -9,11 +9,14 @@ from typing import List
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         if len(strs) == 1: return strs[0]
+        # '*' to unpacks a list or tuple into position arguments;
+        # note that each string itself is an iterable
         prefixLen = 0
-        for chars in zip(*strs):    # '*' is the key, each string is an iterable
+        for i, chars in enumerate(zip(*strs)):
             if len(set(chars)) != 1:
-                return strs[0][:prefixLen]
+                return strs[0][:i]
             prefixLen += 1
+
         return strs[0][:prefixLen]
 
 
