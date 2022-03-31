@@ -17,7 +17,8 @@ from lib.TreeUtil import TreeNode, TreeNodeUtil
 
 
 # Binary Tree + DFS - T/S: O(n), O(n)
-# The more nodes, the better performance!!!
+# The more nodes, the better performance!
+# Note this approach is only useful when all nodes are in the tree!
 # Analysis:
 # - if current_node in nodes, current_node could be LCA
 # - if current_node is not in nodes, but left and right subtree have node in nodes,
