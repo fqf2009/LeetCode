@@ -15,7 +15,6 @@
 # Constraints:
 #   The number of nodes in the tree is in the range [1, 1000].
 #   0 <= Node.val <= 1000
-from ast import List
 from typing import Optional
 from lib.TreeUtil import TreeNode, TreeNodeUtil
 
