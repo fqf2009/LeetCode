@@ -3,6 +3,7 @@ from typing import List
 # nums[i] XOR nums[j], where 0 <= i <= j < n.
 
 # Bitwise Trie:
+# https://en.wikipedia.org/wiki/Trie#Bitwise_tries
 #  - Find the max number M
 #  - Build data structure Trie, implemented via a binary tree, with height
 #    of (1 + log(M)), each branch represents 0 or 1, which are the prefix of
@@ -15,26 +16,25 @@ from typing import List
 class Solution:
     def findMaximumXOR(self, nums: List[int]) -> int:
         trie = {}
-        M = max(nums)
-        L = len(bin(M)[2:])
-        leadingZeros = '0' * L
+        # max length of binary string of nums[i]
+        max_len = len(bin(max(nums))[2:])   # length-2 may lead to negtive length
+        leadingZeros = '0' * max_len
         res = 0
-        for n in nums:
-            s = bin(n)[2:]
-            s = leadingZeros[:L-len(s)] + s
-            t1 = v1 = trie
+        for val in nums:
+            s = bin(val)[2:]
+            s = leadingZeros[:max_len-len(s)] + s   # binary form of val, at fixed length
+
+            t1 = t2 = trie  # t1 is trie to store s; t2 is check negation of s
             xor = 0
             for ch in s:
+                t1 = t1.setdefault(ch, dict())  # store ch in trie
                 op = str(1 - int(ch))
-                if ch not in t1:
-                    t1[ch] = {}
-                t1 = t1[ch]
                 xor *= 2
-                if op in v1:
-                    v1 = v1[op]
+                if op in t2:
+                    t2 = t2[op]
                     xor += 1
-                else:
-                    v1 = v1[ch]
+                else:           # now ch must in t2, because all path is in fixed length
+                    t2 = t2[ch]
             res = max(res, xor)
 
         return res
