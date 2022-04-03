@@ -1,10 +1,11 @@
 # Given an array, rotate the array to the right by k steps, where k is non-negative.
 # Do not return anything, modify nums in-place instead.
 # Constraints:
-#   1 <= nums.length <= 105
-#   -231 <= nums[i] <= 231 - 1
-#   0 <= k <= 105
+#   1 <= nums.length <= 10^5
+#   -2^31 <= nums[i] <= 2^31 - 1
+#   0 <= k <= 10^5
 from typing import List
+
 
 # rotate 1 time, but each move will skip k items
 # time O(n), space O(1)
