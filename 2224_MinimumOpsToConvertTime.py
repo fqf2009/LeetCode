@@ -11,6 +11,23 @@
 
 class Solution:
     def convertTime(self, current: str, correct: str) -> int:
+        t1, t2 = current, correct
+        time1 = int(t1[:2])*60 + int(t1[-2:])
+        time2 = int(t2[:2])*60 + int(t2[-2:])
+        gap = time2 - time1
+        adjusts = [60, 15, 5, 1]
+        res = 0
+        i = 0
+        while gap > 0 and i < len(adjusts):
+            res += gap // adjusts[i]
+            gap %= adjusts[i]
+            i += 1
+
+        return res
+
+
+class Solution1:
+    def convertTime(self, current: str, correct: str) -> int:
         def to_number(s):
             h, m = s.split(':')
             return int(h)*60 + int(m)
