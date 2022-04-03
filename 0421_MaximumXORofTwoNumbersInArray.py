@@ -1,8 +1,12 @@
-from typing import List
 # Given an integer array nums, return the maximum result of 
 # nums[i] XOR nums[j], where 0 <= i <= j < n.
+# Constraints:
+#   1 <= nums.length <= 2 * 10^5
+#   0 <= nums[i] <= 2^31 - 1
+from typing import List
 
-# Bitwise Trie:
+
+# Bitwise Trie - T/S: O(n), O(n)
 # https://en.wikipedia.org/wiki/Trie#Bitwise_tries
 #  - Find the max number M
 #  - Build data structure Trie, implemented via a binary tree, with height
