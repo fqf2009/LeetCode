@@ -7,7 +7,7 @@
 # without using the division operation.
 
 # Constraints:
-#   2 <= nums.length <= 105
+#   2 <= nums.length <= 10^5
 #   -30 <= nums[i] <= 30
 from typing import List
 
@@ -23,15 +23,17 @@ from typing import List
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         n = len(nums)
-        csum = nums[0]
         res = [1] * n
+
+        cmu_prod = nums[0]
         for i in range(1, n):
-            res[i] = csum
-            csum *= nums[i]
-        csum = nums[n-1]
-        for i in range(n-2, -1, -1):
-            res[i] *= csum
-            csum *= nums[i]
+            res[i] = cmu_prod
+            cmu_prod *= nums[i]
+
+        cmu_prod = nums[n-1]
+        for i in reversed(range(n-1)):
+            res[i] *= cmu_prod
+            cmu_prod *= nums[i]
 
         return res
 
