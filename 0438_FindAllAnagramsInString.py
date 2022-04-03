@@ -6,7 +6,7 @@
 # exactly once.
 
 # Constraints:
-#   1 <= s.length, p.length <= 3 * 104
+#   1 <= s.length, p.length <= 3 * 10^4
 #   s and p consist of lowercase English letters.
 from typing import List
 from collections import defaultdict
@@ -16,29 +16,28 @@ from collections import defaultdict
 # - to simplify the code
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        def updateCmp(ch: str, add_remove: int) -> int:   # return diff delta
-            res = 0
-            if cmp[ch] == 0: res += 1
-            cmp[ch] += 1 * add_remove
-            if cmp[ch] == 0: res = -1
-            return res
+        def update_counter(ch: str, add_remove: int) -> int:
+            diff_delta = 1 if counter[ch] == 0 else 0   # diff increased
+            counter[ch] += 1 * add_remove
+            if counter[ch] == 0: diff_delta = -1        # diff reduced
+            return diff_delta
 
-        cmp = defaultdict(int)
+        counter = defaultdict(int)
         for ch in p:
-            cmp[ch] += 1
-        diff = len(cmp)
+            counter[ch] += 1    # ch in p use positive count
+        diff = len(counter)     # diff is about the number of unique letters
 
         m = len(p)
         res = []
         for i, ch in enumerate(s):
-            diff += updateCmp(ch, -1)
+            diff += update_counter(ch, -1)  # ch in s use negtive count
             if i >= m:
-                diff += updateCmp(s[i-m], 1)
+                diff += update_counter(s[i-m], 1)   # when removing ch, use positive count
             if diff == 0:
                 res.append(i-m+1)
 
         return res            
-        
+
 
 # moving window + counter: O(n)
 class Solution1:
@@ -88,6 +87,10 @@ if __name__ == '__main__':
         r = sol.findAnagrams(s = "cbaebabacd", p = "abc")
         print(r)
         assert r == [0,6]
+
+        r = sol.findAnagrams(s = "cbaebabacd", p = "aabc")
+        print(r)
+        assert r == [5]
 
         r = sol.findAnagrams(s = "abab", p = "ab")
         print(r)
