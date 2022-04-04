@@ -10,17 +10,33 @@
 #   1 <= strings[i].length <= 50
 #   strings[i] consists of lowercase English letters.
 from typing import List
+from collections import defaultdict
+
+
+# Simplify the hashing
+# - what matters, or the invariant part, is the other letters' relative
+#   lexical distance to the first letter;
+# - e.g. from "ab" => 'b' - 'a' = 1
+#        to   "bc" => 'c' - 'b' = 1
+class Solution:
+    def groupStrings(self, strings: List[str]) -> List[List[str]]:
+        map = defaultdict(list)
+        for s in strings:
+            key = tuple((ord(ch)-ord(s[0]))%26 for ch in s)
+            map[key].append(s)
+
+        return list(map.values())
 
 
 # Find patterns: O(n)
 # - normalize the string to the form: with leading letter as 'a'
 # - use a map to store all strings with the same normalized form
-class Solution:
+class Solution1:
     def groupStrings(self, strings: List[str]) -> List[List[str]]:
         def normalize(s: str) -> str:
             base = ord("a")
             diff = ord(s[0]) - base
-            return "".join(chr((ord(ch) - base - diff + 26) % 26 + base) for ch in s)
+            return "".join(chr((ord(ch) - base - diff) % 26 + base) for ch in s)
 
         map = {}
         for s in strings:
@@ -42,3 +58,4 @@ if __name__ == "__main__":
         assert sorted(r) == [["a"]]
 
     unit_test(Solution())
+    unit_test(Solution1())
