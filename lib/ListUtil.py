@@ -78,6 +78,8 @@ class ListNodeUtil:
         while p != None:
             res.append(p.val)
             p = p.next
+            if p == head:   # handle circular linked list
+                break
 
         return res
 
