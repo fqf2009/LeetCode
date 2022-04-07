@@ -13,23 +13,29 @@ from typing import List
 
 
 # Binary Search: O(log(n-k)+k)
-# - binary seaarch to find the left edge directly
+# - binary seaarch to find the left edge of k-length subarray
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
         i, j = 0, len(arr) - k
-        while i < j:
-            m = (i + j) // 2    # m is mid of [i, j], but the left edge of k-length subarray
-            if x - arr[m] > arr[m + k] - x: # x_to_left_distance > right_to_x_distance
+        while i < j:    # exit condition: i == j
+            m = (i + j) // 2  # the left edge of k-length subarray
+            # x_to_left_item_distance v.s. right_plus_1_item_to_x_distance, i.e.,
+            # besides (k-1) shared items, pick either arr[m] or arr[m+k] ?
+            if x - arr[m] > arr[m + k] - x:     # do not pick arr[:m]
                 i = m + 1
-            else:
-                j = m - 1
+            else:                               # do not pick arr[m+1:]
+                j = m
 
-        return arr[i : i + k]
+        return arr[i: i + k]
 
 
 if __name__ == "__main__":
 
     def unit_test(sol):
+        r = sol.findClosestElements([0, 2, 2, 3, 4, 6, 7, 8, 9, 9], k=4, x=5)
+        print(r)
+        assert r == [3, 4, 6, 7]
+
         r = sol.findClosestElements([1, 2, 3, 4, 5], k=4, x=3)
         print(r)
         assert r == [1, 2, 3, 4]
