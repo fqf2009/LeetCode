@@ -17,7 +17,7 @@
 from typing import List
 
 
-# iteration: O(log(n))
+# Binary Search: O(log(n))
 # Analysis
 # - if there is a pivot, then nums[right] < nums[left]
 # - if nums[left] < nums[mid] (and left != mid), then if there is pivot, 
@@ -37,15 +37,15 @@ class Solution:
         while left <= right:
             mid = (left + right) // 2
             if nums[mid] == target: return mid
-            if left == mid:
+            if left == mid:                 # only one or two items remaining, try another one
                 left = mid + 1
             elif nums[left] < nums[mid]:    # if there is pivot, it is at right side
-                if nums[left] <= target and target < nums[mid]:
+                if nums[left] <= target < nums[mid]:
                     right = mid - 1
                 else:
                     left = mid + 1
-            else:  # now pivot is at left side, so that nums[mid] < nums[right]
-                if nums[mid] < target and target <= nums[right]:
+            else:  # nums[left] > nums[mid], so pivot is at left, and nums[mid] < nums[right]
+                if nums[mid] < target <= nums[right]:
                     left = mid + 1
                 else:
                     right = mid - 1
