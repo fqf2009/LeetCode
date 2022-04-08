@@ -12,6 +12,8 @@
 
 # Constraints:
 #   1 <= bad <= n <= 2^31 - 1
+import pytest
+
 
 # The isBadVersion API is already defined for you.
 # def isBadVersion(version: int) -> bool:
@@ -35,16 +37,13 @@ class Solution:
         return res
 
 
-if __name__ == '__main__':
-    def unitTest(sol):
-        globals()['g_bad'] = 4
-        r = sol.firstBadVersion(n=5)
-        print(r)
-        assert r == 4
+if __name__ == "__main__":
+    # @pytest.mark.parametrize('sol,n', [[Solution, 5], [Solution, 1], [Solution, 0]])
+    def test_firstBadVersion(): # solution, n
+        sol = Solution()
+        n = 5
+        globals()['g_bad'] = n
+        r = sol.firstBadVersion(n)
+        assert r == n
 
-        globals()['g_bad'] = 1
-        r = sol.firstBadVersion(n=1)
-        print(r)
-        assert r == 1
-
-    unitTest(Solution())
+    pytest.main()
