@@ -56,8 +56,7 @@ class Solution1:
         for v in nums:
             if len(hq) < k:
                 heapq.heappush(hq, v)
-            else:
-                if v > hq[0]:
+            elif v > hq[0]:
                     heapq.heapreplace(hq, v)
 
         return hq[0]
