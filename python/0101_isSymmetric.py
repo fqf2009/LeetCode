@@ -8,7 +8,7 @@ from typing import Optional
 class Solution:
     def isMirror(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
         if root1 == None or root2 == None:
-            return type(root1) == type(root2)
+            return type(root1) == type(root2)  # type: ignore
 
         return ( root1.val == root2.val and 
                  self.isMirror(root1.left, root2.right) and 
