@@ -1,0 +1,21 @@
+{
+    "files.trimFinalNewlines": true,
+    "python.formatting.blackArgs": [
+        "--line-length", "120"
+    ],
+    "python.pythonPath": "C:\\Python39\\python.exe",
+    "python.formatting.autopep8Args": [
+        "--max-line-length=200"
+    ],
+    "scm.inputFontSize": 14,
+    "terminal.integrated.rightClickBehavior": "paste",
+    "terminal.integrated.tabs.focusMode": "singleClick",
+    "terminal.integrated.scrollback": 10000,
+    "python.formatting.provider": "black",
+    "editor.suggestSelection": "recentlyUsedByPrefix",
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
+}
