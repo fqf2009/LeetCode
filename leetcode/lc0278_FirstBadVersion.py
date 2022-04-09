@@ -12,20 +12,32 @@
 
 # Constraints:
 #   1 <= bad <= n <= 2^31 - 1
-import pytest
 
 
 # The isBadVersion API is already defined for you.
 # def isBadVersion(version: int) -> bool:
-g_bad = -1
 def isBadVersion(version: int) -> bool:
-    return version >= g_bad
+    return version >= 10
+
+
+# Binary Search Template 2
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        i, j = 1, n + 1
+        while i < j:
+            k = (i + j) // 2
+            if isBadVersion(k):
+                j = k
+            else:
+                i = k + 1
+
+        return i
 
 
 # Binary Search
-class Solution:
+class Solution1:
     def firstBadVersion(self, n: int) -> int:
-        i, j, res = 1, n, -1
+        i, j, res = 1, n, n+1
         while i <= j:
             k = (i + j) // 2
             if isBadVersion(k):
@@ -38,12 +50,26 @@ class Solution:
 
 
 if __name__ == "__main__":
-    # @pytest.mark.parametrize('sol,n', [[Solution, 5], [Solution, 1], [Solution, 0]])
-    def test_firstBadVersion(): # solution, n
-        sol = Solution()
-        n = 5
-        globals()['g_bad'] = n
-        r = sol.firstBadVersion(n)
-        assert r == n
+    from unittest import TestCase, main
+    from unittest.mock import patch
+    from parameterized import parameterized, parameterized_class
 
-    pytest.main()
+    @parameterized_class(('solution',), [(Solution,), (Solution1,)])    # must be tuple!!!
+    class TestSolution(TestCase):
+        @parameterized.expand([
+            (100, 3, 3),
+            (50, 39, 39),
+            (50, 1, 1),
+            (50, 100, 51),
+            (500, 500, 500),
+            (50, 0, 1),
+        ])
+        @patch('__main__.isBadVersion')
+        def test_firstBadVersion(self, n, bad_version, expected, mock_obj):
+            mock_obj.side_effect = lambda v: v >= bad_version
+
+            sol = self.solution()       # type:ignore
+            r = sol.firstBadVersion(n)
+            self.assertEqual(r, expected)
+
+    main()

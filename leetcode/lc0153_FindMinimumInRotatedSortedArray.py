@@ -16,20 +16,18 @@
 from typing import List
 
 
-# Binary Search
+# Binary Search (Template 2)
 class Solution:
     def findMin(self, nums: List[int]) -> int:
-        i, j = 0, len(nums) - 1
-        while i <= j:
-            if nums[i] <= nums[j]:  # no pivot
-                return nums[i]
-            k = (i+j) // 2
-            if nums[k] > nums[j]:
-                i = k + 1
-            else:
-                j = k   # j = k - 1 is wrong, when nums[k] is the minimum one
+        lo, hi = 0, len(nums) - 1
+        while lo < hi:
+            mid = (lo + hi) // 2
+            if nums[mid] < nums[hi]:
+                hi = mid
+            else:           # nums[mid] >= nums[hi], so pivot is at right side
+                lo = mid + 1
 
-        return nums[i]
+        return nums[lo]
 
 
 if __name__ == '__main__':

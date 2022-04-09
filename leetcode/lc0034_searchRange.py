@@ -4,10 +4,40 @@
 # You must write an algorithm with O(log n) runtime complexity.
 from typing import List
 
+# Binary search (Template 2)
+class Solution1:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        n = len(nums)
+        res = [-1, -1]
+        if not nums: return res
 
-# Binary search in sorted array
+        lo, hi = 0, n - 1       # like bisect_left
+        while lo < hi:
+            mid = (lo+hi) // 2
+            if nums[mid] < target:
+                lo = mid + 1
+            else:
+                hi = mid
+        
+        if nums[lo] != target:  # if hi is set to n above, here need to check lo < n
+            return res
+        
+        res[0] = lo
+        hi = n
+        while lo < hi:          # like bisect_right
+            mid = (lo+hi) // 2
+            if nums[mid] > target:
+                hi = mid
+            else:
+                lo = mid + 1
+
+        res[1] = lo - 1
+        return res
+ 
+
+# Binary search (Template 1 for exact match)
 # - Simplify the code, reduce redundancy or duplicate
-class Solution:
+class Solution2:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         def binarySearch(left, right, leftEdge: bool = True) -> int:
             res = -1
@@ -32,7 +62,7 @@ class Solution:
 
 
 # Binary search in sorted array
-class Solution1:
+class Solution3:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
         left, right = 0, len(nums) - 1
         p1, p2 = -1, -1
@@ -76,5 +106,6 @@ if __name__ == "__main__":
         print(r)
         assert(r == [-1, -1])
 
-    unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
+    unitTest(Solution3())
