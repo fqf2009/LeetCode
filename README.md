@@ -6,18 +6,20 @@
 [0189_RotateArray.py](leetcode/lc0189_RotateArray.py)  
 [0238_ProductOfArrayExceptSelf.py](leetcode/lc0238_ProductOfArrayExceptSelf.py)  
 [0344_ReverseString.py](leetcode/lc0344_ReverseString.py)  
+[0349_IntersectionOfTwoArrays.py](leetcode/lc0349_IntersectionOfTwoArrays.py)  
 [1060_MissingElementInSortedArray.py](leetcode/lc1060_MissingElementInSortedArray.py)  
 [2216_MinimumDeletionsToMakeArrayBeautiful.py](leetcode/lc2216_MinimumDeletionsToMakeArrayBeautiful.py)  
 
 ### Array (in place operation)
 [0041_FirstMissingPositive.py](leetcode/lc0041_FirstMissingPositive.py)  
+[0287_FindDuplicateNumber.py](leetcode/lc0287_FindDuplicateNumber.py)  
 [0448_findDisappearedNumbers.py](leetcode/lc0448_findDisappearedNumbers.py)  
 
 ### Binary Search
 [0004_MedianOfTwoSortedArrays.py](leetcode/lc0004_MedianOfTwoSortedArrays.py) ***  
 [0035_SearchInsertPosition.py](leetcode/lc0035_SearchInsertPosition.py)  
 [0295_FindMedianFromDataStream.py](leetcode/lc0295_FindMedianFromDataStream.py)  
-[0367_ValidPerfectSquare.py](lc0367_ValidPerfectSquare.py)  
+[0367_ValidPerfectSquare.py](leetcode/lc0367_ValidPerfectSquare.py)  
 [0528_RandomPickWithWeight.py](leetcode/lc0528_RandomPickWithWeight.py)  
 [0540_singleNonDuplicate.py](leetcode/lc0540_singleNonDuplicate.py)  
 [0704_BinarySearch.py](leetcode/lc0704_BinarySearch.py)  
@@ -37,8 +39,13 @@
 ### Binary Search (Template 2) (bisect.bisect_left & bisect_right)
 [0034_searchRange.py](leetcode/lc0034_searchRange.py)  
 [0153_FindMinimumInRotatedSortedArray.py](leetcode/lc0153_FindMinimumInRotatedSortedArray.py)  
+[0154_FindMinimumInRotatedSortedArrayII.py](leetcode/lc0154_FindMinimumInRotatedSortedArrayII.py)  
 [0162_FindPeakElement.py](leetcode/lc0162_FindPeakElement.py)  
 [0278_FirstBadVersion.py](leetcode/lc0278_FirstBadVersion.py)  
+[0287_FindDuplicateNumber.py](leetcode/lc0287_FindDuplicateNumber.py)  
+[0410_SplitArrayLargestSum.py](leetcode/lc0410_SplitArrayLargestSum.py)  
+[0744_FindSmallestLetterGreaterThanTarget.py](leetcode/lc0744_FindSmallestLetterGreaterThanTarget.py)  
+[0719_FindKthSmallestPairDistance.py](leetcode/lc0719_FindKthSmallestPairDistance.py)  
 
 ### Binary Search (Template 3) (more items between left and right bounds)
 [0658_FindKClosestElements.py](leetcode/lc0658_FindKClosestElements.py)  
@@ -244,6 +251,7 @@
 ### HashTable (Set)
 [0001_twoSum.py](leetcode/lc0001_twoSum.py)  
 [0049_GroupAnagrams.py](leetcode/lc0049_GroupAnagrams.py)  
+[0349_IntersectionOfTwoArrays.py](leetcode/lc0349_IntersectionOfTwoArrays.py)  
 [2215_FindDifferenceOfTwoArrays.py](leetcode/lc2215_FindDifferenceOfTwoArrays.py)  
 
 ### HashMap (Dict)
@@ -253,6 +261,7 @@
 
 ### HashMap (Counter, or MultiSet)
 [0266_PalindromePermutation.py](leetcode/lc0266_PalindromePermutation.py)  
+[0350_IntersectionOfTwoArraysII.py](leetcode/lc0350_IntersectionOfTwoArraysII.py)  
 [0423_reconstructOriginalDigitsFromEnglish.py](leetcode/lc0423_reconstructOriginalDigitsFromEnglish.py)  
 
 ### Linked List
@@ -387,6 +396,7 @@
 [0973_KClosestPointsToOrigin.py](leetcode/lc0973_KClosestPointsToOrigin.py)  
 [1606_FindServersThatHandledMostNumberOfRequests.py](leetcode/lc1606_FindServersThatHandledMostNumberOfRequests.py)  
 [2187_MinimumTimeToCompleteTrips.py](leetcode/lc2187_MinimumTimeToCompleteTrips.py)  
+[2233_MaximumProductAfterKIncrements.py](leetcode/lc2233_MaximumProductAfterKIncrements.py)  
 
 ### Quickselect
 [0215_KthLargestElementInArray.py](leetcode/lc0215_KthLargestElementInArray.py)  
@@ -406,9 +416,11 @@
 
 ### Sliding Window (Moving Window)
 [0209_MinimumSizeSubarraySum.py](leetcode/lc0209_MinimumSizeSubarraySum.py)  
+[0410_SplitArrayLargestSum.py](leetcode/lc0410_SplitArrayLargestSum.py)  
 [0438_FindAllAnagramsInString.py](leetcode/lc0438_FindAllAnagramsInString.py)  
 [0567_PermutationInString.py](leetcode/lc0567_PermutationInString.py)  
 [0713_SubarrayProductLessThanK.py](leetcode/lc0713_SubarrayProductLessThanK.py)  
+[0719_FindKthSmallestPairDistance.py](leetcode/lc0719_FindKthSmallestPairDistance.py)  
 [1004_MaxConsecutiveOnesIII.py](leetcode/lc1004_MaxConsecutiveOnesIII.py)  
 [1151_MinimumSwapsToGroupAllOnesTogether.py](leetcode/lc1151_MinimumSwapsToGroupAllOnesTogether.py)  
 
