@@ -1,9 +1,16 @@
 # Given two sorted arrays nums1 and nums2 of size m and n respectively, 
 # return the median of the two sorted arrays.
 # The overall run time complexity should be O(log (m+n)).
-
-
+# Constraints:
+#   nums1.length == m
+#   nums2.length == n
+#   0 <= m <= 1000
+#   0 <= n <= 1000
+#   1 <= m + n <= 2000
+#   -10^6 <= nums1[i], nums2[i] <= 10^6
 from typing import List
+import math
+
 # Binary search in sorted array: O(log(n)), where n is the length of shorter list
 #  - Assume A, B are the two lists, where A is the shorter one
 #  - pick a pos i, which split A into two parts: AL = A[:i+1], AR = A[i+1:]
@@ -23,24 +30,25 @@ class Solution:
             A, B = nums1, nums2
         else:
             A, B = nums2, nums1
+
         total = len(nums1) + len(nums2)
-        l, r = 0, len(A) - 1
+        a_lo, a_hi = 0, len(A) - 1
         while True:
-            i = (l + r) // 2
-            j = total // 2 - i - 2
-            al = A[i] if i >= 0 else -2**63
-            ar = A[i+1] if i+1 < len(A) else 2**63
-            bl = B[j] if j >= 0 else -2**63
-            br = B[j+1] if j+1 < len(B) else 2**63
+            a_mid = (a_lo + a_hi) // 2
+            b_mid = total // 2 - (a_mid + 1) - 1
+            al = A[a_mid] if a_mid >= 0 else -math.inf
+            ar = A[a_mid+1] if a_mid+1 < len(A) else math.inf
+            bl = B[b_mid] if b_mid >= 0 else -math.inf
+            br = B[b_mid+1] if b_mid+1 < len(B) else math.inf
             if al <= br and bl <= ar:
                 if total % 2 == 0:
                     return (max(al, bl) + min(ar, br)) / 2
                 else:
                     return min(ar, br)
-            elif al > br:
-                r = i - 1
+            elif al > br:   # need to to shrink left side of A, and expand right side B
+                a_hi = a_mid - 1
             else:   # bl > ar
-                l = i + 1
+                a_lo = a_mid + 1
 
 
 if __name__ == '__main__':
