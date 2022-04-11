@@ -3,7 +3,9 @@
 # If such an arrangement is impossible, it must rearrange it to the lowest possible 
 # order (i.e., sorted in ascending order).
 # The replacement must be in place and use only constant extra memory.
-
+# Constraints:
+#   1 <= nums.length <= 100
+#   0 <= nums[i] <= 100
 from typing import List
 
 
@@ -19,15 +21,13 @@ from typing import List
 #          So, we get the next permutation [8,9,7,2,6,10].
 class Solution:
     def nextPermutation(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
+        n = len(nums)
         p = 0   # pos to reverse array
-        for i in reversed(range(len(nums)-1)):
+        for i in reversed(range(n-1)):
             if nums[i] < nums[i + 1]:   # i is pivot pos
-                k = len(nums) - 1
-                for j in range(i + 1, len(nums)-1):
-                    if nums[j] > nums[i] and nums[j+1] <= nums[i]:
+                k = n - 1
+                for j in reversed(range(i+1, n)):
+                    if nums[j] > nums[i]:
                         k = j           # k is swap pos
                         break
                 nums[i], nums[k] = nums[k], nums[i]
@@ -35,7 +35,7 @@ class Solution:
                 break
 
         # reverse
-        for i in range(p, p + (len(nums) - p) // 2):
+        for i in range(p, p + (n - p) // 2):
             nums[i], nums[-1 - (i-p)] = nums[-1 - (i-p)], nums[i]
 
 
