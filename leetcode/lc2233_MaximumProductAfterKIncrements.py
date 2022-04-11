@@ -4,20 +4,62 @@
 # answer may be very large, return it modulo 10^9 + 7.
 # Constraints:
 #   1 <= nums.length, k <= 10^5
-#   0 <= nums[i] <= 106
+#   0 <= nums[i] <= 10^6
 import heapq
 from typing import List
 from functools import reduce
 
+# Binary Search: O(n*log(k))
+# - binary search a value (v) between 0 ~ k, where:
+#   - in each search, scan all n items, if less than k , 
+#     top it up to v, reduce k;
+#   - if in this search, final_k <= count_of_items_equal_to_v
+#     binary search end.
+#   - result calculation is the same as the "Sort + Scan" solution
+class Solution0:
+    def maximumProduct(self, nums: List[int], k: int) -> int:
+        pass
 
+# Sort + Scan
+# T/S: O(n*log(n) + k), O(1) by reusing nums
 class Solution:
+    def maximumProduct(self, nums: List[int], k: int) -> int:
+        MODULO = 10**9 + 7
+        nums.sort()
+        res = 1
+        break_idx = len(nums) - 1
+        for i, v in enumerate(nums[:-1]):
+            if k > (nums[i+1] - v) * (i + 1):
+                k -= (nums[i+1] - v) * (i + 1)
+                nums[i] = nums[i+1]
+            else:
+                break_idx = i
+                break
+
+        lo_val = nums[break_idx] + k // (break_idx + 1)
+        mid_val = lo_val + 1
+        mid_cnt = k % (break_idx + 1)
+        lo_cnt = (break_idx + 1) - mid_cnt
+        res = res * (lo_val ** lo_cnt) % MODULO
+        res = res * (mid_val ** mid_cnt) % MODULO
+        for i in range(break_idx + 1, len(nums)):
+            res = res * nums[i] % MODULO
+
+        return res
+
+
+# PriorityQueue (heapq)
+# T/S: O(n*log(n) + k*log(n)), O(1) by reusing nums
+class Solution1:
     def maximumProduct(self, nums: List[int], k: int) -> int:
         MODULO = 10**9 + 7
         heapq.heapify(nums)
         for _ in range(k):
-            heapq.heapreplace(nums, nums[0] + 1)
+            v = nums[0] + 1
+            heapq.heapreplace(nums, v)
 
-        return reduce(lambda x, y: x * y % MODULO, nums, 1)
+        res = reduce(lambda x, y: x * y % MODULO, nums, 1)
+        return res
 
 
 if __name__ == "__main__":
@@ -25,16 +67,15 @@ if __name__ == "__main__":
     from unittest.mock import patch
     from parameterized import parameterized, parameterized_class
 
-    @parameterized_class(('solution',), [(Solution,)])    # must be tuple!!!
+    @parameterized_class(('solution',), [(Solution,), (Solution1,)])
     class TestSolution(TestCase):
         @parameterized.expand([
             ([0, 4], 5, 20),
             ([6, 3, 3, 2], 2, 216),
         ])
         def test_maximumProduct(self, nums, k, expected):
-
             sol = self.solution()       # type:ignore
-            r = sol.maximumProduct(nums, k)
+            r = sol.maximumProduct(nums.copy(), k)  # nums is reused between test classes!!!
             self.assertEqual(r, expected)
 
     main()
