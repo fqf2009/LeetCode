@@ -36,25 +36,24 @@ from functools import cache
 # - if it cannot be fixed by the most recent *, there is no point in backtracking further.
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
-        s_len, p_len = len(s), len(p)
         i = j = 0
         i_save = j_star = -1
-        while i < s_len:
-            if j < p_len and (s[i] == p[j] or p[j] == '?'):
+        while i < len(s):
+            if j < len(p) and (s[i] == p[j] or p[j] == '?'):
                 i += 1
                 j += 1
-            elif j < p_len and p[j] == '*':
-                j_star = j
+            elif j < len(p) and p[j] == '*':
                 i_save = i
-                j += 1
-            elif j_star == -1:  # j >= p_len or p[j] not in ['?', '*', s[i]]
+                j_star = j
+                j += 1          # '*' match 0 char 
+            elif j_star == -1:  # j >= len(p) or p[j] not in ['?', '*', s[i]]
                 return False
             else:
-                i = i_save + 1
-                j = j_star + 1
-                i_save = i
+                i = i_save + 1  # '*' match 1 more char 
+                j = j_star + 1  # j_star will not change untill next '*'
+                i_save = i      # i_save keep moving
 
-        return j == p_len or all(p[x] == '*' for x in range(j, p_len))
+        return j == len(p) or all(p[x] == '*' for x in range(j, len(p)))
 
 
 # Recursion with Memoization: O(S*P)

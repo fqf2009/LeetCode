@@ -11,25 +11,25 @@ class Solution1:
         res = [-1, -1]
         if not nums: return res
 
-        lo, hi = 0, n - 1       # like bisect_left
+        lo, hi = 0, n - 1           # like bisect_left
         while lo < hi:
             mid = (lo+hi) // 2
-            if nums[mid] < target:
+            if nums[mid] < target:  # <-- difference
                 lo = mid + 1
             else:
                 hi = mid
         
         if nums[lo] != target:  # if hi is set to n above, here need to check lo < n
             return res
-        
+
         res[0] = lo
-        hi = n
-        while lo < hi:          # like bisect_right
+        hi = n  # no essential difference, both bisect_left & *_right can choose boundary freely
+        while lo < hi:              # like bisect_right
             mid = (lo+hi) // 2
-            if nums[mid] > target:
-                hi = mid
-            else:
+            if nums[mid] <= target: # <-- difference
                 lo = mid + 1
+            else:
+                hi = mid
 
         res[1] = lo - 1
         return res

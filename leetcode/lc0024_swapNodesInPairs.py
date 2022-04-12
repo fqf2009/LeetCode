@@ -8,10 +8,10 @@ class Solution:
         p = dummyHead = ListNode(next=head)
         while p.next and p.next.next:
             p1, p2 = p.next, p.next.next
-            p.next = p2
-            p = p1
             p1.next = p2.next
             p2.next = p1
+            p.next = p2
+            p = p1
 
         return dummyHead.next
 

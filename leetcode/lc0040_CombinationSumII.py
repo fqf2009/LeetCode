@@ -21,14 +21,14 @@ class Solution:
         counter = Counter(candidates)
         nums = sorted(counter.keys())   # not necessary to sort, just for testing
 
-        def backtrack(remain, start):
+        def backtrack(remain, start):   # <-- difference is here
             if remain == 0:
                 res.append(comb.copy())
                 return
             if remain < 0:
                 return
 
-            for i in range(start, len(nums)):
+            for i in range(start, len(nums)):   # <-- difference is here
                 v = nums[i]
                 if counter[v] > 0:
                     comb.append(v)
@@ -57,7 +57,7 @@ class Solution1:
             if remain < 0:
                 return
 
-            for v in counter.keys():
+            for v in counter.keys():    # <-- difference is here
                 if counter[v] > 0:
                     comb.append(v)
                     counter[v] -= 1
@@ -138,6 +138,10 @@ if __name__ == '__main__':
         r = sol.combinationSum2(candidates=[2, 5, 2, 1, 2], target=5)
         print(sorted(r))
         assert sorted(r) == [[1, 2, 2], [5]]
+
+        r = sol.combinationSum2(candidates=[2, 5, 2, 1, 1, 2, 1, 2, 2, 1, 2], target=5)
+        print(sorted(r))
+        assert sorted(r) == [[1, 1, 1, 2], [1, 2, 2], [5]]
 
     unitTest(Solution())
     unitTest(Solution1())

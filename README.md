@@ -33,7 +33,7 @@
 
 ### Binary Search (Template 1) (exact match)
 [0033_searchInRotatedSorted.py](leetcode/lc0033_searchInRotatedSorted.py) ***  
-[0034_searchRange.py](leetcode/lc0034_searchRange.py)  
+[0034_searchRange.py](leetcode/lc0034_searchRange.py)**  
 [0702_SearchInSortedArrayOfUnknownSize.py](leetcode/lc0702_SearchInSortedArrayOfUnknownSize.py)
 
 ### Binary Search (Template 2) (bisect.bisect_left & bisect_right)
