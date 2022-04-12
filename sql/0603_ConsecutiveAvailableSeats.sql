@@ -27,6 +27,21 @@ select seat_id
  where consecutive
  order by seat_id
  ;
+
+-- Postgres, MySQL both support bool type
+ select seat_id
+  from (
+        select seat_id,
+               case when free and
+                    ( lag(free)  over (order by seat_id) or
+                      lead(free) over (order by seat_id) ) then true
+                    else false
+                end consecutive
+        from cinema
+       ) c
+ where consecutive
+ order by seat_id
+ ;
  
  -- Oracle
  select seat_id

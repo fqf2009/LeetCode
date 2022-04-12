@@ -21,6 +21,20 @@ insert into Vote (id, candidateId) values ('5', '5');
 -- (i.e., the candidate who got the largest number of votes).
 -- The test cases are generated so that exactly one candidate wins the elections.
 
+
+select name
+  from Candidate c
+  join (
+      select v.candidateId,
+            count(*)
+      from vote v
+      group by v.candidateId
+      order by 2 desc
+      limit 1
+  ) v
+  on c.candidateId = v.candidateId
+  ;
+
 -- Postgres, MySQL
 select  name
   from (

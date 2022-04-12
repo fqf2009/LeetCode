@@ -25,6 +25,15 @@ select c.name Customers
 
 select c.name Customers
   from Customers c
+ where not exists (
+            select null
+              from Orders o
+             where c.id = o.customerId
+       )
+;
+
+select c.name Customers
+  from Customers c
   left join Orders o
     on c.id = o.customerId
  where o.customerId is null

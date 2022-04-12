@@ -45,3 +45,20 @@ select id,
  where rownum = 1
  ;
  
+
+ -- If there are duplicates
+ select id1 id,
+        count(*) num
+  from (
+        select requester_id id1,
+               accepter_id  id2
+          from RequestAccepted
+         union
+        select accepter_id id1,
+               accepter_id id2
+          from RequestAccepted
+       ) r
+ group by id1
+ order by num desc
+ limit 1
+ ;

@@ -22,3 +22,24 @@ delete from Person
        where id <> min_id
  )
  ;
+
+-- Oracle, Postgres
+delete from Person
+ where id not in (
+          select min(id) id
+            from Person
+           group by email
+       )
+ ;
+
+-- MySQL - One more level of nesting
+-- You can't specify target table 'Person' for update in FROM clause
+delete from Person
+ where id not in (
+       select id from (
+              select min(id) id
+                from Person
+               group by email
+           ) p
+       )
+ ;

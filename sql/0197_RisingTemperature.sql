@@ -26,7 +26,7 @@ select id
        recordDate = prev_date + 1
  ;
 
--- Correct for Oracle and PostgreSQL, MySql failed on submit (but ok in test run)
+-- Oracle and PostgreSQL
  select w.id
    from weather w 
    join weather w2

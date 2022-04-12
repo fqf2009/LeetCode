@@ -13,7 +13,7 @@ insert into Seat (id, student) values ('5', 'Jeames');
 -- consecutive students. If the number of students is odd, 
 -- the id of the last student is not swapped.
 -- Return the result table ordered by id in ascending order.
--- The query result format is in the following example.
+
 
 -- Postgres, Oracle, MySQL
 select id,

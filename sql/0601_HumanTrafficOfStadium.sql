@@ -10,6 +10,8 @@ insert into Stadium (id, visit_date, people) values ('5', '2017-01-05', '145');
 insert into Stadium (id, visit_date, people) values ('6', '2017-01-06', '1455');
 insert into Stadium (id, visit_date, people) values ('7', '2017-01-07', '199');
 insert into Stadium (id, visit_date, people) values ('8', '2017-01-09', '188');
+-- id with gap
+-- insert into Stadium (id, visit_date, people) values ('10', '2017-01-10', '288');
 */
 
 -- Write an SQL query to display the records with three or more rows with consecutive
@@ -58,7 +60,59 @@ select id,
  order by visit_date
  ;
 
- -- How about n or more rows?
+-- How about n or more rows?
+-- assume no gap in id
+select id,
+       visit_date,
+       people
+  from (
+        select min(id) min_id,
+               max(id) max_id,
+               grp, 
+               count(*) cnt
+        from (
+                select id,
+                       id - row_number() over(order by id) grp
+                from stadium s 
+                where people >= 100
+             ) c
+       group by grp
+       ) c
+  join stadium s
+    on s.id between c.min_id and c.max_id
+ where c.cnt >= 3             -- n = 3
+ order by visit_date
+;
+
+-- if id has gap
+select id,
+       visit_date,
+       people
+  from (
+        select min(id) min_id,            -- min, max still use old id for join
+               max(id) max_id,
+               grp, 
+               count(*) cnt
+        from (
+                select id,
+                       newid - row_number() over(order by newid) grp
+                  from (
+                        select id,
+                               row_number() over(order by id) newid,  -- create a new id without gap
+                               people
+                          from stadium s
+                       ) s
+                 where people >= 100
+             ) c
+       group by grp
+       ) c
+  join stadium s
+    on s.id between c.min_id and c.max_id
+ where c.cnt >= 3
+ order by visit_date
+;
+
+ -- Another way is to use lag and lead
  -- Note this is not perfect if there is gap in id!!!
 select id,
        visit_date,
@@ -99,12 +153,12 @@ select id,
         select id,
                visit_date,
                people,
-               count(*) over (partition by rn) cnt -- how many rows in this range
+               count(*) over (partition by grp) cnt -- how many rows in this range
           from stadium s
           join (
                 select start_id, 
                        end_id, 
-                       row_number() over () rn  -- differenciate each range
+                       row_number() over () grp  -- differenciate each range
                   from (
                         select id start_id, 
                                start100,

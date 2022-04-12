@@ -37,7 +37,7 @@ select id,
           from employee e
          order by 2, 3
        ) s
- where rn = (cnt+1)/2 or rn = (cnt+2)/2
+ where rn = (cnt+1)/2 or rn = (cnt+2)/2   -- mid 1 row for odd count, 2 rows for even count
  ;
 
 -- Oracle

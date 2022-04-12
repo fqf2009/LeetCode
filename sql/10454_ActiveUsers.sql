@@ -25,6 +25,50 @@ insert into Logins (id, login_date) values ('7', '2020-06-10');
 -- Follow up: Could you write a general solution if the active users are
 -- those who logged in to their accounts for n or more consecutive days?
 
+
+-- Postgres, Oracle
+select distinct a.id, 
+       a.name
+  from accounts a
+  join (
+        select id, grp
+          from (
+                select id,
+                       (login_date - date'1970-01-01') - 
+                            row_number() over (partition by id order by login_date) grp
+                  from (
+                        select distinct id,     -- unique login_date is critical
+                                        login_date
+                          from logins
+                       ) l
+               ) l
+         group by id, grp
+        having count(*) >= 5
+       ) l
+    on a.id = l.id
+ order by a.id
+;
+
+-- MySQL
+select distinct a.id, a.name
+  from accounts a
+  join (
+        select id, grp
+          from (
+                select id,
+                       datediff(login_date, date'1970-01-01') - 
+                            row_number() over (partition by id order by login_date) grp
+                  from (select distinct id, login_date -- unique login_date is critical
+                        from logins
+                       ) l
+               ) l
+         group by id, grp
+        having count(*) >= 5
+       ) l
+    on a.id = l.id
+ order by a.id
+;
+
 -- Postgres, Oracle
 select distinct a.id, a.name
   from accounts a

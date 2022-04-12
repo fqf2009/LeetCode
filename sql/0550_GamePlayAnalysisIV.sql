@@ -30,7 +30,7 @@ select round(sum(retention)::numeric / sum(installed)::numeric, 2) fraction
                 end retention
           from activity a
        ) r
- where installed = 1
+ where installed = 1    -- Only count those first logged in ids
   ;
 
 -- Oracle
@@ -77,7 +77,7 @@ select round(sum(retention) / sum(installed), 2) fraction
          select count(distinct player_id) total_count
            from activity
         ) a
-  cross join (
+  cross join (    -- single row cross join
              select count(*) second_login_count
                from activity
               where (player_id, event_date) in (

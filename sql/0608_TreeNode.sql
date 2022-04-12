@@ -21,14 +21,14 @@ insert into Tree (id, p_id) values ('1', null);
 
 -- Postgres, Oracle, MySQL
 select t.id, 
-       coalesce(t3.type, 'Inner') type
+       coalesce(t3.type, 'Inner') "type"
   from tree t
   left join (
-            select id, 'Root' type
+            select id, 'Root' "type"
               from tree
              where p_id is null
              union all
-            select id, 'Leaf' type
+            select id, 'Leaf'
               from tree t1
              where t1.p_id is not null
                and not exists (
@@ -39,4 +39,17 @@ select t.id,
        ) t3
     on t.id = t3.id
  order by t.id
+;
+
+
+-- use left join instead
+select distinct p.id,
+       case when p.p_id is null then 'Root'
+            when c.id is null then 'Leaf'
+            else 'Inner'
+        end "type"
+  from tree p
+  left join tree c
+    on p.id = c.p_id
+ order by 1
 ;
