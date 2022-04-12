@@ -9,47 +9,63 @@
 #   s contains only lowercase English letters.
 #   p contains only lowercase English letters, '.', and '*'.
 #   It is guaranteed for each appearance of the character '*',
-#   there will be a previous valid character to match.
+#       there will be a previous valid character to match.
+from functools import cache
 
-# Code from LeetCode website
-# Approach 1: Recursion
 
-# Without a Kleene star (*), our solution would look like this:
-# def match(text, pattern):
-#     if not pattern: return not text
-#     first_match = bool(text) and pattern[0] in {text[0], '.'}
-#     return first_match and match(text[1:], pattern[1:])
-#
-# If a star is present in the pattern
-class Solution1(object):
+# DP
+# Top-Down Variation (still recursion)
+class Solution():
+    def isMatch(self, text, pattern):
+        @cache
+        def dp(i, j):
+            if j == len(pattern): return i == len(text)
+
+            first_char_match = i < len(text) and pattern[j] in (text[i], '.')
+            if j+1 < len(pattern) and pattern[j+1] == '*':
+                return dp(i, j+2) or first_char_match and dp(i+1, j)
+            else:
+                return first_char_match and dp(i+1, j+1)
+
+        return dp(0, 0)
+
+
+# Recursion
+# - if pattern is empty, text has to be empty, otherwise not match;
+# - check first char in text and pattern, match or not;
+# - if next char in pattern is '*', two scenarios:
+#   - assume '[ch]*' match 0 char in text, i.e., to match(text, pattern[2:]),
+#     this way, '[ch]*' is skipped.
+#   - assume '[ch]*' match 1 char in text, i.e., to match(text[1:], pattern),
+#     this way, pattern can continue to match next 0 or 1 char (i.e. many char).
+# - if next char in pattern is not '*', continue, ...
+class Solution1():
     def isMatch(self, text, pattern):
         if not pattern:
             return not text
 
-        first_match = bool(text) and pattern[0] in {text[0], '.'}
+        first_char_match = bool(text) and pattern[0] in {text[0], '.'}
+        if len(pattern) >= 2 and pattern[1] == '*':     # second char is '*'
+            return (self.isMatch(text, pattern[2:]) or  # '[ch]*' match zero char in text
+                    first_char_match and self.isMatch(text[1:], pattern))   # '[ch]*' match text[0]
+        else:   # second char is not '*'
+            return first_char_match and self.isMatch(text[1:], pattern[1:])  
 
-        if len(pattern) >= 2 and pattern[1] == '*':                     # with '*'
-            return (self.isMatch(text, pattern[2:]) or                  # '[any_char]*' match zero text[0]
-                    first_match and self.isMatch(text[1:], pattern))    # (text[0] | '.') + '*' match 1 text[0], and continue...
-        else:
-            return first_match and self.isMatch(text[1:], pattern[1:])  # without '*'
 
-
-# Code from LeetCode website
-# Approach 2: Dynamic Programming
+# DP
 # Top-Down Variation (still recursion)
-class Solution2(object):
+class Solution2():
     def isMatch(self, text, pattern):
         def dp(i, j):
             if (i, j) not in memo:               # difference is here
                 if j == len(pattern):
                     ans = i == len(text)         # i, j both point to the end of str
                 else:
-                    first_match = i < len(text) and pattern[j] in {text[i], '.'}
+                    first_char_match = i < len(text) and pattern[j] in {text[i], '.'}
                     if j+1 < len(pattern) and pattern[j+1] == '*':
-                        ans = dp(i, j+2) or first_match and dp(i+1, j)
+                        ans = dp(i, j+2) or first_char_match and dp(i+1, j)
                     else:
-                        ans = first_match and dp(i+1, j+1)
+                        ans = first_char_match and dp(i+1, j+1)
 
                 memo[i, j] = ans
             return memo[i, j]
@@ -58,48 +74,40 @@ class Solution2(object):
         return dp(0, 0)
 
 
-# Code from LeetCode website
 # Bottom-Up Variation
-class Solution3(object):
+class Solution3():
     def isMatch(self, text, pattern):
         dp = [[False] * (len(pattern) + 1) for _ in range(len(text) + 1)]
 
         dp[-1][-1] = True
         for i in range(len(text), -1, -1):
             for j in range(len(pattern) - 1, -1, -1):
-                first_match = i < len(text) and pattern[j] in {text[i], '.'}
+                first_char_match = i < len(text) and pattern[j] in {text[i], '.'}
                 if j+1 < len(pattern) and pattern[j+1] == '*':
-                    dp[i][j] = dp[i][j+2] or first_match and dp[i+1][j]
+                    dp[i][j] = dp[i][j+2] or first_char_match and dp[i+1][j]
                 else:
-                    dp[i][j] = first_match and dp[i+1][j+1]
+                    dp[i][j] = first_char_match and dp[i+1][j+1]
 
         return dp[0][0]
 
 
 if __name__ == "__main__":
-    def unitTest(sol):
-        r = sol.isMatch(text="aa", pattern="a")
-        print(r)
-        assert r == False
+    from unittest import TestCase, main
+    from unittest.mock import patch
+    from parameterized import parameterized, parameterized_class
 
-        r = sol.isMatch(text="aa", pattern="a*")
-        print(r)
-        assert r == True
+    @parameterized_class(('solution',), [(Solution,), (Solution1,), (Solution2,), (Solution3,)])
+    class TestSolution(TestCase):
+        @parameterized.expand([
+            ("aa", "a", False),
+            ("aa", "a*", True),
+            ("ab", ".*", True),
+            ("aab", "c*a*b", True),
+            ("mississippi", "mis*is*p*.", False),
+        ])
+        def test_isMatch(self, text, pattern, expected):
+            sol = self.solution()       # type:ignore
+            r = sol.isMatch(text, pattern)
+            self.assertEqual(r, expected)
 
-        r = sol.isMatch("ab", pattern=".*")
-        print(r)
-        assert r == True
-
-        r = sol.isMatch(text="aab", pattern="c*a*b")
-        print(r)
-        assert r == True
-
-        r = sol.isMatch(text="mississippi", pattern="mis*is*p*.")
-        print(r)
-        assert r == False
-
-        print('')
-
-    unitTest(Solution1())
-    unitTest(Solution2())
-    unitTest(Solution3())
+    main()
