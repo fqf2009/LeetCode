@@ -24,6 +24,65 @@ insert into Users (user_id, mail, name) values ('5', 'quarz@leetcode.com', 'Quar
 --   The user won the gold medal in three or more different contests (not necessarily consecutive).
 -- Return the result table in any order.
 
+
+-- Postgres
+select name, 
+       mail
+  from (
+        select gold_medal user_id
+          from Contests
+         group by gold_medal
+        having count(*) >= 3
+         union
+        select user_id
+          from (
+                select user_id,
+                       contest_id,
+                       case when lag(contest_id, 1) over (partition by user_id order by contest_id) = contest_id - 1 and
+                                 lag(contest_id, 2) over (partition by user_id order by contest_id) = contest_id - 2
+                                 then 'Y'
+                            else 'N'
+                        end cont_3
+                  from (
+                        select contest_id,
+                               unnest(array[gold_medal, silver_medal, bronze_medal]) user_id
+                         from Contests
+                       ) c
+                 ) c2
+         where cont_3 = 'Y'
+       ) c
+  join users u
+    on u.user_id = c.user_id
+;
+
+-- ERROR: column "user_id" does not exist
+-- However, this does not work, i.e.,, other column in same "select list" 
+-- cannot access this new unnested column, but "group by" and "having" can.
+select name, 
+       mail
+  from (
+        select gold_medal user_id
+          from Contests
+         group by gold_medal
+        having count(*) >= 3
+         union
+        select user_id
+          from (
+                select unnest(array[gold_medal, silver_medal, bronze_medal]) user_id,
+                       contest_id,
+                       case when lag(contest_id, 1) over (partition by user_id order by contest_id) = contest_id - 1 and
+                                 lag(contest_id, 2) over (partition by user_id order by contest_id) = contest_id - 2
+                                 then 'Y'
+                            else 'N'
+                        end cont_3
+                  from Contests
+                 ) c
+         where cont_3 = 'Y'
+       ) c
+  join users u
+    on u.user_id = c.user_id
+;
+
 -- Postgres, MySQL, Oracle
 select name, 
        mail

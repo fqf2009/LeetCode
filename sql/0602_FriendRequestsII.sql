@@ -26,6 +26,27 @@ select id,
  limit 1
  ;
 
+-- Postgres
+select id,
+       count(*) num
+  from (
+        select unnest(array[requester_id, accepter_id]) id
+          from RequestAccepted
+       ) r
+ group by id
+ order by num desc
+ limit 1
+ ;
+
+-- Postgres, even simpler
+select unnest(array[requester_id, accepter_id]) id,
+       count(*) num
+  from RequestAccepted
+ group by id
+ order by num desc
+ limit 1
+ ;
+
  -- Oracle
  select id,
        num

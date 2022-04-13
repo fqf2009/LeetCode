@@ -38,6 +38,29 @@ select distinct user_id
                                              rows between unbounded preceding and 
                                                           unbounded following) last_talk_to
           from (
+                select unnest(array[caller_id, recipient_id]) user_id,
+                       unnest(array[recipient_id, caller_id]) talk_to_id,
+                       unnest(array[call_time, call_time]) call_time
+                  from calls
+               ) c
+       ) c1
+ where first_talk_to = last_talk_to
+;
+
+
+-- Postgres
+select distinct user_id
+  from (
+        select user_id,
+               first_value(talk_to_id) over (partition by user_id, date_trunc('day', call_time) 
+                                             order by call_time 
+                                             rows between unbounded preceding and 
+                                                          unbounded following) first_talk_to,
+               last_value(talk_to_id)  over (partition by user_id, date_trunc('day', call_time) 
+                                             order by call_time 
+                                             rows between unbounded preceding and 
+                                                          unbounded following) last_talk_to
+          from (
                 select caller_id user_id, recipient_id talk_to_id, call_time
                   from calls
                  union all

@@ -29,6 +29,33 @@ insert into Matches (home_team_id, away_team_id, home_team_goals, away_team_goal
 -- more teams have the same points, order them by goal_diff in descending order.
 -- If there is still a tie, order them by team_name in lexicographical order.
 
+
+-- Postgres
+select team_name, 
+       count(*) matches_played,
+       sum(case when goal_diff > 0 then 3
+                when goal_diff = 0 then 1
+                else 0
+            end) points,
+        sum(goal_for) goal_for,
+        sum(goal_against) goal_against,
+        sum(goal_diff) goal_diff
+  from (
+        select unnest(array[home_team_id, away_team_id]) id,
+               unnest(array[home_team_goals, away_team_goals]) goal_for,
+               unnest(array[away_team_goals, home_team_goals]) goal_against,
+               unnest(array[home_team_goals - away_team_goals, away_team_goals - home_team_goals]) goal_diff
+          from matches
+       ) m
+  join teams t
+    on t.team_id = m.id
+ group by t.team_name
+ order by points desc,
+          goal_diff desc,
+          team_name
+;
+
+
 -- Postgres, Oracle, MySQL
 select team_name, 
        count(*) matches_played,

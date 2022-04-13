@@ -36,6 +36,28 @@ insert into Calls (caller_id, callee_id, duration) values ('1', '7', '7');
 -- Write an SQL query to find the countries where this company can invest.
 -- Return the result table in any order.
 
+
+-- Postgres
+select name country
+  from country c
+  join (
+        select substr(phone_number, 1, 3)   country_code,
+               avg(duration)                country_avg_duration,
+               sum(sum(duration)) over() / sum(count(*)) over ()    global_avg_duration
+          from (
+                select unnest(array[caller_id, callee_id]) person_id, -- cannot be used in join yet
+                       duration
+                  from calls
+               ) c
+          join person p
+            on p.id = c.person_id
+         group by country_code
+       ) p
+    on p.country_code = c.country_code
+ where p.country_avg_duration > global_avg_duration
+;
+
+
 -- Postgres, MySQL
 select name country
   from country c
@@ -58,7 +80,7 @@ select name country
        ) c1
     on c1.country_code = c.country_code
  where c1.country_avg_duration > global_avg_duration
-  ;
+;
 
 -- Oracle
 select name country

@@ -25,6 +25,28 @@ insert into Matches (match_id, first_player, second_player, first_score, second_
 -- Write an SQL query to find the winner in each group.
 -- Return the result table in any order.
 
+
+-- Postgres
+select group_id,
+       player_id
+  from (
+        select p.group_id,
+               p.player_id,
+               rank() over (partition by group_id order by sum(score) desc, p.player_id) rk
+          from (
+                select unnest(array[first_player, second_player]) player_id,
+                       unnest(array[first_score, second_score]) score
+                  from Matches
+               ) m
+          join Players p
+            on m.player_id = p.player_id
+         group by p.group_id,
+                  p.player_id
+       ) s
+ where rk = 1
+ ;
+
+ 
 -- Postgres, Oracle, MySQL, SQLServer
 select group_id,
        player_id
