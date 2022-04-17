@@ -31,17 +31,20 @@ from typing import List, Optional
 class Solution:
     def solve(self, board: List[List[str]]) -> None:
         m, n = len(board), len(board[0])
-        def dfsNotSurrounded(i, j):
+        def dfs_visit(i, j):
+            if board[i][j] != 'O': return
             board[i][j] = 'N'
             for di, dj in ((-1, 0), (1, 0), (0, 1), (0, -1)):
                 i1, j1 = i+di, j+dj
-                if 0 <= i1 < m and 0 <= j1 < n and board[i1][j1] == 'O':
-                    dfsNotSurrounded(i1, j1)
+                if 0 <= i1 < m and 0 <= j1 < n:
+                    dfs_visit(i1, j1)
 
         for i in range(m):
-            for j in range(n):
-                if (i == 0 or i == m-1 or j == 0 or j == n-1) and board[i][j] == 'O':
-                    dfsNotSurrounded(i, j)
+            dfs_visit(i, 0)
+            dfs_visit(i, n-1)
+        for j in range(n):
+            dfs_visit(0, j)
+            dfs_visit(m-1, j)
 
         for i in range(m):
             for j in range(n):

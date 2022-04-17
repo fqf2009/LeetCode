@@ -53,19 +53,19 @@ class Solution:
 class Solution1:
     def lowestCommonAncestor(self, root: 'TreeNode', nodes: 'List[TreeNode]') -> 'TreeNode':
         target = set(x.val for x in nodes)
-        res = []            # [LCS]
+        lcs = []            # [LCS]
         def dfsGather(root: TreeNode) -> set: # return values of nodes in this subtree
             subTreeVals = set()
 
             if root.left:
                 leftVals = dfsGather(root.left)
-                if len(res) > 0:
+                if len(lcs) > 0:
                     return leftVals
                 subTreeVals = leftVals
 
             if root.right:
                 rightVals = dfsGather(root.right)
-                if len(res) > 0:
+                if len(lcs) > 0:
                     return rightVals
                 subTreeVals = subTreeVals.union(rightVals)
 
@@ -73,12 +73,12 @@ class Solution1:
                 subTreeVals.add(root.val)
 
             if len(subTreeVals) == len(target):
-                res.append(root)
+                lcs.append(root)
 
             return subTreeVals
 
         dfsGather(root)
-        return res[0]
+        return lcs[0]
 
 
 if __name__ == '__main__':

@@ -36,12 +36,14 @@ class Solution:
 # Time Limit Exceeded - 77 / 122 test cases passed.
 class Solution1:
     def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
-        res = [0]   # max value
         n = len(piles)
+        max_value = 0
 
         def backtrack(pileIdx, coinsPicked, totalValue):
+            nonlocal max_value
+
             if coinsPicked == k:
-                res[0] = max(res[0], totalValue)
+                max_value = max(max_value, totalValue)
                 return
             if pileIdx >= n:
                 return
@@ -53,7 +55,7 @@ class Solution1:
                 backtrack(pileIdx + 1, coinsPicked, totalValue)
 
         backtrack(0, 0, 0)
-        return res[0]
+        return max_value
 
 
 if __name__ == "__main__":

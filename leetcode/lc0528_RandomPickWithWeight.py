@@ -21,15 +21,15 @@ class Solution:
         n = len(w)
         self.weights = [0.0] * n
         self.weights[0] = float(w[0])
-        for i in range(1, n):
-            self.weights[i] = self.weights[i-1] + w[i]
+        for i, v in enumerate(w[1:], 1):
+            self.weights[i] = self.weights[i-1] + v
 
     def pickIndex(self) -> int:
         r = random() * self.weights[-1]
         i, j = 0, len(self.weights) - 1
         while i < j:
             k = (i + j) // 2
-            if r > self.weights[k]:
+            if self.weights[k] < r:
                 i = k + 1
             else:
                 j = k

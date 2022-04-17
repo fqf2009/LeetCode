@@ -5,6 +5,7 @@
 # Constraints:
 #   1 <= heights.length <= 10^5
 #   0 <= heights[i] <= 10^4
+from itertools import chain
 from typing import List
 
 
@@ -22,15 +23,14 @@ from typing import List
 class Solution:
     def largestRectangleArea(self, heights: List[int]) -> int:
         res = 0
-        stk = [-1, 0]           # pos: left of first bar, and first bar
-        heights.append(0)       # simulate a shortest bar at end
-        for i in range(1, len(heights)):
-            while heights[stk[-1]] > heights[i]:
-                h = heights[stk.pop()]      # popup higher bar at stack
-                res = max(res, (i-1 - stk[-1]) * h)  # peek stack again after popup
+        stk = [-1]                                          # pos: left of first bar
+        for i, height in enumerate(chain(heights, [0])):    # simulate a shortest bar at end
+            while stk[-1] >= 0 and heights[stk[-1]] > height:
+                rect_height = heights[stk.pop()]            # popup higher bar at stack
+                rect_width = i-1 - stk[-1]                  # peek stack again after popup
+                res = max(res, rect_height * rect_width)         
             stk.append(i)
 
-        del heights[-1]
         return res
 
 

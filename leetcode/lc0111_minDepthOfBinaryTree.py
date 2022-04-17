@@ -9,18 +9,16 @@ from collections import deque
 # BFS - return result once the first leaf is met
 class Solution:
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        if not root:
-            return 0
-        que = deque()
-        que.append((root, 1))
-        while len(que) > 0:
+        if not root: return 0
+        que = deque([(root, 1)])
+        while len(que):
             node, level = que.popleft()
             if not node.left and not node.right:
                 return level
             if node.left:
-                que.append((node.left, level + 1))
+                que.append((node.left, level + 1))          # type: ignore
             if node.right:
-                que.append((node.right, level + 1))
+                que.append((node.right, level + 1))         # type: ignore
 
 
 # Recursion (DFS)

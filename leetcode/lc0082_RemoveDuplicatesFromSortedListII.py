@@ -10,7 +10,23 @@ from lib.ListUtil import ListNode, ListNodeUtil
 
 
 # Linked List: O(n)
+# - This is different, i.e., de-dup
 class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        h0 = ListNode(next = head)
+        p = head
+        while p and p.next:             # p is current node
+            if p.val == p.next.val:
+                p.next = p.next.next    # skip one, but does not move forward
+            else:
+                p = p.next              # move forward, no skip
+
+        return h0.next
+
+
+# Linked List: O(n)
+# - Only unique items remain.
+class Solution1:
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         h0 = p = ListNode(next = head)  # p is lagging behind one node
         while p and p.next:
@@ -49,4 +65,5 @@ if __name__ == '__main__':
         print(r)
         assert r == []
 
-    unitTest(Solution())
+    # unitTest(Solution())
+    unitTest(Solution1())

@@ -15,6 +15,20 @@
 # Counting
 class Solution:
     def minAddToMakeValid(self, s: str) -> int:
+        diff = 0    # left_cnt - right_cnt
+        res = 0
+        for ch in s:
+            diff += 1 if ch == "(" else -1
+            if diff < 0:
+                res += 1
+                diff = 0
+
+        return res + diff
+
+
+# Counting
+class Solution1:
+    def minAddToMakeValid(self, s: str) -> int:
         nLeft = nRight = 0
         res = 0
         for ch in s:
@@ -41,3 +55,4 @@ if __name__ == "__main__":
         assert r == 3
 
     unitTest(Solution())
+    unitTest(Solution1())

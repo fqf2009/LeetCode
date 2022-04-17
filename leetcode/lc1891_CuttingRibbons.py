@@ -18,9 +18,25 @@
 from typing import List
 
 
-# Binary Search - T/S: O(n*log(m)), O(1), where m = max(ribbons)
-# - exactly the same as: 2226_MaximumCandiesAllocatedToKChildren.py
+# Binary Sort: Template 2
 class Solution:
+    def maxLength(self, ribbons: List[int], k: int) -> int:
+        i, j = 0, max(ribbons)
+        while i < j:
+            m = (i+j+1) // 2    # <-- difference, to avoid endless loop!
+            nb_ribbon = sum(x // m for x in ribbons)
+            if nb_ribbon >= k:
+                i = m           # <-- caused by this, i.e. if i+1 == j, and i is not moving, then ...
+            else:       # nb_ribbon < k
+                j = m - 1
+
+        return i
+
+
+# Binary Search: Template 1
+# - T/S: O(n*log(m)), O(1), where m = max(ribbons)
+# - exactly the same as: 2226_MaximumCandiesAllocatedToKChildren.py
+class Solution1:
     def maxLength(self, ribbons: List[int], k: int) -> int:
         i, j = 1, max(ribbons)
         res = 0
@@ -51,3 +67,4 @@ if __name__ == '__main__':
         assert r == 0
 
     unit_test(Solution())
+    unit_test(Solution1())

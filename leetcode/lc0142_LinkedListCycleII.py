@@ -17,10 +17,12 @@ from lib.ListUtil import ListNode, ListNodeUtil
 # Floyd's Tortoise and Hare: O(n)
 # - Fast and slow pointers, each move 2 steps and 1 step
 # - If there is no loop, fast reach null, ends
-# - If there is loop, and assume length of non-loop and loop portions are L and C,
-#   where fast pointer meets slow one:
-#       2(L + X) = L + n*C + X,  where X is slow pointer moved in loop portion
-#         =>    L + X = n*C
+# - If there is loop, and assume length of linear and circular portions are
+#   L and C, when the the slower meets faster pointer one, each of them moved
+#    distances are: L+X and L + n*C + X, therefore:
+#       2(L + X) = L + n*C + X, where X and n*C + X is the the distance slow and
+#                               fast pointers have moved in circular portion.
+#         ==>    L + X = n*C
 # - Now set slow point back to list head, and both pointers move another L steps,
 #   at the same speed, they will meet at the intersection
 class Solution:

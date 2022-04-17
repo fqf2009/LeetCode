@@ -10,25 +10,19 @@ from lib.TreeUtil import TreeNode, TreeNodeUtil
 # Recursion
 class Solution:
     def buildTree(self, inorder: list[int], postorder: list[int]) -> Optional[TreeNode]:
-        def buildTreeHelper(inStart: int, postStart: int, postEnd: int) -> Optional[TreeNode]:
-            if postStart > postEnd:
-                return None
-            elif postStart == postEnd:
-                return TreeNode(postorder[postStart])
-            else:
-                res = TreeNode(postorder[postEnd])
-                inMid = inPos[res.val]
-                leftLen = inMid - inStart # left tree size, use this to split postorder tree
-                res.left = buildTreeHelper(inStart, postStart, postStart + leftLen - 1)
-                res.right = buildTreeHelper(inMid + 1, postStart + leftLen, postEnd - 1)
-                return res
+        def build(in_start: int, post_start: int, post_end: int) -> Optional[TreeNode]:
+            if post_start > post_end: return None
+            if post_start == post_end: return TreeNode(postorder[post_start])
 
-        # map each node's value to its position in inorder list
-        inPos = {}
-        for i in range(len(inorder)):
-            inPos[inorder[i]] = i
-        
-        return buildTreeHelper(0, 0, len(postorder) - 1)
+            root = TreeNode(postorder[post_end])
+            in_root_pos = in_pos[root.val]
+            left_cnt = in_root_pos - in_start   # left tree size, use this to split postorder tree
+            root.left = build(in_start, post_start, post_start + left_cnt - 1)
+            root.right = build(in_root_pos + 1, post_start + left_cnt, post_end - 1)
+            return root
+
+        in_pos = {v:i for i, v in enumerate(inorder)}   # map node value to pos in inorder list
+        return build(0, 0, len(postorder) - 1)
 
 
 if __name__ == "__main__":

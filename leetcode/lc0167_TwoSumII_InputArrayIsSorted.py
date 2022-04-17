@@ -17,7 +17,7 @@ from typing import List
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         i, j = 0, len(numbers) - 1
-        while i < j and i < len(numbers) and j >= 0:
+        while i < j:
             total = numbers[i] + numbers[j]
             if total == target:
                 return [i + 1, j + 1]
@@ -34,6 +34,10 @@ if __name__ == '__main__':
         r = sol.twoSum(numbers=[5,25,75], target=100)
         print(r)
         assert r == [2, 3]
+
+        r = sol.twoSum(numbers=[5,25,75], target=200)
+        print(r)
+        assert r == [-1, -1]
 
         r = sol.twoSum(numbers=[2, 7, 11, 15], target=9)
         print(r)

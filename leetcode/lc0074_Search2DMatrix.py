@@ -12,6 +12,7 @@ import bisect
 
 
 # Binary search using Python library
+# - Template 2
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         m, n = len(matrix), len(matrix[0])
@@ -26,7 +27,7 @@ class Solution:
         return False
 
 
-# Binary search
+# Binary search: Template 1
 class Solution1:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
         m, n = len(matrix), len(matrix[0])

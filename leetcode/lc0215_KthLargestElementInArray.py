@@ -35,7 +35,7 @@ class Solution:
             return pvt_idx
         
         # select k-th smallest item from nums[] (not nums[left: right+1])
-        def select(left, right, kth):
+        def select(left, right, kth):   # k-th smallest
             if left == right: return nums[left]
             # randint get random int in [a, b], not [a, b)
             pvt_idx = partition(left, right)

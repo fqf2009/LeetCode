@@ -13,7 +13,7 @@ from lib.ListUtil import ListNode, ListNodeUtil
 class Solution:
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         p = head
-        while p != None and p.next != None:
+        while p and p.next:
             if p.val == p.next.val:
                 p.next = p.next.next
             else:

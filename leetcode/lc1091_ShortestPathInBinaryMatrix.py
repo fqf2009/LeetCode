@@ -64,9 +64,8 @@ class Solution1:
                         if grid[i1][j1] == 0:
                             grid[i1][j1] = grid[i][j] - 1
                             que.append([i1, j1])
-                        if i1 == n - 1 and j1 == n - 1:
-                            return -(grid[i1][j1] - 1)  # the length of path, not steps
-        
+                        if i1 == j1 == n - 1: return -(grid[i1][j1] - 1)  # the length of path, not steps
+
         return -1
 
 

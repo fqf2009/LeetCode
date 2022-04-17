@@ -27,7 +27,7 @@ from typing import Optional, List
 
 
 class Node:
-    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+    def __init__(self, x: int, next: Optional['Node'] = None, random: Optional['Node'] = None):
         self.val = int(x)
         self.next = next
         self.random = random
@@ -68,7 +68,7 @@ class Node:
 
         return res
 
-# Deep copy already use space O(n), so why case about wasting another n space?
+# Deep copy already use space O(n), so why care about wasting another n space?
 # - map original list of nodes in a dict, so each node has a number (i-th node)
 # - duplicate nodes into list.
 # - set random value for new nodes in list, based on info from dict
@@ -77,32 +77,32 @@ class Solution:
         if not head:
             return None
 
-        oldNodes = {}   # waste a little space here
+        nodes1 = {}   # waste a little space here
         p = head
         i = 0
         while p:
-            oldNodes[p] = i
+            nodes1[p] = i
             p = p.next
             i += 1
         
-        newNodes = []   # waste a little space here
+        nodes2 = []   # waste a little space here
         p = head
-        dummyHead = p1 = Node(-1)
+        dummy_head = p2 = Node(-1)
         while p:
-            p1.next = Node(p.val)
-            p1 = p1.next
-            newNodes.append(p1)
+            p2.next = Node(p.val)
+            p2 = p2.next
+            nodes2.append(p2)
             p = p.next
 
         p = head
         i = 0
         while p:
             if p.random:
-                newNodes[i].random = newNodes[oldNodes[p.random]]
+                nodes2[i].random = nodes2[nodes1[p.random]]
             p = p.next
             i += 1
 
-        return dummyHead.next
+        return dummy_head.next
 
 
 # Algorithm: O(n)
@@ -133,17 +133,17 @@ class Solution1:
                 p.next.random = p.random.next
             p = p.next.next
 
-        headNew = head.next
-        p, p1 = head, head.next
-        while p:
-            assert p1
-            p.next = p1.next
-            p = p.next
-            if p:
-                p1.next = p.next
-                p1 = p1.next
+        h2 = head.next
+        p1, p2 = head, head.next
+        while p1:
+            assert p2
+            p1.next = p2.next
+            p1 = p1.next
+            if p1:
+                p2.next = p1.next
+                p2 = p2.next
 
-        return headNew
+        return h2
 
 
 if __name__ == '__main__':

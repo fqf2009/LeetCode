@@ -1,3 +1,18 @@
+# You are given an inclusive range [lower, upper] and a sorted unique integer 
+# array nums, where all elements are in the inclusive range.
+# A number x is considered missing if x is in the range [lower, upper] 
+# and x is not in nums.
+# Return the smallest sorted list of ranges that cover every missing 
+# number exactly. That is, no element of nums is in any of the ranges, 
+# and each missing number is in one of the ranges.
+# Each range [a,b] in the list should be output as:
+# "a->b" if a != b
+# "a" if a == b
+# Constraints:
+#   -10^9 <= lower <= upper <= 10^9
+#   0 <= nums.length <= 100
+#   lower <= nums[i] <= upper
+#   All the values of nums are unique.
 from itertools import chain
 from typing import List
 

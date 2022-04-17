@@ -9,17 +9,17 @@ from xmlrpc.client import Boolean
 # T/S: O(n), O(1), even in worst case, because only one char can be deleted
 class Solution:
     def validPalindrome(self, s: str) -> bool:
-        def validPalindromeWithDelete(left: int, right: int, canDeleteChar: bool) -> bool:
-            while left < right:
-                if s[left] != s[right]:
-                    return (canDeleteChar and 
-                            (validPalindromeWithDelete(left + 1, right, False) or 
-                            validPalindromeWithDelete(left, right - 1, False)))
-                left += 1
-                right -= 1
+        def is_valid(lo: int, hi: int, can_delete: bool) -> bool:
+            while lo < hi:
+                if s[lo] != s[hi]:
+                    return (can_delete and 
+                            (is_valid(lo + 1, hi, False) or 
+                            is_valid(lo, hi - 1, False)))
+                lo += 1
+                hi -= 1
             return True
 
-        return validPalindromeWithDelete(0, len(s) - 1, True)
+        return is_valid(0, len(s) - 1, True)
 
 
 if __name__ == '__main__':

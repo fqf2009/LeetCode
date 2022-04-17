@@ -23,22 +23,22 @@
 class Solution:
     def simplifyPath(self, path: str) -> str:
         arr = path.split('/')
-        stems = []
+        stack = []
         for i, x in enumerate(arr):
             # '' is due to: before leading '/' or between '//' or after last '/'
-            if x == '' and len(stems) > 0 or x == '.':
+            if x == '' and len(stack) > 0 or x == '.':
                 continue
             if x == '..':
-                if stems and stems[-1] != '':
-                    stems.pop()
+                if stack and stack[-1] != '':
+                    stack.pop()
                 continue
-            stems.append(x)
+            stack.append(x)
 
-        newPath = '/'.join(stems)
-        if newPath == '':
-            newPath = '/'
+        new_path = '/'.join(stack)
+        if new_path == '':
+            new_path = '/'
         
-        return newPath
+        return new_path
     
 
 if __name__ == "__main__":

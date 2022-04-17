@@ -5,9 +5,28 @@
 # Constraints:
 #   The number of nodes in the tree is in the range [0, 100].
 #   -100 <= Node.val <= 100
-from collections import deque
+from collections import defaultdict, deque
 from lib.TreeUtil import TreeNode, TreeNodeUtil
 from typing import Optional, List
+
+
+# BFS - T/S: O(n*log(n)) due to sort on result, O(n)
+# - use dict to save result, instead of deque
+class Solution0:
+    def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root: return []
+        res = defaultdict(list)
+        dq = deque([(root, int(0))])    # (value, col)
+        while dq:
+            node, col = dq.popleft()
+            res[col].append(node.val)
+            if node.left:
+                dq.append((node.left, col-1))
+            if node.right:
+                dq.append((node.right, col+1))
+            
+        return [res[col] for col in sorted(res.keys())]
+
 
 # BFS - T/S: O(n), O(n)
 # - always from top to bottom, from left to right
@@ -36,7 +55,7 @@ class Solution:
         return list(res)
 
 
-# DFS
+# DFS - Wrong
 # - not correct when node from left half tree in lower level, and stretch 
 #   to the right side, and is visited before those from right half tree 
 #   and in higher level.
@@ -86,6 +105,8 @@ if __name__ == '__main__':
         print(r)
         assert r == [[4], [9, 5], [3, 0, 1], [8, 2], [7]]
 
+
+    unitTest(Solution0())
     unitTest(Solution())
     
     # unitTest(Solution1())

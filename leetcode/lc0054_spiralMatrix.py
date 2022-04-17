@@ -2,7 +2,13 @@ from typing import List
 
 #Given an m x n matrix, return all elements of the matrix in spiral order.
 
-# Greatly simplify the control logic
+# Time: O(m*n)
+# - Control logic:
+#   - assume matrix dimension: m x n
+#   - each time an entire row or column is scanned, m or n is reduced by 1;
+#   - if either m or n reach 0, the scan ends;
+#   - the index i and j change pattern in each direction of scan:
+#     j + 1, i + 1, j - 1, i - 1
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         m, n = len(matrix), len(matrix[0]) # max move per direction

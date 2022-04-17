@@ -35,20 +35,20 @@ from typing import List
 #   - a function call ended at the end of timestamp t
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:
-        tasks = []
+        task_stack = []
         cpu = [0] * n
         prev_time = 0
         for logline in logs:
             log_arr = logline.split(":")
             func, activity, curr_time = int(log_arr[0]), log_arr[1], int(log_arr[2])
             if activity == "start":
-                if tasks:
-                    task = tasks[-1]
+                if task_stack:
+                    task = task_stack[-1]
                     cpu[task] += curr_time - prev_time # start time is at the start of t
                 prev_time = curr_time
-                tasks.append(int(func))
+                task_stack.append(int(func))
             else:  # 'stop'
-                task = tasks.pop()
+                task = task_stack.pop()
                 cpu[task] += curr_time + 1 - prev_time # end time is at the end of t
                 prev_time = curr_time + 1
 

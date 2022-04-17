@@ -58,7 +58,7 @@ class Solution2:
         return ss + [x + [nums[-1]] for x in ss]
 
 
-# Iteration
+# Iteration: Bit Mask
 class Solution3:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)

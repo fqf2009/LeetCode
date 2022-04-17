@@ -64,7 +64,6 @@ class Solution1:
 
 if __name__ == "__main__":
     from unittest import TestCase, main
-    from unittest.mock import patch
     from parameterized import parameterized, parameterized_class
 
     @parameterized_class(('solution',), [(Solution,), (Solution1,)])

@@ -32,7 +32,7 @@ class Solution:
 
         email_map = {}
         for id, acc in enumerate(accounts):
-            for email in acc[1:]:
+            for email in acc[1:]:       # acc[0] is name, acc[1:] are emails
                 if email in email_map:  # redirect all existing emails to this account
                     uf[find(email_map[email])] = id
                 email_map[email] = id

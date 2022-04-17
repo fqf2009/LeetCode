@@ -24,7 +24,7 @@ from collections import defaultdict
 #     max points in the same line pass throught this point[i].
 class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
-        def getSlope(p1: List[int], p2: List[int]):
+        def get_slope(p1: List[int], p2: List[int]):
             (x1, y1), (x2, y2) = p1, p2
             if x1 == x2: return (0, 1)
             if y1 == y2: return (1, 0)
@@ -36,12 +36,11 @@ class Solution:
                 dx, dy = -dx, -dy
             return (dx, dy)
 
-        n = len(points)
         res = 1
-        for i, p1 in enumerate(points[:n-1]):
+        for i, p1 in enumerate(points[:-1]):
             slopes = defaultdict(int)
             for p2 in points[i+1:]:
-                slopes[getSlope(p1, p2)] += 1
+                slopes[get_slope(p1, p2)] += 1
             res = max(res, max(slopes.values()) + 1)
 
         return res

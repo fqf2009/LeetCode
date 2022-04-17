@@ -18,8 +18,8 @@ from itertools import chain
 # Optimization - for only two priority levels (among operators)
 # Algorithm:
 # - scan through every char in s:
-# - res is to accumulate results;
-# - v1, oper, v2 is the previous 3 items, when encountering a new operator;
+# - res is to accumulate results; !!!
+# - v1, oper, v2 is the previous 3 items, when encountering a new operator; !!!
 # - if new char is digit, calculate v2, continue the scan;
 # - if new char is '+' or '-', accumulate v1 to res, and then
 #   set v1 = v2, or v1 = -v2 accordingly;
@@ -28,8 +28,7 @@ from itertools import chain
 # - after v1 is set, set v2 to 0, oper to new operator, continue the scan;
 class Solution:
     def calculate(self, s: str) -> int:
-        v1, v2, oper = 0, 0, '+'
-        res = 0
+        res, v1, oper, v2 = 0, 0, '+', 0
         for ch in chain(s, '+'):
             if ch == ' ':
                 continue

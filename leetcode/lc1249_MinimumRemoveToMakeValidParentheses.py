@@ -12,6 +12,27 @@
 #   s[i] is either'(' , ')', or lowercase English letter.
 from collections import deque
 from difflib import ndiff
+from typing import Iterable, List
+
+
+# Counting: O(n), O(n)
+# - simplify code
+class Solution:
+    def minRemoveToMakeValid(self, s: str) -> str:
+        def remove_unmatched(s: Iterable, pair: str) -> List[str]:
+            diff = 0    # nLeft - nRight
+            res = []
+            for ch in s:
+                if diff <= 0 and ch == pair[1]: continue    # skip unmatched right char in pair
+                res.append(ch)
+                if ch == pair[0]:
+                    diff += 1
+                elif ch == pair[1]:
+                    diff -= 1
+            return res
+
+        temp = remove_unmatched(s, '()')
+        return ''.join(reversed(remove_unmatched(reversed(temp), ')(')))
 
 
 # Counting: O(n), O(n)
@@ -19,7 +40,7 @@ from difflib import ndiff
 # - iterate over string, and count '(' and ')' as nLeft and nRight,
 #   from left to right, any time nLeft < nRight, skip the ')',
 #   from right to left, any time nLeft > nRight, skip the '('.
-class Solution:
+class Solution1:
     def minRemoveToMakeValid(self, s: str) -> str:
         diff = 0    # nLeft - nRight
         res1 = []
@@ -51,7 +72,7 @@ class Solution:
 #   - if there is unmatched ')', skip
 #   - finally, remove the unmatched '(' from the collected items,
 #     using those index from stack.
-class Solution1:
+class Solution2:
     def minRemoveToMakeValid(self, s: str) -> str:
         res1 = []
         stk = []    # keep index of '('
@@ -91,3 +112,4 @@ if __name__ == '__main__':
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())

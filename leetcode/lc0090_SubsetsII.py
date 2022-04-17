@@ -20,8 +20,17 @@ class Solution:
         return [list(x) for x in res]
 
 
-# Iteration
+# - has duplication
 class Solution1:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        if n == 0: return [nums]
+        ss = self.subsetsWithDup(nums[:-1])
+        return ss + [x + [nums[-1]] for x in ss]
+
+
+# Iteration
+class Solution2:
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
         n = len(nums)
         res = set()
@@ -54,4 +63,5 @@ if __name__ == '__main__':
                      [1, 4, 4, 4, 4], [4], [4, 4], [4, 4, 4], [4, 4, 4, 4]]
 
     unitTest(Solution())
-    unitTest(Solution1())
+    # unitTest(Solution1())
+    unitTest(Solution2())

@@ -1,14 +1,15 @@
-from typing import List, Optional
-
 # Given an array of integers nums and an integer k, return the total number 
 # of continuous subarrays whose sum equals to k.
-
-# csum is a dict, in which key is the cumulative sum of nums when visiting
-# each item, and value is how many times this cumulative sum ever happened.
-# The 'total' is the cumulative_sum when visiting each int. Any time
-# (total - k) is also in csum dict, it means that the sum between two csum
-# is k, and csum(total - k) is count of the distinct continous subarrays.
 from collections import defaultdict
+from typing import List
+
+# Analysis:
+# - csum is a dict, in which key is the cumulative sum of nums when visiting
+#   each item, and value is how many times this cumulative sum ever happened.
+# - The 'total' is the cumulative_sum when visiting each int. Any time
+#   (total - k) is also in csum dict, it means that the sum between two csum
+#   is k, and csum(total - k) is the count of the distinct continous subarrays.
+
 
 # use defaultdict
 class Solution:

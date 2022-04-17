@@ -1,4 +1,4 @@
-# # Given two non-negative integers, num1 and num2 represented as string, return
+# Given two non-negative integers, num1 and num2 represented as string, return
 # the sum of num1 and num2 as a string.
 #
 # You must solve the problem without using any built-in library for handling 
@@ -16,16 +16,14 @@ class Solution:
     def addStrings(self, num1: str, num2: str) -> str:
         res = []
         carry = 0
-        for c1, c2 in zip_longest(reversed(num1), reversed(num2)):
-            d1 = ord(c1) - ord('0') if c1 is not None else 0
-            d2 = ord(c2) - ord('0') if c2 is not None else 0
-            carry, val = divmod(d1 + d2 + carry, 10)
+        for c1, c2 in zip_longest(reversed(num1), reversed(num2), fillvalue='0'):
+            carry, val = divmod(int(c1) + int(c2) + carry, 10)
             res.append(val)
-        
+
         if carry > 0 or len(res) == 0:
             res.append(carry)
 
-        return ''.join(chr(x + ord('0')) for x in res[::-1])
+        return ''.join(str(x) for x in res[::-1])
 
 
 if __name__ == '__main__':

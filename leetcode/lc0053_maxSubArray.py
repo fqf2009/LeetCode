@@ -11,11 +11,11 @@ from typing import List
 #    don't need to keep dp[] array at all
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        minCSum, csum, res = 0, 0, nums[0]
+        min_csum, csum, res = 0, 0, nums[0]
         for v in nums:
             csum += v
-            res = max(csum - minCSum, res)
-            minCSum = min(minCSum, csum)
+            res = max(csum - min_csum, res)
+            min_csum = min(min_csum, csum)
 
         return res
 

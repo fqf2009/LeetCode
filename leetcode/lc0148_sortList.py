@@ -18,7 +18,7 @@ class Solution:
         return slow             # type:ignore
 
     def mergeList(self, head1: Optional[ListNode], head2: Optional[ListNode]) -> Optional[ListNode]:
-        dummyHead = p = ListNode()
+        h0 = p = ListNode()
         while head1 and head2:
             if head1.val <= head2.val:
                 p.next = head1
@@ -28,7 +28,7 @@ class Solution:
                 head2 = head2.next
             p = p.next
         p.next = head1 if head1 else head2
-        return dummyHead.next
+        return h0.next
 
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head or not head.next:
@@ -36,8 +36,7 @@ class Solution:
         mid = self.findMid(head)
         right = mid.next
         mid.next = None
-        if mid != head:
-            head = self.sortList(head)
+        head = self.sortList(head)
         right = self.sortList(right)
         return self.mergeList(head, right)
 
