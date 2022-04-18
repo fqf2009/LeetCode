@@ -34,6 +34,7 @@
 ### Binary Search (Template 1) (exact match)
 [0033_searchInRotatedSorted.py](leetcode/lc0033_searchInRotatedSorted.py) ***  
 [0034_searchRange.py](leetcode/lc0034_searchRange.py)**  
+[0074_Search2DMatrix.py](leetcode/lc0074_Search2DMatrix.py)  
 [0702_SearchInSortedArrayOfUnknownSize.py](leetcode/lc0702_SearchInSortedArrayOfUnknownSize.py)
 
 ### Binary Search (Template 2) (bisect.bisect_left & bisect_right)
@@ -74,7 +75,9 @@
 ### Bitwise Operation (Bit Manipulation)
 [0029_divide.py](leetcode/lc0029_divide.py)  
 [0050_pow.py](leetcode/lc0050_pow.py)***  
+[0078_Subsets.py](leetcode/lc0078_Subsets.py)  
 [0090_SubsetsII.py](leetcode/lc0090_SubsetsII.py)  
+[0136_SingleNumber.py](leetcode/lc0136_SingleNumber.py)  
 [0190_reverseBits.py](leetcode/lc0190_reverseBits.py)  
 [0191_nbOneBit.py](leetcode/lc0191_nbOneBit.py)  
 [0201_BitwiseANDofNumbersRange.py](leetcode/lc0201_BitwiseANDofNumbersRange.py)  
@@ -93,6 +96,7 @@
 [0173_BinarySearchTreeIterator.py](leetcode/lc0173_BinarySearchTreeIterator.py)(leetcode/lcIterative)  
 [0199_BinaryTreeRightSideView.py](leetcode/lc0199_BinaryTreeRightSideView.py)  
 [0200_NumberOfIslands.py](leetcode/lc0200_NumberOfIslands.py)  
+[0297_SerializeAndDeserializeBinaryTree.py](leetcode/lc0297_SerializeAndDeserializeBinaryTree.py)  
 [0314_BinaryTreeVerticalOrderTraversal.py](leetcode/lc0314_BinaryTreeVerticalOrderTraversal.py)  
 [0322_CoinChange.py](leetcode/lc0322_CoinChange.py)  
 [0317_ShortestDistanceFromAllBuildings.py](leetcode/lc0317_ShortestDistanceFromAllBuildings.py)**  
@@ -119,8 +123,9 @@
 [1569_NbWaysToReorderListToBST.py](leetcode/lc1569_NbWaysToReorderListToBST.py)  
 [1602_FindNearestRightNodeInBinaryTree.py](leetcode/lc1602_FindNearestRightNodeInBinaryTree.py)  
 [2201_CountArtifactsThatCanBeExtracted.py](leetcode/lc2201_CountArtifactsThatCanBeExtracted.py)  
+[2246_LongestPathWithDifferentAdjacentCharacters.py](leetcode/lc2246_LongestPathWithDifferentAdjacentCharacters.py)  
 
-# BFS (Matrix)
+### BFS (Matrix)
 [0286_WallsAndGates.py](leetcode/lc0286_WallsAndGates.py)  
 
 ### BFS and DFS (Topology Sort and Detect Cycle in Directed Graph)
@@ -342,8 +347,9 @@
 [0398_RandomPickIndex.py](leetcode/lc0398_RandomPickIndex.py)  
 
 ### Matrix
+[0048_RotateImage.py](leetcode/lc0048_RotateImage.py)  
 [0054_spiralMatrix.py](leetcode/lc0054_spiralMatrix.py)  
-[0074_Search2DMatrix.py](leetcode/lc0074_Search2DMatrix.py)  
+[0311_SparseMatrixMultiplication.py](leetcode/lc0311_SparseMatrixMultiplication.py)  
 
 ### Merge Sort
 [0023_MergeKSortedLists.py](leetcode/lc0023_MergeKSortedLists.py)  
@@ -376,6 +382,7 @@
 [0523_ContinuousSubarraySum.py](leetcode/lc0523_ContinuousSubarraySum.py)  
 [0528_RandomPickWithWeight.py](leetcode/lc0528_RandomPickWithWeight.py)  
 [0862_ShortestSubarrayWithSumAtLeastK.py](leetcode/lc0862_ShortestSubarrayWithSumAtLeastK.py)  
+[2245_MaximumTrailingZerosInCorneredPath.py](leetcode/lc2245_MaximumTrailingZerosInCorneredPath.py)  
 
 ### Queue (Deque)
 [0346_MovingAverageFromDataStream.py](leetcode/lc0346_MovingAverageFromDataStream.py)  
