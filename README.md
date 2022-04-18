@@ -105,7 +105,6 @@
 [0472_ConcatenatedWords.py](leetcode/lc0472_ConcatenatedWords.py)  
 [0515_FindLargestValueInEachTreeRow.py](leetcode/lc0515_FindLargestValueInEachTreeRow.py)  
 [0542_DistinceFromOneToZeroInMatrix.py](leetcode/lc0542_DistinceFromOneToZeroInMatrix.py)  
-[0543_DiameterOfBinaryTree.py](leetcode/lc0543_DiameterOfBinaryTree.py)  
 [0572_SubtreeOfAnotherTree.py](leetcode/lc0572_SubtreeOfAnotherTree.py)  
 [0617_MergeTwoBinaryTrees.py](leetcode/lc0617_MergeTwoBinaryTrees.py)  
 [0695_MaxAreaOfIsland.py](leetcode/lc0695_MaxAreaOfIsland.py)  
@@ -119,7 +118,6 @@
 [1022_SumOfRootToLeafBinaryNumbers.py](leetcode/lc1022_SumOfRootToLeafBinaryNumbers.py)  
 [1325_DeleteLeavesWithGivenValue.py](leetcode/lc1325_DeleteLeavesWithGivenValue.py)  
 [1469_FindAllTheLonelyNodes.py](leetcode/lc1469_FindAllTheLonelyNodes.py)  
-[1522_DiameterOfN-AryTree.py](leetcode/lc1522_DiameterOfN-AryTree.py)  
 [1569_NbWaysToReorderListToBST.py](leetcode/lc1569_NbWaysToReorderListToBST.py)  
 [1602_FindNearestRightNodeInBinaryTree.py](leetcode/lc1602_FindNearestRightNodeInBinaryTree.py)  
 [2201_CountArtifactsThatCanBeExtracted.py](leetcode/lc2201_CountArtifactsThatCanBeExtracted.py)  
@@ -502,6 +500,10 @@
 [0938_RangeSumOfBST.py](leetcode/lc0938_RangeSumOfBST.py)  
 [1382_BalanceBinarySearchTree.py](leetcode/lc1382_BalanceBinarySearchTree.py)  
 [1569_NbWaysToReorderListToBST.py](leetcode/lc1569_NbWaysToReorderListToBST.py)  
+
+### Tree (Diameter)
+[0543_DiameterOfBinaryTree.py](leetcode/lc0543_DiameterOfBinaryTree.py)  
+[1522_DiameterOfN-AryTree.py](leetcode/lc1522_DiameterOfN-AryTree.py)  
 
 ### Trie
 [0208_ImplementTrie_PrefixTree.py](leetcode/lc0208_ImplementTrie_PrefixTree.py)  
