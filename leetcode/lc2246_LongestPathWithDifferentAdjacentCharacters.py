@@ -13,8 +13,43 @@
 #   parent[0] == -1
 #   parent represents a valid tree.
 #   s consists of only lowercase English letters.
-from collections import deque
+from collections import defaultdict, deque
+import heapq
 from typing import List
+
+
+# Graph + DFS - T/S: O(n), O(n)
+# - build a (top-down, or root-to-leaf) directed graph (tree);
+# - DFS visit starting from root node;
+# - only the extendable length is returned from the recursive 
+#   DFS visit of child nodes;
+# - for all the child nodes with different value from parent node,
+#   the longest two (or one) of the returned length can be added up 
+#   and plus parent node to form new length (path);
+# - because each node will update the global max_length, so no need
+#   to return un-extendable length to parent node.
+# - the code below use node count as path length
+class Solution:
+    def longestPath(self, parent: List[int], s: str) -> int:
+        tree = defaultdict(list)
+        for i, p in enumerate(parent):
+            tree[p].append(i)
+
+        max_len = 1
+        def dfs_len(node: int) -> int: # extendable_length
+            lengths = []
+            for child in tree[node]:
+                child_len = dfs_len(child)
+                if s[child] != s[node]:
+                    lengths.append(child_len)
+            
+            largest2 = heapq.nlargest(2, lengths)
+            nonlocal max_len
+            max_len = max(max_len, sum(largest2) + 1)
+            return 1 if not largest2 else 1 + largest2[0]
+        
+        dfs_len(0)
+        return max_len
 
 
 # Graph + BFS - T/S: O(n), O(n)
@@ -25,7 +60,7 @@ from typing import List
 # - distinguish extendable_path_len, un_extendable_path_len:
 #   if a node has different value with its child, then this path
 #   length can still be exended to its parent.
-class Solution:
+class Solution1:
     def longestPath(self, parent: List[int], s: str) -> int:
         n = len(parent)
         indegree = [0] * n
@@ -59,14 +94,18 @@ class Solution:
 
 
 if __name__ == "__main__":
+    from unittest import TestCase, main
+    from parameterized import parameterized, parameterized_class
 
-    def unit_test(sol):
-        r = sol.longestPath(parent=[-1, 0, 0, 1, 1, 2], s="abacbe")
-        print(r)
-        assert r == 3
+    @parameterized_class(('solution',), [(Solution,), (Solution1,)])
+    class TestSolution(TestCase):
+        @parameterized.expand([
+            ([-1, 0, 0, 1, 1, 2], "abacbe", 3),
+            ([-1, 0, 0, 0], "aabc", 3),
+        ])
+        def test_longestPath(self, parent, s, expected):
+            sol = self.solution()       # type:ignore
+            r = sol.longestPath(parent, s)
+            self.assertEqual(r, expected)
 
-        r = sol.longestPath(parent=[-1, 0, 0, 0], s="aabc")
-        print(r)
-        assert r == 3
-
-    unit_test(Solution())
+    main()
