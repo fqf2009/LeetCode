@@ -41,8 +41,23 @@ class Node:
 
 
 # DFS + Recursion + N-Ary Tree, O(n)
-# - heapq.nlargest() is better than list.sort()
+# - Optimize: save max diameter during DFS visit, only return depth to parent node
 class Solution:
+    def diameter(self, root: 'Node') -> int:
+        def dfs_visit(root: Node):
+            depths = heapq.nlargest(2, [dfs_visit(node) for node in root.children])
+            nonlocal diameter
+            diameter = max(diameter, sum(depths) + len(depths))
+            return depths[0] + 1 if depths else 0
+
+        diameter = 0
+        dfs_visit(root)
+        return diameter
+
+
+# DFS + Recursion + N-Ary Tree, O(n)
+# - heapq.nlargest() is better than list.sort()
+class Solution1:
     def diameter(self, root: 'Node') -> int:
         def depth_n_diameter(root: Node):
             n = len(root.children)
@@ -64,27 +79,23 @@ class Solution:
 
 
 if __name__ == "__main__":
-    def unitTest(sol):
-        root = Node.fromBfsList([3, None, 1, None, 5])
-        r = sol.diameter(root)
-        print(r)
-        assert r == 2
+    from unittest import TestCase, main
+    from parameterized import parameterized, parameterized_class
 
-        root = Node.fromBfsList([1, None, 3, 2, 4, None, 5, 6])
-        r = sol.diameter(root)
-        print(r)
-        assert r == 3
+    @parameterized_class(('solution',), [(Solution,), (Solution1,)])
+    class TestSolution(TestCase):
+        @parameterized.expand([
+            ([3, None, 1, None, 5], 2),
+            ([1, None, 3, 2, 4, None, 5, 6], 3),
+            ([1, None, 2, None, 3, 4, None, 5, None, 6], 4),
+            ([1, None, 2, 3, 4, 5, None, None, 6, 
+              7, None, 8, None, 9, 10, None, None, 
+              11, None, 12, None, 13, None, None, 14], 7),
+        ])
+        def test_diameter(self, lst, expected):
+            sol = self.solution()       # type:ignore
+            root = Node.fromBfsList(lst)
+            r = sol.diameter(root)
+            self.assertEqual(r, expected)
 
-        root = Node.fromBfsList([1, None, 2, None, 3, 4, None, 5, None, 6])
-        r = sol.diameter(root)
-        print(r)
-        assert r == 4
-
-        root = Node.fromBfsList([1, None, 2, 3, 4, 5, None, None, 6, 7,
-                                 None, 8, None, 9, 10, None, None, 11,
-                                 None, 12, None, 13, None, None, 14])
-        r = sol.diameter(root)
-        print(r)
-        assert r == 7
-
-    unitTest(Solution())
+    main()
