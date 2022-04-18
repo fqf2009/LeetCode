@@ -33,7 +33,7 @@ class Solution:
                         break
                 break
 
-        res = int(''.join(s[:pivot] + (s[pivot:][::-1])))
+        res = int(''.join(s[:pivot] + s[pivot:][::-1]))
         return res if res > n and res <= 2**31 - 1 else -1
 
 
