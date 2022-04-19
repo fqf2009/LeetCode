@@ -131,6 +131,9 @@
 [0210_CourseSchedule2.py](leetcode/lc0210_CourseSchedule2.py)  
 [0269_AlienDictionary.py](leetcode/lc0269_AlienDictionary.py)  
 
+### BFS (undirected graph + layed visit => directed graph) + Backtrack (all possible pathes)
+[0126_WordLadderII.py](leetcode/lc0126_WordLadderII.py)  
+
 ### Combination and Permutation (Combinatorics)
 [0017_LetterCombinationsOfPhoneNumber.py](leetcode/lc0017_LetterCombinationsOfPhoneNumber.py)  
 [0031_nextPermutation.py](leetcode/lc0031_nextPermutation.py)  
@@ -140,6 +143,7 @@
 [0047_PermutationsII.py](leetcode/lc0047_PermutationsII.py)  
 [0077_Combinations.py](leetcode/lc0077_Combinations.py)  
 [0254_FactorCombinations.py](leetcode/lc0254_FactorCombinations.py)  
+[0556_NextGreaterElementIII.py](leeetcode/lc0556_NextGreaterElementIII.py)  
 [0784_LetterCasePermutation.py](leetcode/lc0784_LetterCasePermutation.py)  
 
 ### Counting
@@ -348,6 +352,7 @@
 [0048_RotateImage.py](leetcode/lc0048_RotateImage.py)  
 [0054_spiralMatrix.py](leetcode/lc0054_spiralMatrix.py)  
 [0311_SparseMatrixMultiplication.py](leetcode/lc0311_SparseMatrixMultiplication.py)  
+[1428_LeftmostColumnWithAtLeastAOne.py](/leetcode/lc1428_LeftmostColumnWithAtLeastAOne.py)  
 
 ### Merge Sort
 [0023_MergeKSortedLists.py](leetcode/lc0023_MergeKSortedLists.py)  
