@@ -8,8 +8,27 @@
 #   s consists only of printable ASCII characters.
 
 
-# Two Pointers
 class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        i, j = 0, len(s) - 1
+        while i < j:
+            ch1 = s[i].lower()
+            ch2 = s[j].lower()
+            if not ch1.isalnum():
+                i += 1
+            elif not ch2.isalnum():
+                j -= 1
+            elif ch1 != ch2:
+                return False
+            else:
+                i += 1
+                j -= 1                
+
+        return True
+
+
+# Two Pointers
+class Solution1:
     def isPalindrome(self, s: str) -> bool:
         i, j = 0, len(s) - 1
         while i < j:
@@ -44,3 +63,4 @@ if __name__ == "__main__":
         assert r == True
 
     unit_test(Solution())
+    unit_test(Solution1())
