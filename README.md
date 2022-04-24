@@ -47,6 +47,8 @@
 [0410_SplitArrayLargestSum.py](leetcode/lc0410_SplitArrayLargestSum.py)  
 [0744_FindSmallestLetterGreaterThanTarget.py](leetcode/lc0744_FindSmallestLetterGreaterThanTarget.py)  
 [0719_FindKthSmallestPairDistance.py](leetcode/lc0719_FindKthSmallestPairDistance.py)  
+[2250_CountNumberOfRectanglesContainingEachPoint.py](leetcode/lc2250_CountNumberOfRectanglesContainingEachPoint.py)  
+[2251_NumberOfFlowersInFullBloom.py](leetcode/lc2251_NumberOfFlowersInFullBloom.py)  
 
 ### Binary Search (Template 3) (more items between left and right bounds)
 [0658_FindKClosestElements.py](leetcode/lc0658_FindKClosestElements.py)  
@@ -87,6 +89,7 @@
 
 ### Breadth-First Search (BFS) and Depth-First Search (DFS)
 [0111_minDepthOfBinaryTree.py](leetcode/lc0111_minDepthOfBinaryTree.py)  
+[0103_BinaryTreeZigzagLevelOrderTraversal.py](leetcode/lc0103_BinaryTreeZigzagLevelOrderTraversal.py)  
 [0113_PathSumII.py](leetcode/lc0113_PathSumII.py)  
 [0116_PopulatingNextRightPointersInEachNode.py](leetcode/lc0116_PopulatingNextRightPointersInEachNode.py)  
 [0117_PopulatingNextRightPointersInEachNodeII.py](leetcode/lc0117_PopulatingNextRightPointersInEachNodeII.py)  
@@ -174,7 +177,6 @@
 [0091_DecodeWays.py](leetcode/lc0091_DecodeWays.py)  
 [0096_UniqueBinarySearchTrees.py](leetcode/lc0096_UniqueBinarySearchTrees.py)  
 [0120_Triangle.py](leetcode/lc0120_Triangle.py)  
-[0121_maxProfit.py](leetcode/lc0121_maxProfit.py)  
 [0139_WordBreak.py](leetcode/lc0139_WordBreak.py)  
 [0140_WordBreak2.py](leetcode/lc0140_WordBreak2.py)  
 [0152_MaximumProductSubarray.py](leetcode/lc0152_MaximumProductSubarray.py)  
@@ -260,6 +262,8 @@
 [0049_GroupAnagrams.py](leetcode/lc0049_GroupAnagrams.py)  
 [0349_IntersectionOfTwoArrays.py](leetcode/lc0349_IntersectionOfTwoArrays.py)  
 [2215_FindDifferenceOfTwoArrays.py](leetcode/lc2215_FindDifferenceOfTwoArrays.py)  
+[2248_IntersectionOfMultipleArrays.py](leetcode/lc2248_IntersectionOfMultipleArrays.py)  
+[2249_CountLatticePointsInsideCircle.py](leetcode/lc2249_CountLatticePointsInsideCircle.py)  
 
 ### HashMap (Dict)
 [0387_FirstUniqueCharacterInString.py](leetcode/lc0387_FirstUniqueCharacterInString.py)  
@@ -284,6 +288,7 @@
 [0160_intersectionTwoLinkedList.py](leetcode/lc0160_intersectionTwoLinkedList.py)  
 [0206_ReverseLinkedList.py](leetcode/lc0206_ReverseLinkedList.py)  
 [0234_isPalindromeLinkedList.py](leetcode/lc0234_isPalindromeLinkedList.py)  
+[0234_PalindromeLinkedList.py](leetcode/lc0234_PalindromeLinkedList.py)  
 [0369_PlusOneLinkedList.py](leetcode/lc0369_PlusOneLinkedList.py)  
 [0382_LinkedListRandomNode.py](leetcode/lc0382_LinkedListRandomNode.py)  
 [0876_MiddleOfLinkedList.py](leetcode/lc0876_MiddleOfLinkedList.py)  
@@ -309,6 +314,8 @@
 [0065_ValidNumber.py](leetcode/lc0065_ValidNumber.py)  
 [0118_pascalTriangle.py](leetcode/lc0118_pascalTriangle.py)  
 [0119_pascalTriangle2.py](leetcode/lc0119_pascalTriangle2.py)  
+[0121_maxProfit.py](leetcode/lc0121_maxProfit.py)  
+[0122_BestTimeToBuyAndSellStockII.py](leetcode/lc0122_BestTimeToBuyAndSellStockII.py)  
 [0163_findMissingRanges.py](leetcode/lc0163_findMissingRanges.py)  
 [0168_excelColumnTitle.py](leetcode/lc0168_excelColumnTitle.py)  
 [0249_GroupShiftedStrings.py](leetcode/lc0249_GroupShiftedStrings.py)  
@@ -351,6 +358,7 @@
 ### Matrix
 [0048_RotateImage.py](leetcode/lc0048_RotateImage.py)  
 [0054_spiralMatrix.py](leetcode/lc0054_spiralMatrix.py)  
+[0289_GameOfLife.py](leetcode/lc0289_GameOfLife.py)  
 [0311_SparseMatrixMultiplication.py](leetcode/lc0311_SparseMatrixMultiplication.py)  
 [1428_LeftmostColumnWithAtLeastAOne.py](/leetcode/lc1428_LeftmostColumnWithAtLeastAOne.py)  
 
@@ -425,6 +433,7 @@
 [2225_FindPlayersWithZeroOrOneLosses.py](leetcode/lc2225_FindPlayersWithZeroOrOneLosses.py)  
 
 ### Sliding Window (Moving Window)
+[0076_MinimumWindowSubstring.py](leetcode/lc0076_MinimumWindowSubstring.py)  
 [0209_MinimumSizeSubarraySum.py](leetcode/lc0209_MinimumSizeSubarraySum.py)  
 [0410_SplitArrayLargestSum.py](leetcode/lc0410_SplitArrayLargestSum.py)  
 [0438_FindAllAnagramsInString.py](leetcode/lc0438_FindAllAnagramsInString.py)  
@@ -464,6 +473,9 @@
 
 ### String
 [0415_AddStrings.py](leetcode/lc0415_AddStrings.py)  
+
+### String (Custom Comparison)
+[0179_LargestNumber.py](leetcode/lc0179_LargestNumber.py)  
 
 ### String Matching
 [0010_RegularExpressionMatching.py](leetcode/lc0010_RegularExpressionMatching.py)  
@@ -509,6 +521,9 @@
 ### Tree (Diameter)
 [0543_DiameterOfBinaryTree.py](leetcode/lc0543_DiameterOfBinaryTree.py)  
 [1522_DiameterOfN-AryTree.py](leetcode/lc1522_DiameterOfN-AryTree.py)  
+
+### Tree (Merkle Tree or Hash Tree)
+[0652_FindDuplicateSubtrees.py](leetcode/lc0652_FindDuplicateSubtrees.py)  
 
 ### Trie
 [0208_ImplementTrie_PrefixTree.py](leetcode/lc0208_ImplementTrie_PrefixTree.py)  
