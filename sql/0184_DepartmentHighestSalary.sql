@@ -32,3 +32,20 @@ select d.name Department,
     on d.id = e.departmentId
  where rk = 1
  ;
+
+
+-- Oracle, Postgres, MySQL, T-SQL
+select d.name Department,
+       e.name Employee,
+       salary
+  from department d
+  join (
+        select departmentId,
+               name,
+               salary,
+               max(salary) over (partition by departmentid) dept_max_salary
+          from employee
+       ) e
+    on e.departmentId = d.id
+ where e.salary = e.dept_max_salary
+ ;

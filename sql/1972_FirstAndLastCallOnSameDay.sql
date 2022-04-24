@@ -117,7 +117,7 @@ select distinct user_id
  where first_talk_to = last_talk_to
 ;
 
--- MySQL
+-- MySQL, Postgres
 select distinct user_id
   from (
         select user_id,
@@ -161,4 +161,68 @@ select distinct user_id
                ) c
        ) c1
  where first_talk_to = last_talk_to
+ ;
+
+-- Not to use analytic function
+-- Postgres, MySQL
+with c as (
+    select caller_id user_id, recipient_id talk_to_id, call_time
+      from calls
+     union all
+    select recipient_id, caller_id, call_time
+      from calls
+)
+select distinct user_id
+  from (
+        select d.user_id,
+               d.call_date,
+               count(distinct talk_to_id) talk_to_cnt
+          from c
+          join (
+                select user_id,
+                       date(call_time) call_date,
+                       min(call_time) first_call_time,
+                       max(call_time) last_call_time
+                  from c
+                 group by user_id, 
+                          date(call_time)
+               ) d
+            on c.user_id = d.user_id
+           and (c.call_time = d.first_call_time or c.call_time = d.last_call_time)
+         group by d.user_id, 
+                  d.call_date
+        having count(distinct talk_to_id) = 1
+       ) a
+ ;
+
+-- Not to use analytic function
+-- Oracle
+with c as (
+    select caller_id user_id, recipient_id talk_to_id, call_time
+      from calls
+     union all
+    select recipient_id, caller_id, call_time
+      from calls
+)
+select distinct user_id
+  from (
+        select d.user_id,
+               d.call_date,
+               count(distinct talk_to_id) talk_to_cnt
+          from c
+          join (
+                select user_id,
+                       trunc(call_time, 'dd') call_date,
+                       min(call_time) first_call_time,
+                       max(call_time) last_call_time
+                  from c
+                 group by user_id, 
+                          trunc(call_time, 'dd')
+               ) d
+            on c.user_id = d.user_id
+           and (c.call_time = d.first_call_time or c.call_time = d.last_call_time)
+         group by d.user_id, 
+                  d.call_date
+        having count(distinct talk_to_id) = 1
+       ) a
  ;

@@ -32,3 +32,13 @@ select score,
   from scores
  order by score desc
  ;
+
+ -- without analytic function
+ select score,  
+        (select count(distinct r.score) 
+           from Scores r
+          where r.score >= s.score
+        ) "Rank"
+   from Scores s
+  order by 1 desc
+  ;

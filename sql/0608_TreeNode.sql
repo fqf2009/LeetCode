@@ -43,7 +43,7 @@ select t.id,
 
 
 -- use left join instead
-select distinct p.id,
+select distinct p.id,   -- distinct is important
        case when p.p_id is null then 'Root'
             when c.id is null then 'Leaf'
             else 'Inner'
