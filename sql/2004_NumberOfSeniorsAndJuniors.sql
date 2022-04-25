@@ -51,3 +51,29 @@ with t as(
        ) c
  where csum_salary <= (select 70000 - coalesce(senior_salary, 0) from t)
  ;
+
+
+-- practice again
+-- Postgres
+with t as(
+    select count(*) senior_cnt,
+           70000 - coalesce(max(csum_salary), 0) junior_budget
+      from (
+            select sum(salary) over(order by salary) csum_salary
+              from Candidates
+             where experience = 'Senior'
+           ) s
+     where s.csum_salary <= 70000
+)
+select 'Junior' experience,
+       count(*) accepted_candidates
+  from (
+        select sum(salary) over(order by salary) csum_salary
+          from Candidates c
+         where experience = 'Junior'
+       ) s
+ where s.csum_salary < (select junior_budget from t)
+ union all
+select 'Senior', senior_cnt
+  from t
+ ;

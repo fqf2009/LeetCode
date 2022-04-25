@@ -189,3 +189,60 @@ with recursive t(start_year, end_year) as (
      on p.product_id = s.product_id
   order by product_id, report_year
 ;
+
+
+-- Practise again
+-- group by is useful if any product has two periods of sales overlapping just in year
+-- Postgres
+select p.product_id,
+       p.product_name,
+       s.report_year,
+       sum((s.end_date - s.start_date + 1) * s.average_daily_sales) total_amount 
+  from (
+        select report_year,
+               product_id,
+               average_daily_sales,
+               greatest(to_date(report_year::text || '0101', 'yyyymmdd'), period_start) start_date,
+               least(to_date(report_year::text || '1231', 'yyyymmdd'), period_end) end_date
+          from Sales, lateral(
+                select generate_series(extract(year from period_start), 
+                                       extract(year from period_end)) report_year
+               ) y
+       ) s
+  join product p
+    on p.product_id = s.product_id
+ group by p.product_id,
+          p.product_name,
+          s.report_year
+ order by p.product_id,
+          s.report_year
+          ;
+
+-- Oracle
+with t as(
+    select to_date((start_year + level - 1) || '0101', 'yyyymmdd') start_date,
+           to_date((start_year + level - 1) || '1231', 'yyyymmdd') end_date,
+           to_char(start_year + level - 1)   report_year
+      from ( select extract(year from min(s.period_start)) start_year, 
+                    extract(year from max(s.period_end)) end_year
+               from Sales s
+           )
+   connect by start_year + level - 1 <= end_year
+)
+ select s.product_id,
+        p.product_name,
+        t.report_year,
+        sum(s.average_daily_sales * (least(period_end, t.end_date) - 
+                            greatest(period_start, t.start_date) + 1)) total_amount
+   from Sales s
+   join t
+     on (s.period_start between t.start_date and t.end_date) or
+        (s.period_end between t.start_date and t.end_date) or
+        (s.period_start < t.start_date and s.period_end > t.end_date)
+   join product p
+     on p.product_id = s.product_id
+  group by s.product_id,
+           p.product_name,
+           t.report_year
+  order by product_id, report_year
+  ;
