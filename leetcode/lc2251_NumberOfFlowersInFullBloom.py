@@ -15,13 +15,37 @@
 #   1 <= persons.length <= 5 * 10^4
 #   1 <= persons[i] <= 10^9
 from collections import defaultdict
-from itertools import accumulate
+from itertools import accumulate, chain
 from typing import List
 from sortedcontainers import SortedDict
+from bisect import bisect_left, bisect_right
 
 
-# Simpler code from: https://leetcode.com/problems/number-of-flowers-in-full-bloom/discuss/1977099/C%2B%2BPython-Binary-Search-and-Sweep-Line
+# Sweep Line: T/S: O((f+p)*log(f+p)), O(f+p)
 class Solution:
+    def fullBloomFlowers(self, flowers: List[List[int]], persons: List[int]) -> List[int]:
+        res = [0] * len(persons)
+        bloom = 0
+        for _, delta, i in sorted(chain(((t, 2, i)for i, t in enumerate(persons)),
+                chain.from_iterable([(t1, 1, 0), (t2+1, -1, 0)] for t1, t2 in flowers))):
+            if delta == 2:
+                res[i] = bloom
+            else:
+                bloom += delta
+
+        return res
+
+
+# from: https://leetcode.com/problems/number-of-flowers-in-full-bloom/discuss/1976804/Python3-2-Lines-Sort-and-Binary-Search
+# idea: binary search for: how many flowers started bloom, minus how many ended bloom.
+class Solution1:
+    def fullBloomFlowers(self, flowers: List[List[int]], persons: List[int]) -> List[int]:
+        start, end = sorted(a for a, _ in flowers), sorted(b for _, b in flowers)
+        return [bisect_right(start, t) - bisect_left(end, t) for t in persons]
+
+
+# from: https://leetcode.com/problems/number-of-flowers-in-full-bloom/discuss/1977099/C%2B%2BPython-Binary-Search-and-Sweep-Line
+class Solution2:
     def fullBloomFlowers(self, flowers: List[List[int]], persons: List[int]) -> List[int]:
         bloom_by_time = SortedDict({0: 0})
         for i, j in flowers:
@@ -34,7 +58,7 @@ class Solution:
 
 # Prefix Sum + Binary Search
 # T/S: O(f*log(f) + p*log(f)), O(f)
-class Solution1:
+class Solution3:
     def fullBloomFlowers(self, flowers: List[List[int]], persons: List[int]) -> List[int]:
         bloom = defaultdict(int)
         for start, end in flowers:
@@ -77,3 +101,4 @@ if __name__ == "__main__":
 
     unit_test(Solution())
     unit_test(Solution1())
+    unit_test(Solution2())
