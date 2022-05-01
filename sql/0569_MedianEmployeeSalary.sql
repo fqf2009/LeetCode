@@ -24,6 +24,22 @@ insert into Employee (id, company, salary) values ('17', 'C', '65');
 --Write an SQL query to find the median salary of each company.
 --Return the result table in any order.
 
+-- all DBs
+select id,
+       company,
+       salary 
+  from (
+        select id,
+               company,
+               salary,
+               row_number() over (partition by company order by salary) rn,
+               count(*) over (partition by company) cnt
+          from employee e
+         order by 2, 3
+       ) s
+ where rn between cnt/2.0 and cnt/2.0 + 1
+ ;
+
 -- Postgres
 select id,
        company,
@@ -40,7 +56,7 @@ select id,
  where rn = (cnt+1)/2 or rn = (cnt+2)/2   -- mid 1 row for odd count, 2 rows for even count
  ;
 
--- Oracle
+-- Postgres, Oracle
 select id,
        company,
        salary 

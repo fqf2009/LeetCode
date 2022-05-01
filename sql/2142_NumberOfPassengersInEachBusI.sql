@@ -21,6 +21,7 @@ insert into Passengers (passenger_id, arrival_time) values ('14', '7');
 -- Return the result table ordered by bus_id in ascending order.
 
 -- Postgres, Oracle, MySQL, SQL Server
+-- left join
 select bus_id,
        count(passenger_id) passengers_cnt 
   from (
@@ -35,3 +36,19 @@ select bus_id,
  group by bus_id
  order by bus_id
  ;
+
+-- right join
+select b.bus_id,
+       count(passenger_id) passengers_cnt
+  from Passengers p
+ right join (
+        select bus_id,
+               arrival_time,
+               coalesce(lag(arrival_time) over (order by arrival_time), -1) prev_arrival
+          from Buses 
+       ) b
+    on p.arrival_time > b.prev_arrival and p.arrival_time <= b.arrival_time
+ group by b.bus_id
+ order by b.bus_id
+ ;
+ 

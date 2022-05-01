@@ -95,3 +95,24 @@ select c.customer_id,
        ) o
     on o.customer_id = c.customer_id
     ;
+
+-- Reducde one level of nesting
+select c.customer_id,
+       name
+  from Customers c
+  join (
+        select extract(year_month from order_date),
+               customer_id,
+               sum(price*quantity) amount
+          from orders o
+          join product p
+            on p.product_id = o.product_id
+         where order_date between date'2020-06-01' and date'2020-07-31'
+         group by extract(year_month from order_date),
+                  customer_id
+        having sum(price*quantity) >= 100
+       ) o
+    on c.customer_id = o.customer_id
+ group by customer_id
+having count(*) = 2
+;

@@ -66,10 +66,9 @@ select id,
        visit_date,
        people
   from (
-        select min(id) min_id,
-               max(id) max_id,
-               grp, 
-               count(*) cnt
+        select grp,
+               min(id) min_id,
+               max(id) max_id
         from (
                 select id,
                        id - row_number() over(order by id) grp
@@ -77,10 +76,10 @@ select id,
                 where people >= 100
              ) c
        group by grp
+      having count(*) >= 3    -- n = 3
        ) c
   join stadium s
     on s.id between c.min_id and c.max_id
- where c.cnt >= 3             -- n = 3
  order by visit_date
 ;
 
@@ -89,10 +88,9 @@ select id,
        visit_date,
        people
   from (
-        select min(id) min_id,            -- min, max still use old id for join
-               max(id) max_id,
-               grp, 
-               count(*) cnt
+        select grp,
+               min(id) min_id,            -- min, max still use old id for join
+               max(id) max_id
         from (
                 select id,
                        newid - row_number() over(order by newid) grp
@@ -105,10 +103,10 @@ select id,
                  where people >= 100
              ) c
        group by grp
+       having count(*) >= 3    -- n = 3
        ) c
   join stadium s
     on s.id between c.min_id and c.max_id
- where c.cnt >= 3
  order by visit_date
 ;
 

@@ -44,6 +44,19 @@ select case when req = 0 then 0.0
        ) a
  ;
 
+-- MySQL also can count(distinct composit_type)
+select round(case when request_count = 0 then 0.0
+                  else accept_count / request_count
+             end, 2) accept_rate
+  from (
+        select count(distinct requester_id, accepter_id) accept_count
+          from RequestAccepted
+       ) a
+  join (
+        select count(distinct sender_id, send_to_id) request_count
+          from FriendRequest 
+       ) r
+;
 
 -- Oracle can nest aggregate function (not for postgres)
 -- It make sense, think about second count as:

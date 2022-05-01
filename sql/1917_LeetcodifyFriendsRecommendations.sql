@@ -2,7 +2,12 @@
 Drop table If Exists Listens;
 Drop table If Exists Friendship;
 Create table If Not Exists Listens (user_id int, song_id int, day date);
+-- Note there may be duplicates in Listens table
+
 Create table If Not Exists Friendship (user1_id int, user2_id int);
+-- (user1_id, user2_id) is the primary key for this table.
+-- Note that user1_id < user2_id.
+
 -- Test case 1
 Truncate table Listens;
 insert into Listens (user_id, song_id, day) values ('1', '10', '2021-03-15');
@@ -53,6 +58,7 @@ Truncate table Friendship;
 insert into Friendship (user1_id, user2_id) values ('2', '3');
 */
 
+
 -- Write an SQL query to recommend friends to Leetcodify users. 
 -- We recommend user x to user y if:
 --      Users x and y are not friends, and
@@ -88,3 +94,68 @@ select distinct user1 user_id,
          or (f.user1_id = l.user2 and f.user2_id = l.user1)
  )
  ;
+
+
+-- Left join seems have better performance
+select user_id,
+       recommended_id
+  from (
+        select distinct user1 user_id,
+               user2 recommended_id
+          from (
+                select l1.user_id user1,
+                       l2.user_id user2,
+                       l1.day
+                  from listens l1
+                  join listens l2
+                    on l1.user_id <> l2.user_id
+                   and l1.day = l2.day
+                   and l1.song_id = l2.song_id
+                 group by l1.user_id,
+                          l2.user_id,
+                          l1.day
+                having count(distinct l1.song_id) >= 3
+               ) l
+       ) l
+  left join Friendship f
+    on (f.user1_id = l.user_id and f.user2_id = l.recommended_id) or
+       (f.user1_id = l.recommended_id and f.user2_id = l.user_id)
+ where f.user1_id is null
+;
+
+
+-- based on the precondition in Friendship table: user1_id < user2_id
+-- seems even faster, guess there are too much duplicates in listen table
+with t as (
+    select user_id,  
+           recommended_id
+      from (
+            select distinct user1 user_id,
+                   user2 recommended_id
+              from (
+                    select l1.user_id user1,
+                           l2.user_id user2,
+                           l1.day
+                      from listens l1
+                      join listens l2
+                        on l1.user_id < l2.user_id  -- difference is here
+                       and l1.day = l2.day
+                       and l1.song_id = l2.song_id
+                     group by l1.user_id,
+                              l2.user_id,
+                              l1.day
+                    having count(distinct l1.song_id) >= 3
+                  ) l
+          ) l
+      left join Friendship f
+        on f.user1_id = l.user_id and f.user2_id = l.recommended_id
+    where f.user1_id is null
+)
+select user_id,
+       recommended_id
+  from t
+ union all
+select recommended_id,
+       user_id
+  from t
+;

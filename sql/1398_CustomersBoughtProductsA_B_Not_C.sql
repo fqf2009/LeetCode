@@ -50,6 +50,21 @@ select c.customer_id,
 having string_agg(product_name, ',' order by product_name) = 'A,B'
 ;
 
+-- All DB
+select c.customer_id,
+       c.customer_name
+  from customers c
+  join (
+        select customer_id
+          from orders
+         group by customer_id
+        having sum(case when product_name = 'A' then 1 else 0 end) > 0 and
+               sum(case when product_name = 'B' then 1 else 0 end) > 0 and
+               sum(case when product_name = 'C' then 1 else 0 end) = 0
+       ) o
+    on c.customer_id = o.customer_id
+    ;
+
 -- MySQL
 select c.customer_id,
        customer_name

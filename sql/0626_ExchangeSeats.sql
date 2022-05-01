@@ -16,6 +16,16 @@ insert into Seat (id, student) values ('5', 'Jeames');
 
 
 -- Postgres, Oracle, MySQL
+select case when mod(id, 2) = 0 then id - 1
+            when id = (select max(id) from seat) then id
+            else id + 1
+        end id,
+       student
+  from seat
+ order by 1
+ ;
+
+-- Postgres, Oracle, MySQL
 select id,
        case when mod(id, 2) = 1 then
                 case when id = (select max(id) id from seat) then student

@@ -13,6 +13,7 @@ insert into Weather (id, recordDate, temperature) values ('4', '2015-01-05', '30
 -- Return the result table in any order.
 
 -- Correct for Oracle and PostgreSQL, MySql failed on submit (but ok in test run)
+-- T/S: O(n*log(n)), O(n)
 select id
   from (
         select id,
@@ -27,6 +28,8 @@ select id
  ;
 
 -- Oracle and PostgreSQL
+-- assume recordDate is unique
+-- T/S: O(n), O(n)
  select w.id
    from weather w 
    join weather w2

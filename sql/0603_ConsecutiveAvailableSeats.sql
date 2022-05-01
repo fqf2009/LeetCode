@@ -58,3 +58,18 @@ select seat_id
  order by seat_id
  ;
  
+
+ -- Practise again
+ select seat_id
+  from (
+        select seat_id,
+               free,
+               case when lag(free) over (order by seat_id) = 1 or
+                         lead(free) over (order by seat_id) = 1 then 'Y'
+                    else 'N'
+                end consecutive
+          from Cinema
+       ) c
+ where consecutive = 'Y' and
+       free = 1   -- not as good as before
+ order by 1;

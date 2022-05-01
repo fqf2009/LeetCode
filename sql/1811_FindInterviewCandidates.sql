@@ -91,11 +91,10 @@ select name,
           from Contests
          group by gold_medal
         having count(*) >= 3
-         union
+         union    -- to unique the result set
         select user_id
           from (
                 select user_id,
-                       contest_id,
                        case when lag(contest_id, 1) over (partition by user_id order by contest_id) = contest_id - 1 and
                                  lag(contest_id, 2) over (partition by user_id order by contest_id) = contest_id - 2
                                  then 'Y'
