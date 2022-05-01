@@ -12,13 +12,11 @@ class Solution:
     def isPalindrome(self, s: str) -> bool:
         i, j = 0, len(s) - 1
         while i < j:
-            ch1 = s[i].lower()
-            ch2 = s[j].lower()
-            if not ch1.isalnum():
+            if not s[i].isalnum():
                 i += 1
-            elif not ch2.isalnum():
+            elif not s[j].isalnum():
                 j -= 1
-            elif ch1 != ch2:
+            elif s[i].lower() != s[j].lower():
                 return False
             else:
                 i += 1
@@ -27,7 +25,7 @@ class Solution:
         return True
 
 
-# Two Pointers
+# Two Pointers: O(n)
 class Solution1:
     def isPalindrome(self, s: str) -> bool:
         i, j = 0, len(s) - 1

@@ -12,28 +12,48 @@ from itertools import chain
 from typing import List
 
 
-# Sweep Line
+# Sweep Line - T/S: O(n*log(n)), O(n)
 class Solution:
     def maximumPopulation(self, logs: List[List[int]]) -> int:
-        prev_pop, max_pop = 0, 0
+        pop, max_pop = 0, 0
         prev_year, min_year = 0, 0
-        for curr_year, delta in sorted(chain(chain.from_iterable(
+        for year, delta in sorted(chain(chain.from_iterable(
                 ((x, 1), (y, -1)) for x, y in logs), [(9999, 0)])):
-            if curr_year != prev_year:
-                if max_pop < prev_pop or min_year == 0:
-                    max_pop = prev_pop
+            if year != prev_year:
+                if max_pop < pop or min_year == 0:
+                    max_pop = pop
                     min_year = prev_year
-            prev_year = curr_year
-            prev_pop += delta
+            prev_year = year
+            pop += delta
 
         return min_year
+
+
+# Two sorted array, two poiners - T/S: O(n*log(n)), O(n)
+class Solution1:
+    def maximumPopulation(self, logs: List[List[int]]) -> int:
+        birth = sorted(x for x, _ in logs)
+        death = sorted(y for _, y in logs)
+        i, j, pop, max_pop, res = 0, 0, 0, 0, 0
+        while i < len(logs):
+            if j >= len(logs) or birth[i] < death[j]:
+                pop += 1
+                if max_pop < pop or res == 0:
+                    max_pop = pop
+                    res = birth[i]
+                i += 1
+            else:
+                pop -= 1
+                j += 1
+
+        return res
 
 
 if __name__ == "__main__":
     from unittest import TestCase, main
     from parameterized import parameterized, parameterized_class
 
-    @parameterized_class(("solution",), [(Solution,)])
+    @parameterized_class(("solution",), [(Solution,), (Solution1,)])
     class TestSolution(TestCase):
         @parameterized.expand([
             ([[1993,1999],[2000,2010]], 1993), 
