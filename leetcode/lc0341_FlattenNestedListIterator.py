@@ -15,33 +15,39 @@
 # Constraints:
 #   1 <= nestedList.length <= 500
 #   The values of the integers in the nested list is in the range [-10^6, 10^6].
-
-# """
-# This is the interface that allows for creating nested lists.
-# You should not implement it, or speculate about its implementation
-# """
-#class NestedInteger:
-#    def isInteger(self) -> bool:
-#        """
-#        @return True if this NestedInteger holds a single integer, rather than a nested list.
-#        """
-#
-#    def getInteger(self) -> int:
-#        """
-#        @return the single integer that this NestedInteger holds, if it holds a single integer
-#        Return None if this NestedInteger holds a nested list
-#        """
-#
-#    def getList(self) -> [NestedInteger]:
-#        """
-#        @return the nested list that this NestedInteger holds, if it holds a nested list
-#        Return None if this NestedInteger holds a single integer
-#        """
 from typing import Generator
 
 
+"""
+This is the interface that allows for creating nested lists.
+You should not implement it, or speculate about its implementation
+"""
 class NestedInteger:
-    pass
+    def __init__(self, arg) -> None:
+        if type(arg) ==  int:
+            self.val = arg
+        else:
+            self.val = [NestedInteger(x) for x in arg]
+        
+    def isInteger(self) -> bool:
+        """
+        @return True if this NestedInteger holds a single integer, rather than a nested list.
+        """
+        return type(self.val) ==  int
+
+    def getInteger(self) -> int:
+        """
+        @return the single integer that this NestedInteger holds, if it holds a single integer
+        Return None if this NestedInteger holds a nested list
+        """
+        return int(self.val)
+
+    def getList(self) -> list['NestedInteger']:
+        """
+        @return the nested list that this NestedInteger holds, if it holds a nested list
+        Return None if this NestedInteger holds a single integer
+        """
+        return list(self.val)
 
 
 # Generator
@@ -134,3 +140,24 @@ class NestedIterator1:
 # Output: [1,4,6]
 # Explanation: By calling next repeatedly until hasNext returns false, the 
 #              order of elements returned by next should be: [1,4,6].
+
+if __name__ == "__main__":
+    from unittest import TestCase, main
+    from parameterized import parameterized, parameterized_class
+
+    @parameterized_class(('nestedIterator',), [(NestedIterator,), (NestedIterator1,)])
+    class TestSolution(TestCase):
+        @parameterized.expand([
+            ([[1,1],2,[1,1]], [1,1,2,1,1]),
+            ([1,[4,[6]]], [1,4,6]),
+            ([[]], []),
+            ([[[]]], []),
+            ([[[], []]], []),
+        ])
+        def test_NestedIterator(self, lst, expected):
+            nestedList = [NestedInteger(x) for x in lst]
+            i, v = self.nestedIterator(nestedList), []      # type:ignore
+            while i.hasNext(): v.append(i.next())
+            self.assertEqual(v, expected)
+
+    main()
