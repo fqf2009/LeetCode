@@ -48,19 +48,16 @@ class Solution1:
 # - for float type
 class Solution2:
     def mySqrt(self, x: float) -> float:
-        def abs(x: float) -> float:
-            return x if x >= 0 else -x
-
-        def isGoodEnough(guess: float, x: float) -> bool:
+        def isGoodEnough(guess: float) -> bool:
             return abs(guess * guess - x) / x < 0.0000001
 
-        def improve(guess: float, x: float):
+        def improve(guess: float):
             return (guess + x / guess) / 2
 
-        def sqrtIter(guess: float, x: float) -> float:
-            return guess if isGoodEnough(guess, x) else sqrtIter(improve(guess, x), x)
+        def sqrtIter(guess: float) -> float:
+            return guess if isGoodEnough(guess) else sqrtIter(improve(guess))
 
-        return sqrtIter(1.0, x)
+        return sqrtIter(1.0)
 
 
 if __name__ == "__main__":
