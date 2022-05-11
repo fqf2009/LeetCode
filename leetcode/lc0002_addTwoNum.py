@@ -12,52 +12,38 @@ class Solution:
         head = p = ListNode()
         while l1 or l2 or carry > 0:
             if l1:
-                n1 = l1.val
+                carry += l1.val
                 l1 = l1.next
-            else:
-                n1 = 0
 
             if l2:
-                n2 = l2.val
+                carry += l2.val
                 l2 = l2.next
-            else:
-                n2 = 0
             
-            carry, v = divmod(n1 + n2 + carry, 10)
-            p.next = ListNode(v)
+            p.next = ListNode(carry % 10)
             p = p.next
+            carry //= 10
 
         return head.next
 
 
-if __name__ == '__main__':
-    sol = Solution()
+if __name__ == "__main__":
+    from unittest import TestCase, main
+    from parameterized import parameterized, parameterized_class
 
-    h1 = ListNodeUtil.createLinkedList([2, 4, 3])
-    h2 = ListNodeUtil.createLinkedList([5, 6, 4])
-    h3 = sol.addTwoNumbers(h1, h2)
-    r = ListNodeUtil.toArrayList(h3)
-    print(r)
-    assert(r == [7, 0, 8])
+    @parameterized_class(('solution',), [(Solution,)])
+    class TestSolution(TestCase):
+        @parameterized.expand([
+            ([2, 4, 3], [5, 6, 4], [7, 0, 8]),
+            ([0], [0], [0]),
+            ([9, 9, 9, 9, 9, 9, 9], [9, 9, 9, 9], [8, 9, 9, 9, 0, 0, 0, 1]),
+            ([9, 9, 9, 9, 9], [1], [0, 0, 0, 0, 0, 1]),
+        ])
+        def test_addTwoNumbers(self, l1, l2, expected):
+            sol = self.solution()       # type:ignore
+            head1 = ListNodeUtil.createLinkedList(l1)
+            head2 = ListNodeUtil.createLinkedList(l2)
+            head3 = ListNodeUtil.toArrayList(sol.addTwoNumbers(head1, head2))
+            print(head3)
+            self.assertEqual(head3, expected)
 
-    h1 = ListNodeUtil.createLinkedList([0])
-    h2 = ListNodeUtil.createLinkedList([0])
-    h3 = sol.addTwoNumbers(h1, h2)
-    r = ListNodeUtil.toArrayList(h3)
-    print(r)
-    assert(r == [0])
-
-    h1 = ListNodeUtil.createLinkedList([9, 9, 9, 9, 9, 9, 9])
-    h2 = ListNodeUtil.createLinkedList([9, 9, 9, 9])
-    h3 = sol.addTwoNumbers(h1, h2)
-    r = ListNodeUtil.toArrayList(h3)
-    print(r)
-    assert(r == [8, 9, 9, 9, 0, 0, 0, 1])
-
-    sol = Solution()
-    h1 = ListNodeUtil.createLinkedList([9, 9, 9, 9, 9])
-    h2 = ListNodeUtil.createLinkedList([1])
-    h3 = sol.addTwoNumbers(h1, h2)
-    r = ListNodeUtil.toArrayList(h3)
-    print(r)
-    assert(r == [0, 0, 0, 0, 0, 1])
+    main()

@@ -1,8 +1,25 @@
 # Given a string s, find the length of the longest substring without repeating characters.
+# Constraints:
+#   0 <= s.length <= 5 * 10^4
+#   s consists of English letters, digits, symbols and spaces.
+
+
+# Two pointers, Dict - T/S: O(n), O(256) -> O(1)
+# - just adjust first pointer, no need to iterate through list
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        letter_pos = {}
+        start, max_len = -1, 0
+        for i, ch in enumerate(s):
+            start = max(start, letter_pos.get(ch, -1))
+            max_len = max(max_len, i - start)
+            letter_pos[ch] = i
+
+        return max_len
 
 
 # Two pointers, Dict
-class Solution:
+class Solution1:
     def lengthOfLongestSubstring(self, s: str) -> int:
         letters = {}
         maxLen, p = 0, -1
@@ -24,7 +41,7 @@ class Solution:
 # - if repeating (already in set), move j forward and remove s[j] from set, until
 #   s[j] == s[i], i.e., now j points to previous occurrence of s[i], so that (s[j+1], ..., s[i])  
 #   is a new sub-str without repeating char.
-class Solution1:
+class Solution2:
     def lengthOfLongestSubstring(self, s: str) -> int:
         letters = set()
         maxLen, j = 0, -1
@@ -42,18 +59,21 @@ class Solution1:
 
 
 if __name__ == '__main__':
-    def unitTest(sol):
-        n = sol.lengthOfLongestSubstring('abcabcbb')
-        print(n)
-        assert n == 3
+    from unittest import TestCase, main
+    from parameterized import parameterized, parameterized_class
 
-        n = sol.lengthOfLongestSubstring('bbbbb')
-        print(n)
-        assert n == 1
+    @parameterized_class(('solution',), [(Solution,), (Solution1,), (Solution2,)])
+    class TestSolution(TestCase):
+        @parameterized.expand([
+            ('abcabcbb', 3),
+            ('bbbbb', 1),
+            ('pwwkew', 3),
+            (' ', 1),
+        ])
+        def test_lengthOfLongestSubstring(self, s, expected):
+            sol = self.solution()       # type:ignore
+            r = sol.lengthOfLongestSubstring(s)
+            print(r)
+            self.assertEqual(r, expected)
 
-        n = sol.lengthOfLongestSubstring('pwwkew')
-        print(n)
-        assert n == 3
-
-    unitTest(Solution())
-    unitTest(Solution1())
+    main()
