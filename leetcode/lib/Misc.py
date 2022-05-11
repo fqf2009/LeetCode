@@ -2,6 +2,11 @@ from typing import List
 from math import sqrt
 
 
+# greatest common divisor
+def my_gcd(x: int, y: int) -> int:
+    return x if y == 0 else my_gcd(y, x % y)
+
+
 def getPrimes(n: int) -> List[int]:
     primes = [2]
     for i in range(3, n + 1):
@@ -90,6 +95,14 @@ def base62Decode(s: str) -> int:
 
 
 if __name__ == '__main__':
+    r = my_gcd(2, 8)
+    print(r)
+    assert r == 2
+
+    r = my_gcd(12, 9)
+    print(r)
+    assert r == 3
+
     r = getPrimes(100)
     print(r)
     assert r == [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41,
