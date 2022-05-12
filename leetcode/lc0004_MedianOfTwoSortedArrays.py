@@ -26,22 +26,24 @@ import math
 #  - Note there are edge case, where i, j can be -1 or len(either list)
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        if len(nums1) <= len(nums2):
-            A, B = nums1, nums2
-        else:
-            A, B = nums2, nums1
-
-        total = len(nums1) + len(nums2)
-        a_lo, a_hi = 0, len(A) - 1
+        A, B = (nums1, nums2) if len(nums1) <= len(nums2) else (nums2, nums1)
+        total_cnt = len(nums1) + len(nums2)
+        # however, for the concern below, the best to avoid error
+        # is set the correct boundary for binary search
+        # a_lo, a_hi = 0, len(A) - 1
+        a_lo, a_hi = -1, len(A) - 1     # these are the boundary of a_mid
         while True:
+            # in Python, (-1+0)//2 == -1, so no special treatment here
+            # But in Java, (-1+0)/2 == 0
             a_mid = (a_lo + a_hi) // 2
-            b_mid = total // 2 - (a_mid + 1) - 1
+            # pos a_mid and b_mid belong to left side of splitted A and B
+            b_mid = total_cnt // 2 - (a_mid + 1) - 1
             al = A[a_mid] if a_mid >= 0 else -math.inf
             ar = A[a_mid+1] if a_mid+1 < len(A) else math.inf
             bl = B[b_mid] if b_mid >= 0 else -math.inf
             br = B[b_mid+1] if b_mid+1 < len(B) else math.inf
             if al <= br and bl <= ar:
-                if total % 2 == 0:
+                if total_cnt % 2 == 0:
                     return (max(al, bl) + min(ar, br)) / 2
                 else:
                     return min(ar, br)
@@ -63,6 +65,13 @@ if __name__ == '__main__':
         nums1 = [1, 2]
         nums2 = [3, 4]
         expected = 2.5
+        output = sol.findMedianSortedArrays(nums1, nums2)
+        print(output)
+        assert output == expected
+
+        nums1 = [1, 2]
+        nums2 = [3, 4, 5, 6, 7, 8]
+        expected = 4.5
         output = sol.findMedianSortedArrays(nums1, nums2)
         print(output)
         assert output == expected
