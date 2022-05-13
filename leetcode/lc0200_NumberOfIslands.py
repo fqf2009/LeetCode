@@ -10,10 +10,32 @@
 
 from typing import List
 from collections import deque
+
+
+# Union Find - T/S: O(m*n), O(m*n)
+# - good part is no need to mark grid for visited
+class Solution2:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        m, n = len(grid), len(grid[0])
+        uf = {}
+        def find(key):
+            if key != uf.setdefault(key, key):
+                uf[key] = find(uf[key])
+            return uf[key]
         
+        for x in range(m):
+            for y in range(n):
+                if grid[x][y] == '1':
+                    for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+                        x1, y1 = x + dx, y + dy
+                        if 0 <= x1 < m and 0 <= y1 < n and grid[x1][y1] == '1':
+                            uf[find((x1, y1))] = find((x, y))
+
+        return len(set(find((x, y)) for x in range(m) for y in range(n) if grid[x][y] == '1'))
+
 
 # DFS - T/S: O(m*n), O(k) where k is the size (area) of biggest island
-# - the recursion level is k.
+# - the recursion level is k, therefore it is possible to cause stack overflow.
 # - as long as the visited item can be marked, BFS/DFS will both work.
 class Solution1:
     def numIslands(self, grid: List[List[str]]) -> int:
@@ -59,7 +81,7 @@ class Solution:
                                 grid[x1][y1] = str(-res - 1) # update it immediately
                                 que.append((x1, y1))
                 res += 1
-        
+
         for i in range(m):    # restore grid
             for j in range(n):
                 if grid[i][j] != '0':
@@ -118,3 +140,4 @@ if __name__ == '__main__':
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
