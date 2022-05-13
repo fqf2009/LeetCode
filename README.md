@@ -571,6 +571,7 @@
 [2182_ConstructStringWithRepeatLimit.py](leetcode/lc2182_ConstructStringWithRepeatLimit.py)  
 
 ### Union Find
+[0200_NumberOfIslands.py](leetcode/lc0200_NumberOfIslands.py)  
 [0305_NumberOfIslandsII.py](leetcode/lc0305_NumberOfIslandsII.py)  
 [0323_NumberOfConnectedComponentsInUndirectedGraph.py](leetcode/lc0323_NumberOfConnectedComponentsInUndirectedGraph.py)  
 [0547_NumberOfProvinces.py](leetcode/lc0547_NumberOfProvinces.py)  
