@@ -14,7 +14,21 @@
 #   1 <= words.length <= 100
 #   1 <= words[i].length <= 10
 #   words[i] consists of lowercase English letters.
-from typing import List
+from typing import Counter, List
+
+
+# Counter to avoid sorting
+class Solution2:
+    def removeAnagrams(self, w: List[str]) -> List[str]:
+        return [w[i] for i in range(len(w)) 
+                        if i == 0 or Counter(w[i]) != Counter(w[i-1])]
+
+# Oneliner
+class Solution1:
+    def removeAnagrams(self, w: List[str]) -> List[str]:
+        return [w[i] for i in range(len(w)) 
+                        if i == 0 or sorted(w[i]) != sorted(w[i-1])]
+
 
 class Solution:
     def removeAnagrams(self, words: List[str]) -> List[str]:
@@ -43,3 +57,5 @@ if __name__ == '__main__':
         assert r == ["a","b","c","d","e"]
 
     unit_test(Solution())
+    unit_test(Solution1())
+    unit_test(Solution2())

@@ -13,36 +13,62 @@
 #   1 <= left <= right <= 10^9
 #   At most 10^5 calls in total will be made to add and count.
 #   At least one call will be made to count.
-
-
 from typing import Optional
-from sortedcontainers import SortedList
+from sortedcontainers import SortedList, SortedDict
+
+
+# SortedDict + Merge Interval: T/S: O(n*log(n)), O(n)
+class CountIntervals2:
+    def __init__(self):
+        self.itvs = SortedDict()
+        self.cnt = 0
+
+    def add(self, left: int, right: int) -> None:
+        if self.itvs:
+            i = self.itvs.bisect_left(left)
+            # check one previous item
+            if i > 0 and self.itvs.peekitem(i - 1)[1] >= left - 1:
+                lo, hi = self.itvs.popitem(i - 1)
+                self.cnt -= hi - lo + 1
+                i -= 1      # previous item is gone, remaining items is brought up
+                left = lo
+                right = max(right, hi)
+
+            # check following items
+            while i < len(self.itvs) and self.itvs.peekitem(i)[0] <= right + 1:
+                lo, hi = self.itvs.popitem(i)
+                right = max(right, hi)
+                self.cnt -= hi - lo + 1
+
+        self.itvs[left] = right
+        self.cnt += right - left + 1
+
+    def count(self) -> int:
+        return self.cnt
 
 
 # SortedList + Merge Interval: T/S: O(n*log(n)), O(n)
 class CountIntervals1:
     def __init__(self):
-        self.itvs = SortedList([[-1, -1]])
+        self.itvs = SortedList()
         self.cnt = 0
 
     def add(self, left: int, right: int) -> None:
-        i = self.itvs.bisect_left([left, right])
-        # previous item, i-1 < len(self.itvs)
-        # also, only need check once, because no overlap
-        if self.itvs[i - 1][1] >= left:
-            left = self.itvs[i - 1][0]
-            right = max(right, self.itvs[i - 1][1])
-            self.cnt -= self.itvs[i - 1][1] - self.itvs[i - 1][0] + 1
-            del self.itvs[i - 1]
-            i -= 1  # previous item is gone, following items is moved forward
+        if self.itvs:
+            i = self.itvs.bisect_left([left, right])
+            # check only one previous item, because no overlap
+            if i > 0 and self.itvs[i - 1][1] >= left - 1:
+                lo, hi = self.itvs.pop(i-1)
+                self.cnt -= hi - lo + 1
+                i -= 1      # previous item is gone, remaining items is brought up
+                left = lo
+                right = max(right, hi)
 
-        while i < len(self.itvs):
-            if self.itvs[i][0] <= right:  # following items
-                right = max(right, self.itvs[i][1])
-                self.cnt -= self.itvs[i][1] - self.itvs[i][0] + 1
-                del self.itvs[i]
-            else:
-                break
+            # check following items
+            while i < len(self.itvs) and self.itvs[i][0] <= right + 1:
+                lo, hi = self.itvs.pop(i)
+                right = max(right, hi)
+                self.cnt -= hi - lo + 1
 
         self.itvs.add([left, right])
         self.cnt += right - left + 1
@@ -104,7 +130,11 @@ class CountIntervals:
 # param_2 = obj.count()
 if __name__ == "__main__":
 
-    def unit_test(sol):
+    def unit_test(solution):
+        print(solution.__name__)
+        print('test case 1')
+        sol = solution()
+
         sol.add(2, 3)
         sol.add(7, 10)
         r = sol.count()
@@ -116,7 +146,11 @@ if __name__ == "__main__":
         print(r)
         assert r == 8
 
-    def unit_test2(sol):
+    def unit_test2(solution):
+        print(solution.__name__)
+        print('test case 2')
+        sol = solution()
+
         r = sol.count()
         print(r)
         assert r == 0
@@ -136,11 +170,13 @@ if __name__ == "__main__":
         print(r)
         assert r == 39
 
-    unit_test(CountIntervals())
-    unit_test(CountIntervals1())
+    unit_test(CountIntervals)
+    unit_test(CountIntervals1)
+    unit_test(CountIntervals2)
 
-    unit_test2(CountIntervals())
-    unit_test2(CountIntervals1())
+    unit_test2(CountIntervals)
+    unit_test2(CountIntervals1)
+    unit_test2(CountIntervals2)
 
 # ["CountIntervals","count","add","add","add","add","add","count","add","add"]
 # [[],[],[8,43],[13,16],[26,33],[28,36],[29,37],[],[34,46],[10,23]]

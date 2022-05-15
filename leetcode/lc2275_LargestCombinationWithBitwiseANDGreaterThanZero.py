@@ -13,6 +13,11 @@ from collections import defaultdict
 from typing import List
 
 
+class Solution1:
+    def largestCombination(self, candidates: List[int]) -> int:
+        return max(sum(c & 1 << i > 0 for c in candidates) for i in range(30))
+
+
 # T/S: O(n*w), O(n), where w = avg_bit_len_of_numbers
 class Solution:
     def largestCombination(self, candidates: List[int]) -> int:
@@ -23,7 +28,7 @@ class Solution:
                 if ch == '1':
                     res[i] += 1
         return max(res.values())
-        
+
 
 if __name__ == '__main__':
     def unit_test(sol):
@@ -37,3 +42,4 @@ if __name__ == '__main__':
 
 
     unit_test(Solution())
+    unit_test(Solution1())
