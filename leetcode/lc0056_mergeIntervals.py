@@ -12,7 +12,7 @@ class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         intervals.sort()
         res = [intervals[0]]
-        for v in intervals:
+        for v in intervals[1:]:
             x = res[-1]
             if x[1] >= v[0]:
                 x[1] = max(x[1], v[1])
