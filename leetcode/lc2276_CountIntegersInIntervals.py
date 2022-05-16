@@ -77,7 +77,7 @@ class CountIntervals1:
         return self.cnt
 
 
-# Segment Tree? Time Limit Exceed!
+# Binary Search Tree - Time Limit Exceed!
 # - This solution only expand segment or add segment, never combine segment
 class Node:
     def __init__(self, low, high) -> None:
