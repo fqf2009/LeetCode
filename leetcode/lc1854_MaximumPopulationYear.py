@@ -8,12 +8,21 @@
 # Constraints:
 #   1 <= logs.length <= 100
 #   1950 <= birthi < deathi <= 2050
-from itertools import chain
+from itertools import accumulate, chain
 from typing import List
 
 
 # Sweep Line - T/S: O(n*log(n)), O(n)
+# - oneliner solution
 class Solution:
+    def maximumPopulation(self, logs: List[List[int]]) -> int:
+        return -max(accumulate(([d, y] for _, d, y in sorted(
+                    chain.from_iterable(((s, 1, -s), (e, -1, -e)) for s, e in logs))),
+                    func = lambda a1, a2: [a1[0] + a2[0], a2[1]]))[1]
+
+
+# Sweep Line - T/S: O(n*log(n)), O(n)
+class Solution1:
     def maximumPopulation(self, logs: List[List[int]]) -> int:
         pop, max_pop = 0, 0
         prev_year, min_year = 0, 0
@@ -30,7 +39,7 @@ class Solution:
 
 
 # Two sorted array, two poiners - T/S: O(n*log(n)), O(n)
-class Solution1:
+class Solution2:
     def maximumPopulation(self, logs: List[List[int]]) -> int:
         birth = sorted(x for x, _ in logs)
         death = sorted(y for _, y in logs)
@@ -53,7 +62,7 @@ if __name__ == "__main__":
     from unittest import TestCase, main
     from parameterized import parameterized, parameterized_class
 
-    @parameterized_class(("solution",), [(Solution,), (Solution1,)])
+    @parameterized_class(("solution",), [(Solution,), (Solution1,), (Solution2,)])
     class TestSolution(TestCase):
         @parameterized.expand([
             ([[1993,1999],[2000,2010]], 1993), 
