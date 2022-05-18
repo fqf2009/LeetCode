@@ -66,6 +66,10 @@ if __name__ == '__main__':
         print(r)
         assert r == 23
 
+        r = sol.maxSubArray([-5, -4, -1, -7, -8])
+        print(r)
+        assert r == -1
+
     unitTest(Solution())
     unitTest(Solution1())
     unitTest(Solution2())

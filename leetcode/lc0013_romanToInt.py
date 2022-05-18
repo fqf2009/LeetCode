@@ -64,6 +64,20 @@ class Solution1:
         return res
 
 
+class Solution2:
+    def romanToInt(self, s: str) -> int:
+        roman = {'M': 1000,'D': 500 ,'C': 100,'L': 50,'X': 10,'V': 5,'I': 1}
+        res, n = 0, len(s)
+        for i, c in enumerate(s):
+            val = roman[c]
+            if i+1 < n and val < roman[s[i+1]]:
+                res -= val
+            else:
+                res += val
+
+        return res
+
+
 if __name__ == '__main__':
     def unitTest(sol):
         r = sol.romanToInt('III')
@@ -88,3 +102,4 @@ if __name__ == '__main__':
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
