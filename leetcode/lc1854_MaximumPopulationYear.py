@@ -58,6 +58,15 @@ class Solution2:
         return res
 
 
+# Priority Queue??? Not working
+# - similar to 0056_MeetingRoomII, however, 
+#   this problem need to find out not just the max population,
+#   but the earliest year of max population.
+# class Solution3:
+#     def maximumPopulation(self, logs: List[List[int]]) -> int:
+#         pass
+
+
 if __name__ == "__main__":
     from unittest import TestCase, main
     from parameterized import parameterized, parameterized_class
