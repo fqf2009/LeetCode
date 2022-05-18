@@ -4,6 +4,7 @@
 # Constraints:
 #   0 <= nums.length <= 3000
 #   -10^5 <= nums[i] <= 10^5
+from itertools import chain
 from typing import List
 from collections import Counter
 
@@ -31,21 +32,19 @@ class Solution0:
 # Time complexity: O(n^2), including sort: O(n*log(n))
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        freq = Counter(nums)
-        N = []
-        for v, cnt in sorted(freq.items()):
-            N.extend([v] * min(cnt, 3))
-        N.sort()
+        N = sorted(chain.from_iterable([v] * min(cnt, 2 if v != 0 else 3)
+                        for v, cnt in sorted(Counter(nums).items())))
 
-        target = 0
-        res = set()
+        target, res = 0, []
         for i in range(0, len(N) - 2):
             if N[i] > target: break
+            if i > 0 and N[i] == N[i-1]: continue   # skip the duplicates
             j, k = i + 1, len(N) - 1
             while j < k:
-                total = (N[i] + N[j] + N[k])
+                total = N[i] + N[j] + N[k]
                 if total == target:
-                    res.add((N[i], N[j], N[k]))
+                    if j == i + 1 or N[j] != N[j-1]:    # skip the duplicates
+                        res.append([N[i], N[j], N[k]])
                     j += 1
                     k -= 1
                 elif total < target:
@@ -53,7 +52,7 @@ class Solution:
                 else:
                     k -= 1
 
-        return [list(x) for x in res]
+        return res
 
 
 # The same as Solution2, except only use iteration, no recursion
