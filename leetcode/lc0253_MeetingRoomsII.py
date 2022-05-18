@@ -63,6 +63,11 @@ if __name__ == '__main__':
         print(Sol.__name__)
         sol = Sol()
 
+        # test case for duplicate time points
+        r = sol.minMeetingRooms(intervals=[[9,10],[4,9],[4,17]])
+        print(r)
+        assert r == 2
+
         r = sol.minMeetingRooms(intervals=[[8, 14], [12, 13], [6, 13], [1, 9]])
         print(r)
         assert r == 3
