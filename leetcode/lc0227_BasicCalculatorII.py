@@ -61,18 +61,18 @@ class Solution1:
         def compress_stack(next_op = None):
             while len(stack) >= 2 and (
                     next_op is None or op_priority[stack[-2]] >= op_priority[next_op]):
-                oprand2, operator = stack.pop(), stack.pop()
-                oprand1 = stack.pop() if stack else 0
+                operand2, operator = stack.pop(), stack.pop()
+                operand1 = stack.pop() if stack else 0
                 if operator == '+':
-                    res = oprand1 + oprand2
+                    res = operand1 + operand2
                 elif operator == '-':
-                    res = oprand1 - oprand2
+                    res = operand1 - operand2
                 elif operator == '*':
-                    res = oprand1 * oprand2
+                    res = operand1 * operand2
                 elif operator == '/':
-                    res = oprand1 // oprand2
+                    res = operand1 // operand2
                 elif operator == '^':
-                    res = oprand1 ** oprand2
+                    res = operand1 ** operand2
                 else:
                     raise Exception('Invalid Operator')
                 stack.append(res)
@@ -113,7 +113,7 @@ if __name__ == '__main__':
         assert r == 5
 
     def unit_test2(sol):
-        r = sol.calculate("- 3 - 2 * 3 ^ 2")
+        r = sol.calculate("- 3 - 10 / 5 * 3 ^ 2 ")
         print(r)
         assert r == -21
 
