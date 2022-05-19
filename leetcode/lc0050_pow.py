@@ -60,5 +60,10 @@ if __name__ == "__main__":
         print(r)
         assert r== 0.25
 
+        r = Solution().myPow(2.00000, -2147483648)
+        print(r)
+        assert r== 0.0
+
+
     unitTest(Solution())
     unitTest(Solution1())
