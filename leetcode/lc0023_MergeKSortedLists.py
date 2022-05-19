@@ -1,3 +1,13 @@
+# You are given an array of k linked-lists lists, each linked-list 
+# is sorted in ascending order.
+# Merge all the linked-lists into one sorted linked-list and return it.
+# Constraints:
+#   k == lists.length
+#   0 <= k <= 10^4
+#   0 <= lists[i].length <= 500
+#   -10^4 <= lists[i][j] <= 10^4
+#   lists[i] is sorted in ascending order.
+#   The sum of lists[i].length will not exceed 10^4.
 from lib.ListUtil import ListNode, ListNodeUtil
 from typing import Optional, List, Any
 from queue import PriorityQueue
@@ -19,21 +29,20 @@ class Solution:
             p1, p2 = lists[0], lists[1]
             while p1 and p2:
                 if p1.val <= p2.val:
-                    p.next, p, p1 = p1, p1, p1.next
+                    p.next = p1
+                    p1 = p1.next
                 else:
-                    p.next, p, p2 = p2, p2, p2.next
+                    p.next = p2
+                    p2 = p2.next
+                p = p.next
             p.next = p1 if p1 else p2
             return head.next
 
         if len(lists) == 0: return None
-        l1 = lists
-        while len(l1) > 1:
-            l2 = []
-            for i in range(0, len(l1), 2):
-                l2.append(merge2Lists(l1[i:i+2]))
-            l1 = l2
+        while len(lists) > 1:
+            lists = [merge2Lists(lists[i:i+2]) for i in range(0, len(lists), 2)]
 
-        return l1[0]
+        return lists[0]
 
 
 # Use heapq as PriorityQueue (in Python lib, PriorityQueue is based on heapq)
