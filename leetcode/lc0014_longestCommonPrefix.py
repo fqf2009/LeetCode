@@ -1,12 +1,25 @@
-from typing import List
-
 # Write a function to find the longest common prefix string amongst an array of strings.
 # If there is no common prefix, return an empty string "".
 # Constraints:
+#   1 <= strs.length <= 200
+#   0 <= strs[i].length <= 200
 #   1 <= strs.length
+from typing import List
+
+
+# solution from: os.path.commonprefix
+class Solution2:
+    def longestCommonPrefix(self, m: List[str]) -> str:
+        s1 = min(m)
+        s2 = max(m)
+        for i, c in enumerate(s1):
+            if c != s2[i]:
+                return s1[:i]
+        return s1
+
 
 # Pythonic way
-class Solution:
+class Solution1:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         if len(strs) == 1: return strs[0]
         # '*' to unpacks a list or tuple into position arguments;
@@ -21,7 +34,7 @@ class Solution:
 
 
 # Time complexity: O(n*m), n is len(strs), m is len(longest common prefix)
-class Solution1:
+class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         if len(strs) == 1:
             return strs[0]
@@ -51,3 +64,4 @@ if __name__ == '__main__':
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
