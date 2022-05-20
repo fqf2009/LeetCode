@@ -10,6 +10,21 @@ import heapq
 from typing import Counter, List
 
 
+# Bucket Sort: O(n)
+class Solution0:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counter = Counter(nums)
+        bucket = [[] for _ in range(max(counter.values()) + 1)]
+        for v, freq in counter.items():
+            bucket[freq].append(v)
+        res = []
+        for b in reversed(bucket):
+            res.extend(b[: k - len(res)])
+            if len(res) >= k:
+                break
+        return res
+
+
 # Counter: O(n*log(n))
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
@@ -48,5 +63,6 @@ if __name__ == "__main__":
         print(r)
         assert r == [1]
 
+    unit_test(Solution0())
     unit_test(Solution())
     unit_test(Solution1())
