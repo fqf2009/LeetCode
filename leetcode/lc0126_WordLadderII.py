@@ -24,11 +24,11 @@ from collections import defaultdict, deque
 # - Optimize: (works)
 #   1. no need to build undirected graph, just use function to find neighbours
 #   2. when to remove visited item during BFS?
-#      (1) when popleft from deque: note each layer (level) has many items,
-#          some will be visited and removed earlier than others, those being
-#          removed too late will create extra pathes (not the shortest), so
-#          the backtracking step has to take care of it.
-#      (2) when add edge to directed graph: This is wrong!!!
+#      (1) when poping-up from left of deque: note each layer (level) has many
+#          items, some will be visited and removed earlier than others, those
+#          being removed too late will create extra pathes (not the shortest),
+#          so that the backtracking step has to take care of it - difficult!!!
+#      (2) when adding edge to directed graph: This is wrong!!!
 #          because there will be other nodes at same level later to point to this
 #          being deleted node, so we cannot find all pathes.
 #      (3) after visiting one layer of nodes: so next layer of nodes can never
@@ -50,8 +50,9 @@ class Solution:
                         res.add(w2)
             return list(res)
 
+        # build directed graph
         dq = deque([beginWord])
-        graph = defaultdict(set)       # directed graph, use set to eliminate duplicate pathes!!!
+        graph = defaultdict(set)    # directed graph, use set to eliminate duplicate pathes!!!
         reach_end = False
         while dq:                       # BFS
             visited = set()
@@ -66,9 +67,9 @@ class Solution:
                             reach_end = True
 
             if reach_end: break
-            for w1 in visited:
-                word_set.remove(w1)
+            word_set -= visited     # visited words need to be removed
 
+        # backtrack to get all shortest pathes
         res = []
         path = [beginWord]
         def back_track(w1):
