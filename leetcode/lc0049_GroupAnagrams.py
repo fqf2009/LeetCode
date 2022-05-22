@@ -9,6 +9,15 @@
 from typing import List
 from collections import Counter
 
+# group by sorted string
+class Solution0:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        grp = {}
+        for s in strs:
+            grp.setdefault(''.join(sorted(s)), list()).append(s)
+
+        return list(grp.values())
+
 
 # group by sorted string
 class Solution:
@@ -64,5 +73,6 @@ if __name__ == '__main__':
         print(r)
         assert r == [["a"]]
 
+    unitTest(Solution0())
     unitTest(Solution())
     unitTest(Solution1())
