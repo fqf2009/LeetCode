@@ -26,6 +26,25 @@
 import math
 from typing import List
 
+
+# use multiply to verify the slope
+class Solution1:
+    def minimumLines(self, stockPrices: List[List[int]]) -> int:
+        A = stockPrices
+        A.sort()
+        res = 0
+        dd1, dp1 = 0, 0
+        for sp1, sp2 in zip(A, A[1:]):
+            dd2 = sp2[0] - sp1[0]
+            dp2 = sp2[1] - sp1[1]
+            if dd1 == 0 or dd1*dp2 != dd2*dp1:
+                res += 1
+                dd1, dp1 = dd2, dp2
+
+        return res
+
+
+# Use coprime to indicate slope
 class Solution:
     def minimumLines(self, stockPrices: List[List[int]]) -> int:
         A = stockPrices
@@ -63,3 +82,4 @@ if __name__ == '__main__':
         assert r == 1
 
     unit_test(Solution())
+    unit_test(Solution1())
