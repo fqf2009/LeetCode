@@ -4,8 +4,8 @@
 #   0 <= n <= 5 * 10^6
 import math
 
-
-def countPrimes(n: int) -> int:
+class Solution:
+    def countPrimes(self, n: int) -> int:
         isPrime = [True] * n
         for i in range(2, int(math.sqrt(n)) + 1):
             if not isPrime[i]:
@@ -15,15 +15,19 @@ def countPrimes(n: int) -> int:
 
         return isPrime[2:].count(True)
 
+
 if __name__ == "__main__":
-    r = countPrimes(10)
-    print(r)
-    assert(r == 4)
+    def unit_test(sol):
+        r = sol.countPrimes(10)
+        print(r)
+        assert(r == 4)
 
-    r = countPrimes(20)
-    print(r)
-    assert(r == 8)
+        r = sol.countPrimes(20)
+        print(r)
+        assert(r == 8)
 
-    r = countPrimes(5*10**6)
-    print(r)
-    assert(r == 348513)
+        r = sol.countPrimes(5*10**6)
+        print(r)
+        assert(r == 348513)
+    
+    unit_test(Solution())
