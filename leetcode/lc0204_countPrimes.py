@@ -1,3 +1,7 @@
+# Given an integer n, return the number of prime numbers that are 
+# strictly less than n.
+# Constraints:
+#   0 <= n <= 5 * 10^6
 import math
 
 
@@ -19,3 +23,7 @@ if __name__ == "__main__":
     r = countPrimes(20)
     print(r)
     assert(r == 8)
+
+    r = countPrimes(5*10**6)
+    print(r)
+    assert(r == 348513)
