@@ -34,6 +34,10 @@ class Solution:
 
 if __name__ == '__main__':
     def unit_test(sol):
+        r = sol.fractionToDecimal(-1, -2147483648)
+        print(r)
+        assert r == "0.0000000004656612873077392578125"
+
         r = sol.fractionToDecimal(-50, 8)
         print(r)
         assert r == "-6.25"
