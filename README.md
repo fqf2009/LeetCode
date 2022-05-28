@@ -171,7 +171,6 @@
 ### Dynamic Programming (DP)
 [0042_trappingRainWater.py](leetcode/lc0042_trappingRainWater.py)  
 [0045_JumpGameII.py](leetcode/lc0045_JumpGameII.py)  
-[0053_maxSubArray.py](leetcode/lc0053_maxSubArray.py)  
 [0055_JumpGame.py](leetcode/lc0055_JumpGame.py)  
 [0062_UniquePaths.py](leetcode/lc0062_UniquePaths.py)  
 [0063_UniquePathsII.py](leetcode/lc0063_UniquePathsII.py)  
@@ -324,7 +323,6 @@
 [0008_myAtoi.py](leetcode/lc0008_myAtoi.py)  
 [0012_intToRoman.py](leetcode/lc0012_intToRoman.py)  
 [0013_romanToInt.py](leetcode/lc0013_romanToInt.py)  
-[0014_longestCommonPrefix.py](leetcode/lc0014_longestCommonPrefix.py)  
 [0038_CountAndSay.py](leetcode/lc0038_CountAndSay.py)  
 [0065_ValidNumber.py](leetcode/lc0065_ValidNumber.py)  
 [0118_pascalTriangle.py](leetcode/lc0118_pascalTriangle.py)  
@@ -363,11 +361,15 @@
 [1492_TheKthFactor.py](leetcode/lc1492_TheKthFactor.py)  
 [2197_ReplaceNonCoprimeNumbersInArray.py](leetcode/lc2197_ReplaceNonCoprimeNumbersInArray.py)  
 [2224_MinimumOpsToConvertTime.py](leetcode/lc2224_MinimumOpsToConvertTime.py)  
+[2280_MinimumLinesRepresentLineChart.py](leetcode/lc2280_MinimumLinesRepresentLineChart.py)  
 
-### Math (Probability, Statistics, Reservoir Sampling)
+### Math (Probability, Statistics)
 [0380_InsertDeleteGetRandom.py](leetcode/lc0380_InsertDeleteGetRandom.py)  
 [1230_TossStrangeCoins.py](leetcode/lc1230_TossStrangeCoins.py)  
+
+### Math (Misc - Reservoir Sampling, Boyer-Moore Voting Algorithm)
 [0398_RandomPickIndex.py](leetcode/lc0398_RandomPickIndex.py)  
+[0169_MajorityElement.py](leetcode/lc0169_MajorityElement.py)  
 
 ### Math (Random)
 [0384_ShuffleArray.py](leetcode/lc0384_ShuffleArray.py)  
@@ -375,6 +377,7 @@
 ### Matrix
 [0048_RotateImage.py](leetcode/lc0048_RotateImage.py)  
 [0054_spiralMatrix.py](leetcode/lc0054_spiralMatrix.py)  
+[0073_SetMatrixZeroes.py](leetcode/lc0073_SetMatrixZeroes.py)  
 [0289_GameOfLife.py](leetcode/lc0289_GameOfLife.py)  
 [0311_SparseMatrixMultiplication.py](leetcode/lc0311_SparseMatrixMultiplication.py)  
 [1428_LeftmostColumnWithAtLeastAOne.py](/leetcode/lc1428_LeftmostColumnWithAtLeastAOne.py)  
@@ -410,11 +413,15 @@
 [2217_FindPalindromeWithFixedLength.py](leetcode/lc2217_FindPalindromeWithFixedLength.py)  
 
 ### Prefix Sum
+[0053_maxSubArray.py](leetcode/lc0053_maxSubArray.py)  
 [0325_MaxSizeSubarraySumEqualsK.py](leetcode/lc0325_MaxSizeSubarraySumEqualsK.py)  
 [0523_ContinuousSubarraySum.py](leetcode/lc0523_ContinuousSubarraySum.py)  
 [0528_RandomPickWithWeight.py](leetcode/lc0528_RandomPickWithWeight.py)  
 [0862_ShortestSubarrayWithSumAtLeastK.py](leetcode/lc0862_ShortestSubarrayWithSumAtLeastK.py)  
 [2245_MaximumTrailingZerosInCorneredPath.py](leetcode/lc2245_MaximumTrailingZerosInCorneredPath.py)  
+
+### Prefix Sum of Prefix Sum
+[2281_SumOfTotalStrengthOfWizards.py](leetcode/lc2281_SumOfTotalStrengthOfWizards.py)  
 
 ### Queue (Deque)
 [0346_MovingAverageFromDataStream.py](leetcode/lc0346_MovingAverageFromDataStream.py)  
@@ -469,6 +476,11 @@
 [2260_MinimumConsecutiveCardsToPickUp.py](leetcode/lc2260_MinimumConsecutiveCardsToPickUp.py)  
 [2261_KDivisibleElementsSubarrays.py](leetcode/lc2261_KDivisibleElementsSubarrays.py)  
 
+### Sort
+
+### Sort (Bucket Sort)
+[0347_TopKFrequentElements.py](leetcode/lc0347_TopKFrequentElements.py)  
+
 ### Stack
 [0020_validParentheses.py](leetcode/lc0020_validParentheses.py)  
 [0032_longestValidParentheses.py](leetcode/lc0032_longestValidParentheses.py)  
@@ -492,6 +504,8 @@
 [2104_SumOfSubarrayRanges.py](leetcode/lc2104_SumOfSubarrayRanges.py)  
 
 ### String
+[0014_longestCommonPrefix.py](leetcode/lc0014_longestCommonPrefix.py)  
+[0242_ValidAnagram.py](leetcode/lc0242_ValidAnagram.py)  
 [0415_AddStrings.py](leetcode/lc0415_AddStrings.py)  
 [2273_RemovingAnagrams.py](leetcode/lc2273_RemovingAnagrams.py)  
 
