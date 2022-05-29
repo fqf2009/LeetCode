@@ -19,6 +19,7 @@
 ### Binary Search
 [0004_MedianOfTwoSortedArrays.py](leetcode/lc0004_MedianOfTwoSortedArrays.py) ***  
 [0035_SearchInsertPosition.py](leetcode/lc0035_SearchInsertPosition.py)  
+[0240_Search2DMatrixII.py](leetcode/lc0240_Search2DMatrixII.py)  
 [0295_FindMedianFromDataStream.py](leetcode/lc0295_FindMedianFromDataStream.py)  
 [0367_ValidPerfectSquare.py](leetcode/lc0367_ValidPerfectSquare.py)  
 [0528_RandomPickWithWeight.py](leetcode/lc0528_RandomPickWithWeight.py)  
@@ -74,6 +75,9 @@
 [0301_RemoveInvalidParentheses.py](leetcode/lc0301_RemoveInvalidParentheses.py)  
 [0784_LetterCasePermutation.py](leetcode/lc0784_LetterCasePermutation.py)  
 [2151_MaximumGoodPeopleBasedOnStatements.py](leetcode/lc2151_MaximumGoodPeopleBasedOnStatements.py)  
+
+### Backtracking (plus DP + Memo to improve performance)
+[0131_PalindromePartitioning.py](leetcode/lc0131_PalindromePartitioning.py)  
 [2267_CheckIfThereIsValidParenthesesStringPath.py](leetcode/lc2267_CheckIfThereIsValidParenthesesStringPath.py)  
 
 ### Bitwise or Bitmask Operation (Bit Manipulation)
@@ -351,6 +355,7 @@
 [0134_GasStation.py](leetcode/lc0134_GasStation.py)  
 [0136_SingleNumber.py](leetcode/lc0136_SingleNumber.py)  
 [0149_MaxPointsOnALine.py](leetcode/lc0149_MaxPointsOnALine.py)  
+[0166_FractionToRecurringDecimal.py](leetcode/lc0166_FractionToRecurringDecimal.py)  
 [0201_BitwiseANDofNumbersRange.py](leetcode/lc0201_BitwiseANDofNumbersRange.py)  
 [0202_HappyNumber.py](leetcode/lc0202_HappyNumber.py)  
 [0204_countPrimes.py](leetcode/lc0204_countPrimes.py)  
@@ -484,6 +489,7 @@
 ### Stack
 [0020_validParentheses.py](leetcode/lc0020_validParentheses.py)  
 [0032_longestValidParentheses.py](leetcode/lc0032_longestValidParentheses.py)  
+[0155_MinStack.py](leetcode/lc0155_MinStack.py)  
 [0173_BinarySearchTreeIterator.py](leetcode/lc0173_BinarySearchTreeIterator.py)(leetcode/lcIterative)  
 [0227_BasicCalculatorII.py](leetcode/lc0227_BasicCalculatorII.py)  
 [0341_FlattenNestedListIterator.py](leetcode/lc0341_FlattenNestedListIterator.py)  
@@ -529,6 +535,7 @@
 [0094_inorderTraversal.py](leetcode/lc0094_inorderTraversal.py)  
 [0100_isSameTree.py](leetcode/lc0100_isSameTree.py)  
 [0101_isSymmetric.py](leetcode/lc0101_isSymmetric.py)  
+[0102_BinaryTreeLevelOrderTraversal.py](lc0102_BinaryTreeLevelOrderTraversal.py)  
 [0104_maxDepthOfBinaryTree.py](leetcode/lc0104_maxDepthOfBinaryTree.py)  
 [0106_buildTree.py](leetcode/lc0106_buildTree.py)  
 [0110_isBalancedBinaryTree.py](leetcode/lc0110_isBalancedBinaryTree.py)  
@@ -579,7 +586,7 @@
 ### Trie (Bitwise Trie)
 [0421_MaximumXORofTwoNumbersInArray.py](leetcode/lc0421_MaximumXORofTwoNumbersInArray.py)  
 
-### Two Pointers
+### Two Pointers (and Three pointers, ...)
 [0003_lenOfLongestSubstr.py](leetcode/lc0003_lenOfLongestSubstr.py)  
 [0011_ContainerWithMostWater.py](leetcode/lc0011_ContainerWithMostWater.py)  
 [0015_threeSum.py](leetcode/lc0015_threeSum.py) (3Sum)  
@@ -589,6 +596,7 @@
 [0026_removeDuplicates.py](leetcode/lc0026_removeDuplicates.py)  
 [0027_removeElement.py](leetcode/lc0027_removeElement.py)  
 [0058_lengthOfLastWord.py](leetcode/lc0058_lengthOfLastWord.py)  
+[0075_SortColors.py](leetcode/lc0075_SortColors.py)  
 [0088_mergeSortedArray.py](leetcode/lc0088_mergeSortedArray.py)  
 [0167_TwoSumII_InputArrayIsSorted.py](leetcode/lc0167_TwoSumII_InputArrayIsSorted.py)  
 [0283_moveZeros.py](leetcode/lc0283_moveZeros.py)  
