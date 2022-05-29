@@ -4,25 +4,26 @@
 # A P L S I I G
 # Y   I   R
 # And then read line by line: "PAHNAPLSIIGYIR"
+# Write the code that will take a string and make this conversion given 
+# a number of rows.
+#
+# Constraints:
+#   1 <= s.length <= 1000
+#   s consists of English letters (lower-case and upper-case), ',' and '.'.
+#   1 <= numRows <= 1000
 
-
-# y is pos (which line) for NEXT char, forward is direction for NEXT move
+# flow control
+# - y is pos (which line) for NEXT char
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        if numRows == 1:
-            return s
-
-        forward = True
+        if numRows == 1: return s
         res = [''] * numRows
-        y = 0
+        y, direction = 0, 1
         for ch in s:
-            res[y] = res[y] + str(ch)
-            if forward:
-                y += 1
-            else:
-                y -= 1
+            res[y] += str(ch)
+            y += direction
             if y == 0 or y == numRows - 1:
-                forward = not forward
+                direction *= -1
 
         return ''.join(res)
 
