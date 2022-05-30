@@ -137,6 +137,9 @@
 ### BFS (Matrix)
 [0286_WallsAndGates.py](leetcode/lc0286_WallsAndGates.py)  
 
+### BFS (Matrix + Conditional Revisiting)
+[1293_ShortestPathInGridWithObstaclesElimination.py](leetcode/lc1293_ShortestPathInGridWithObstaclesElimination.py)  
+
 ### BFS and DFS (Topology Sort and Detect Cycle in Directed Graph)
 [0207_CourseSchedule.py](leetcode/lc0207_CourseSchedule.py)  
 [0210_CourseSchedule2.py](leetcode/lc0210_CourseSchedule2.py)  
@@ -261,6 +264,7 @@
 ### Graph (Dijkstra's algorithm) (Shortest Path) 
 [0787_CheapestFlightsWithinKStops.py](leetcode/lc0787_CheapestFlightsWithinKStops.py)  
 [1514_PathwithMaximumProbability.py](leetcode/lc1514_PathwithMaximumProbability.py)  
+[2290_MinimumObstacleRemoval.py](leetcode/lc2290_MinimumObstacleRemoval.py)  
 
 ### Graph (Prim's algorithm)
 [1584_MinCostToConnectAllPoints.py](leetcode/lc1584_MinCostToConnectAllPoints.py)  
@@ -292,6 +296,7 @@
 [0266_PalindromePermutation.py](leetcode/lc0266_PalindromePermutation.py)  
 [0350_IntersectionOfTwoArraysII.py](leetcode/lc0350_IntersectionOfTwoArraysII.py)  
 [0423_reconstructOriginalDigitsFromEnglish.py](leetcode/lc0423_reconstructOriginalDigitsFromEnglish.py)  
+[2287_RearrangeCharactersToMakeTargetString.py](lc2287_RearrangeCharactersToMakeTargetString.py)  
 
 ### Linked List
 [0002_addTwoNum.py](leetcode/lc0002_addTwoNum.py)  
@@ -499,6 +504,9 @@
 [1249_MinimumRemoveToMakeValidParentheses](leetcode/lc1249_MinimumRemoveToMakeValidParentheses.py)  
 [2197_ReplaceNonCoprimeNumbersInArray.py](leetcode/lc2197_ReplaceNonCoprimeNumbersInArray.py)  
 
+### Stack (Monotonic + DP)
+[2289_StepsToMakeArrayNon-decreasing.py](leetcode/lc2289_StepsToMakeArrayNon-decreasing.py)  
+
 ### Stack (Monotonic)
 [0071_simplifyPath.py](leetcode/lc0071_simplifyPath.py)  
 [0084_LargestRectangleInHistogram.py](leetcode/lc0084_LargestRectangleInHistogram.py)**  
@@ -523,6 +531,7 @@
 [0044_WildcardMatching.py](leetcode/lc0044_WildcardMatching.py)  
 [0394_DecodeString.py](leetcode/lc0394_DecodeString.py)  
 [2060_CheckOriginalStringExistsGivenTwoEncodedStrings.py](leetcode/lc2060_CheckOriginalStringExistsGivenTwoEncodedStrings.py)  
+[2288_ApplyDiscountToPrices.py](leetcode/lc2288_ApplyDiscountToPrices.py)  
 
 ### Sweep Line
 [0253_MeetingRoomsII.py](leetcode/lc0253_MeetingRoomsII.py)  
