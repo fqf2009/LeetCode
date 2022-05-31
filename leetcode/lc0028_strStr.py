@@ -11,6 +11,35 @@
 
 
 # Rolling hash is somewhat easier to understand: O(n)
+#  - hash = ( c1*p^(k) + c2*p^(k-1) + ... + ck*p^1 ) % m, where k, m are constant
+#  - find the matching hash, and then compare again in case of hash collision
+class Solution0:
+    def strStr(self, haystack: str, needle: str) -> int:
+        k = len(needle)
+        if k == 0:
+            return 0
+        if k > len(haystack):
+            return -1
+
+        pk, p, m, h1, h2 = 1, 31, 53, 0, 0
+        for i in reversed(range(k)):
+            pk = pk * p % m
+            h1 = (h1 + (ord(haystack[i]) - ord('a') + 1) * pk) % m
+            h2 = (h2 + (ord(needle[i]) - ord('a') + 1) * pk) % m
+
+        if h1 == h2 and haystack[0:k] == needle:
+            return 0
+
+        for i in range(len(haystack) - k):
+            h1 = (h1 + (ord(haystack[i+k])-ord('a')+1) +
+                    m - (ord(haystack[i]) - ord('a') + 1)*pk % m) * p % m
+            if h1 == h2 and haystack[i+1:i+k+1] == needle:
+                return i+1
+
+        return -1
+
+
+# Rolling hash is somewhat easier to understand: O(n)
 # https://en.wikipedia.org/wiki/Rolling_hash
 #  - suppose len(needle) = k
 #  - hash = ( c1*p^(k-1) + c2*p^(k-2) + ... + ck*p^0 ) % m, where k, m are constant
@@ -113,6 +142,10 @@ if __name__ == '__main__':
         print(r)
         assert (r == 0)
 
+        r = sol.strStr("mississippi", "sipp")
+        print(r)
+        assert (r == 6)
+
         r = sol.strStr("", "")
         print(r)
         assert (r == 0)
@@ -143,6 +176,7 @@ if __name__ == '__main__':
         print(r)
         assert(r == -1)
 
+    unitTest(Solution0())
     unitTest(Solution())
     unitTest(Solution1())
     unitTest(Solution2())
