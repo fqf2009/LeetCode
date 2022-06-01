@@ -13,6 +13,23 @@
 from typing import List
 
 
+# Simplify by encoding
+class Solution0:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        seen = set()
+        for i in range(9):
+            for j in range(9):
+                val = board[i][j]
+                if val != '.':
+                    row = f"R{i}={val}"
+                    col = f"C{j}={val}"
+                    grid = f"G{i//3}{j//3}={val}"
+                    if row in seen or col in seen or grid in seen:
+                        return False
+                    seen |= {row, col, grid}
+        return True
+
+
 # Array
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
@@ -72,7 +89,7 @@ if __name__ == "__main__":
     from unittest import TestCase, main
     from parameterized import parameterized, parameterized_class
 
-    @parameterized_class(('solution',), [(Solution,), (Solution1,)])
+    @parameterized_class(('solution',), [(Solution0,), (Solution,), (Solution1,)])
     class TestSolution(TestCase):
         @parameterized.expand([
             ([["5","3",".",".","7",".",".",".","."]
