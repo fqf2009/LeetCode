@@ -2,6 +2,7 @@
 # starting and ending position of a given target value.
 # If target is not found in the array, return [-1, -1].
 # You must write an algorithm with O(log n) runtime complexity.
+from bisect import bisect_left, bisect_right
 from typing import List
 
 # Binary search (Template 2)
@@ -92,6 +93,14 @@ class Solution3:
         return [p1, p2]
 
 
+class Solution4:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        p = bisect_left(nums, target)
+        if 0 <= p < len(nums) and nums[p] == target:
+            return [p, bisect_right(nums, target) - 1]
+        return [-1, -1]
+
+
 if __name__ == "__main__":
     def unitTest(sol):
         r = sol.searchRange(nums=[5, 7, 7, 8, 8, 10], target=8)
@@ -109,3 +118,4 @@ if __name__ == "__main__":
     unitTest(Solution1())
     unitTest(Solution2())
     unitTest(Solution3())
+    unitTest(Solution4())
