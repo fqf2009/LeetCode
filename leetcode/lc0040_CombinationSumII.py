@@ -11,6 +11,33 @@ from typing import List
 from collections import Counter
 
 
+# Backtracking:
+# - Sort, no Counter
+class Solution0:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        comb = []
+        cand = sorted(candidates)
+
+        def backtrack(remain, start):   # <-- difference is here
+            if remain == 0:
+                res.append(comb.copy())
+                return
+            if remain < 0:
+                return
+
+            for i in range(start, len(cand)):   # <-- difference is here
+                v = cand[i]
+                if i > start and cand[i] == cand[i-1]:  # skip duplicates
+                    continue
+                comb.append(v)
+                backtrack(remain - v, i)
+                comb.pop()
+
+        backtrack(target, 0)
+        return res
+
+
 # Backtracking, Counter
 # - Combination, not permutation
 # - more like template for backtracking
@@ -143,6 +170,7 @@ if __name__ == '__main__':
         print(sorted(r))
         assert sorted(r) == [[1, 1, 1, 2], [1, 2, 2], [5]]
 
+    unitTest(Solution0())
     unitTest(Solution())
     unitTest(Solution1())
     unitTest(Solution2())
