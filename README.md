@@ -293,6 +293,7 @@
 [0953_VerifyingAlienDictionary.py](leetcode/lc0953_VerifyingAlienDictionary.py)  
 
 ### HashMap (Counter, or MultiSet)
+[0030_SubstringWithConcatenationOfAllWords.py](leetcode/lc0030_SubstringWithConcatenationOfAllWords.py)  
 [0266_PalindromePermutation.py](leetcode/lc0266_PalindromePermutation.py)  
 [0350_IntersectionOfTwoArraysII.py](leetcode/lc0350_IntersectionOfTwoArraysII.py)  
 [0423_reconstructOriginalDigitsFromEnglish.py](leetcode/lc0423_reconstructOriginalDigitsFromEnglish.py)  
