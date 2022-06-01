@@ -4,16 +4,42 @@
 from typing import List
 
 
-# Backtracking + Recursion: T/S: O(n^3), O(n)
+# Backtracking + Recursion: T/S: O(n!), O(n)
+# - backtrack template
+class Solution0:
+    def totalNQueens(self, n: int) -> int:
+        solution = [-1] * n
+        filledColumns = set()
+
+        def backtrack(row, cnt) -> int:
+            if row == n:
+                return cnt + 1
+            for col in range(n):
+                if col not in filledColumns:
+                    for i in range(row):
+                        if abs(col - solution[i]) == row - i:
+                            break
+                    else:
+                        solution[row] = col
+                        filledColumns.add(col)
+                        cnt = backtrack(row + 1, cnt)
+                        filledColumns.remove(col)
+            return cnt
+
+        return backtrack(0, 0)
+
+
+# Backtracking + Recursion: T/S: O(n!), O(n)
 # - backtrack template
 class Solution:
     def totalNQueens(self, n: int) -> int:
-        res = [0]
+        res = 0
         solution = [-1] * n
         filledColumns = set()
         def backtrack(row):
+            nonlocal res
             if row == n:
-                res[0] += 1
+                res += 1
                 return
             for col in range(n):
                 if col not in filledColumns:
@@ -27,7 +53,7 @@ class Solution:
                         filledColumns.remove(col)
 
         backtrack(0)
-        return res[0]     
+        return res  
 
 
 # Backtracking + Iteration
@@ -75,5 +101,6 @@ if __name__ == '__main__':
         print(r)
         assert r == 1
 
+    unitTest(Solution0())
     unitTest(Solution())
     unitTest(Solution1())
