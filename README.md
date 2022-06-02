@@ -374,6 +374,9 @@
 [2224_MinimumOpsToConvertTime.py](leetcode/lc2224_MinimumOpsToConvertTime.py)  
 [2280_MinimumLinesRepresentLineChart.py](leetcode/lc2280_MinimumLinesRepresentLineChart.py)  
 
+### Math (Factorial Number System)
+[0060_PermutationSequence.py](leetcode/lc0060_PermutationSequence.py)  
+
 ### Math (Probability, Statistics)
 [0380_InsertDeleteGetRandom.py](leetcode/lc0380_InsertDeleteGetRandom.py)  
 [1230_TossStrangeCoins.py](leetcode/lc1230_TossStrangeCoins.py)  
@@ -388,6 +391,7 @@
 ### Matrix
 [0048_RotateImage.py](leetcode/lc0048_RotateImage.py)  
 [0054_spiralMatrix.py](leetcode/lc0054_spiralMatrix.py)  
+[0059_SpiralMatrixII](leetcode/lc0059_SpiralMatrixII)  
 [0073_SetMatrixZeroes.py](leetcode/lc0073_SetMatrixZeroes.py)  
 [0289_GameOfLife.py](leetcode/lc0289_GameOfLife.py)  
 [0311_SparseMatrixMultiplication.py](leetcode/lc0311_SparseMatrixMultiplication.py)  
@@ -400,6 +404,7 @@
 
 ### Merge Interval
 [0056_mergeIntervals.py](leetcode/lc0056_mergeIntervals.py)  
+[0057_InsertInterval.py](leetcode/lc0057_InsertInterval.py)  
 [0986_IntervalListIntersections.py](leetcode/lc0986_IntervalListIntersections.py)  
 [2276_CountIntegersInIntervals.py](leetcode/lc2276_CountIntegersInIntervals.py)  
 
