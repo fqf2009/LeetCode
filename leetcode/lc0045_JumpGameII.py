@@ -10,6 +10,22 @@
 from typing import List
 
 
+class Solution1:
+    def jump(self, nums: List[int]) -> int:
+        steps = 0
+        step_end = 0
+        farthest = 0
+        for i, v in enumerate(nums[:-1]):
+            farthest = max(farthest, i + v)
+            if i == step_end:
+                steps += 1
+                step_end = farthest
+            elif i > step_end:
+                return -1
+
+        return steps
+
+
 # DP + Iteration - T/S: O(n), O(n)
 # - dp[i] - in i steps, how far can I reach
 class Solution:
@@ -43,8 +59,11 @@ if __name__ == '__main__':
         print(r)
         assert r == 2
 
+        r = sol.jump(nums=[2, 0, 0, 1, 4])
+        print(r)
+        assert r == -1
 
-        r = sol.jump(nums=[2])
+        r = sol.jump(nums=[0])
         print(r)
         assert r == 0
 
@@ -54,3 +73,4 @@ if __name__ == '__main__':
 
 
     unitTest(Solution())
+    unitTest(Solution1())
