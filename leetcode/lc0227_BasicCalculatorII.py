@@ -92,6 +92,10 @@ class Solution1:
 
 if __name__ == '__main__':
     def unit_test1(sol):
+        r = sol.calculate("(0-3)/4")
+        print(r)
+        assert r == 0
+
         r = sol.calculate("1*2-3/4+5*6-7*8+9/10")
         print(r)
         assert r == -24
@@ -111,6 +115,10 @@ if __name__ == '__main__':
         r = sol.calculate(" 3+5 / 2 ")
         print(r)
         assert r == 5
+
+        r = sol.calculate("-3 / 2 ")
+        print(r)
+        assert r == -1
 
     def unit_test2(sol):
         r = sol.calculate("- 3 - 10 / 5 * 3 ^ 2 ")
