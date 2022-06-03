@@ -441,6 +441,7 @@
 
 ### Queue (Deque)
 [0346_MovingAverageFromDataStream.py](leetcode/lc0346_MovingAverageFromDataStream.py)  
+[0362_DesignHitCounter.py](leetcode/lc0362_DesignHitCounter.py)  
 [0862_ShortestSubarrayWithSumAtLeastK.py](leetcode/lc0862_ShortestSubarrayWithSumAtLeastK.py)  
 
 ### Queue (Heapq) (Priority Queue) 
@@ -502,13 +503,17 @@
 [0032_longestValidParentheses.py](leetcode/lc0032_longestValidParentheses.py)  
 [0155_MinStack.py](leetcode/lc0155_MinStack.py)  
 [0173_BinarySearchTreeIterator.py](leetcode/lc0173_BinarySearchTreeIterator.py)(leetcode/lcIterative)  
-[0227_BasicCalculatorII.py](leetcode/lc0227_BasicCalculatorII.py)  
 [0341_FlattenNestedListIterator.py](leetcode/lc0341_FlattenNestedListIterator.py)  
 [0716_maxStack.py](leetcode/lc0716_maxStack.py)  
 [0636_ExclusiveTimeOfFunctions.py](leetcode/lc0636_ExclusiveTimeOfFunctions.py)  
 [1047_RemoveAllAdjacentDuplicatesInString.py](leetcode/lc1047_RemoveAllAdjacentDuplicatesInString.py)  
 [1249_MinimumRemoveToMakeValidParentheses](leetcode/lc1249_MinimumRemoveToMakeValidParentheses.py)  
 [2197_ReplaceNonCoprimeNumbersInArray.py](leetcode/lc2197_ReplaceNonCoprimeNumbersInArray.py)  
+
+### Stack (Calculator)
+[0224_BasicCalculator.py](leetcode/lc0224_BasicCalculator.py)  
+[0227_BasicCalculatorII.py](leetcode/lc0227_BasicCalculatorII.py)  
+[0772_BasicCalculatorIII.py](leetcode/lc0772_BasicCalculatorIII.py)  
 
 ### Stack (Monotonic + DP)
 [2289_StepsToMakeArrayNon-decreasing.py](leetcode/lc2289_StepsToMakeArrayNon-decreasing.py)  
@@ -527,6 +532,7 @@
 [0014_longestCommonPrefix.py](leetcode/lc0014_longestCommonPrefix.py)  
 [0242_ValidAnagram.py](leetcode/lc0242_ValidAnagram.py)  
 [0415_AddStrings.py](leetcode/lc0415_AddStrings.py)  
+[0443_StringCompression.py](leetcode/lc0443_StringCompression.py)  
 [2273_RemovingAnagrams.py](leetcode/lc2273_RemovingAnagrams.py)  
 
 ### String (Custom Comparison)
