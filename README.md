@@ -169,6 +169,7 @@
 [0173_BinarySearchTreeIterator.py](leetcode/lc0173_BinarySearchTreeIterator.py)(leetcode/lcIterative)  
 [0339_NestedListWeightSum.py](leetcode/lc0339_NestedListWeightSum.py)  
 [0348_DesignTic-Tac-Toe.py](leetcode/lc0348_DesignTic-Tac-Toe.py)  
+[1275_FindWinnerOnTicTacToe.py](leetcode/lc1275_FindWinnerOnTicTacToe.py)  
 [0588_DesignInMemoryFileSystem.py](leetcode/lc0588_DesignInMemoryFileSystem.py)  
 [2166_DesignBitset.py](leetcode/lc2166_DesignBitset.py)  
 
@@ -274,6 +275,7 @@
 [0646_MaximumLengthOfPairChain.py](leetcode/lc0646_MaximumLengthOfPairChain.py)  
 [0670_MaximumSwap.py](leetcode/lc0670_MaximumSwap.py)  
 [0968_BinaryTreeCameras.py](leetcode/lc0968_BinaryTreeCameras.py)  
+[1405_LongestHappyString.py](leetcode/lc1405_LongestHappyString.py)  
 [1710_MaximumUnitsOnTruck.py](leetcode/lc1710_MaximumUnitsOnTruck.py)  
 
 ### Hash Function
@@ -327,6 +329,7 @@
 ### Linked List (Doubly-Linked List)
 [0430_FlattenMultilevelDoublyLinkedList.py](leetcode/lc0430_FlattenMultilevelDoublyLinkedList.py)  
 [0146_LRUCache.py](leetcode/lc0146_LRUCache.py)  
+[0460_LFUCache.py](leetcode/lc0460_LFUCache.py)  
 
 ### Logic, Pattern, and Flow Control
 [0006_zigzag.py](leetcode/lc0006_zigzag.py)  
@@ -444,7 +447,7 @@
 [0362_DesignHitCounter.py](leetcode/lc0362_DesignHitCounter.py)  
 [0862_ShortestSubarrayWithSumAtLeastK.py](leetcode/lc0862_ShortestSubarrayWithSumAtLeastK.py)  
 
-### Queue (Heapq) (Priority Queue) 
+### Queue (Heapq) (Priority Queue)
 [0023_MergeKSortedLists.py](leetcode/lc0023_MergeKSortedLists.py)  
 [0215_KthLargestElementInArray.py](leetcode/lc0215_KthLargestElementInArray.py)  
 [0218_TheSkylineProblem.py](leetcode/lc0218_TheSkylineProblem.py)  
@@ -454,6 +457,7 @@
 [0358_RearrangeStringKDistanceApart.py](leetcode/lc0358_RearrangeStringKDistanceApart.py)  
 [0378_KthSmallestElementInSortedMatrix.py](leetcode/lc0378_KthSmallestElementInSortedMatrix.py)  
 [0460_LFUCache.py](leetcode/lc0460_LFUCache.py)  
+[0692_TopKFrequentWords.py](leetcode/lc0692_TopKFrequentWords.py)  
 [0759_EmployeeFreeTime.py](leetcode/lc0759_EmployeeFreeTime.py)  
 [0778_SwimInRisingWater.py](leetcode/lc0778_SwimInRisingWater.py)  
 [0973_KClosestPointsToOrigin.py](leetcode/lc0973_KClosestPointsToOrigin.py)  
