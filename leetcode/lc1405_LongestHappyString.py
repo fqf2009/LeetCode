@@ -58,8 +58,8 @@ class Solution1:
         arr = [[a, "a"], [b, "b"], [c, "c"]]
         res = []
         while True:
-            arr.sort()  # assending, arr[2] has most available count
-            i = 1 if len(res) >= 2 and res[-2] == res[-1] == arr[2][1] else 2
+            arr.sort(reverse=True)
+            i = 1 if len(res) >= 2 and res[-2] == res[-1] == arr[0][1] else 0
             if arr[i][0] == 0: break # no available char to use
             res.append(arr[i][1])
             arr[i][0] -= 1
