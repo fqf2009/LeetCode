@@ -53,6 +53,16 @@ class Solution:
 
 
 # Sort + Greedy
+# - for 3 items, sort is enough, even simple comparison is enough
+#   if more than 3 items, consider using priority queue
+# - the logic below is much simpler than the above one:
+#   - each time only add one char, not two chars;
+#   - if previously added two chars are the same as char with most available count
+#     then use the second available char;
+#   - this second available char is not possible the same as the previous added
+#     two chars, because otherwise, it will be the most available char in the past.
+#     because we only add one char at a time, no way to add two chars for the second
+#     available char.
 class Solution1:
     def longestDiverseString(self, a: int, b: int, c: int) -> str:
         arr = [[a, "a"], [b, "b"], [c, "c"]]
