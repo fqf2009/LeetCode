@@ -16,6 +16,31 @@
 [0287_FindDuplicateNumber.py](leetcode/lc0287_FindDuplicateNumber.py)  
 [0448_findDisappearedNumbers.py](leetcode/lc0448_findDisappearedNumbers.py)  
 
+### Backtracking
+[0017_LetterCombinationsOfPhoneNumber.py](leetcode/lc0017_LetterCombinationsOfPhoneNumber.py)  
+[0022_GenerateParentheses.py](leetcode/lc0022_GenerateParentheses.py)  
+[0036_isValidSudoku.py](leetcode/lc0036_isValidSudoku.py)  
+[0037_solveSudoku.py](leetcode/lc0037_solveSudoku.py)  
+[0039_CombinationSum.py](leetcode/lc0039_CombinationSum.py)  
+[0040_CombinationSumII.py](leetcode/lc0040_CombinationSumII.py)  
+[0044_WildcardMatching.py](leetcode/lc0044_WildcardMatching.py)  
+[0046_Permutations.py](leetcode/lc0046_Permutations.py)  
+[0047_PermutationsII.py](leetcode/lc0047_PermutationsII.py)  
+[0051_N-Queens.py](leetcode/lc0051_N-Queens.py)  
+[0052_N-Queens2.py](leetcode/lc0052_N-Queens2.py)  
+[0077_Combinations.py](leetcode/lc0077_Combinations.py)  
+[0078_Subsets.py](leetcode/lc0078_Subsets.py)  
+[0079_wordSearch.py](leetcode/lc0079_wordSearch.py)  
+[0140_WordBreak2.py](leetcode/lc0140_WordBreak2.py)  
+[0282_ExpressionAddOperators.py](leetcode/lc0282_ExpressionAddOperators.py)  
+[0301_RemoveInvalidParentheses.py](leetcode/lc0301_RemoveInvalidParentheses.py)  
+[0784_LetterCasePermutation.py](leetcode/lc0784_LetterCasePermutation.py)  
+[2151_MaximumGoodPeopleBasedOnStatements.py](leetcode/lc2151_MaximumGoodPeopleBasedOnStatements.py)  
+
+### Backtracking (plus DP + Memo to improve performance)
+[0131_PalindromePartitioning.py](leetcode/lc0131_PalindromePartitioning.py)  
+[2267_CheckIfThereIsValidParenthesesStringPath.py](leetcode/lc2267_CheckIfThereIsValidParenthesesStringPath.py)  
+
 ### Binary Search
 [0004_MedianOfTwoSortedArrays.py](leetcode/lc0004_MedianOfTwoSortedArrays.py) ***  
 [0035_SearchInsertPosition.py](leetcode/lc0035_SearchInsertPosition.py)  
@@ -55,31 +80,6 @@
 ### Binary Search (Template 3) (more items between left and right bounds)
 [0658_FindKClosestElements.py](leetcode/lc0658_FindKClosestElements.py)  
 
-### Backtracking
-[0017_LetterCombinationsOfPhoneNumber.py](leetcode/lc0017_LetterCombinationsOfPhoneNumber.py)  
-[0022_GenerateParentheses.py](leetcode/lc0022_GenerateParentheses.py)  
-[0036_isValidSudoku.py](leetcode/lc0036_isValidSudoku.py)  
-[0037_solveSudoku.py](leetcode/lc0037_solveSudoku.py)  
-[0039_CombinationSum.py](leetcode/lc0039_CombinationSum.py)  
-[0040_CombinationSumII.py](leetcode/lc0040_CombinationSumII.py)  
-[0044_WildcardMatching.py](leetcode/lc0044_WildcardMatching.py)  
-[0046_Permutations.py](leetcode/lc0046_Permutations.py)  
-[0047_PermutationsII.py](leetcode/lc0047_PermutationsII.py)  
-[0051_N-Queens.py](leetcode/lc0051_N-Queens.py)  
-[0052_N-Queens2.py](leetcode/lc0052_N-Queens2.py)  
-[0077_Combinations.py](leetcode/lc0077_Combinations.py)  
-[0078_Subsets.py](leetcode/lc0078_Subsets.py)  
-[0079_wordSearch.py](leetcode/lc0079_wordSearch.py)  
-[0140_WordBreak2.py](leetcode/lc0140_WordBreak2.py)  
-[0282_ExpressionAddOperators.py](leetcode/lc0282_ExpressionAddOperators.py)  
-[0301_RemoveInvalidParentheses.py](leetcode/lc0301_RemoveInvalidParentheses.py)  
-[0784_LetterCasePermutation.py](leetcode/lc0784_LetterCasePermutation.py)  
-[2151_MaximumGoodPeopleBasedOnStatements.py](leetcode/lc2151_MaximumGoodPeopleBasedOnStatements.py)  
-
-### Backtracking (plus DP + Memo to improve performance)
-[0131_PalindromePartitioning.py](leetcode/lc0131_PalindromePartitioning.py)  
-[2267_CheckIfThereIsValidParenthesesStringPath.py](leetcode/lc2267_CheckIfThereIsValidParenthesesStringPath.py)  
-
 ### Bitwise or Bitmask Operation (Bit Manipulation)
 [0029_divide.py](leetcode/lc0029_divide.py)  
 [0050_pow.py](leetcode/lc0050_pow.py)***  
@@ -91,6 +91,7 @@
 [0201_BitwiseANDofNumbersRange.py](leetcode/lc0201_BitwiseANDofNumbersRange.py)  
 [0231_PowerOfTwo.py](leetcode/lc0231_PowerOfTwo.py)  
 [0461_hammingDistance.py](leetcode/lc0461_hammingDistance.py)  
+[1386_CinemaSeatAllocation.py](leetcode/lc1386_CinemaSeatAllocation.py)  
 [2151_MaximumGoodPeopleBasedOnStatements.py](leetcode/lc2151_MaximumGoodPeopleBasedOnStatements.py)  
 [2275_LargestCombinationWithBitwiseANDGreaterThanZero.py](leetcode/lc2275_LargestCombinationWithBitwiseANDGreaterThanZero.py)  
 
@@ -200,6 +201,7 @@
 [0300_LongestIncreasingSubsequence.py](leetcode/lc0300_LongestIncreasingSubsequence.py)  
 [0304_sumRegion.py](leetcode/lc0304_sumRegion.py)  
 [0309_BestTimeBuyAndSellStockWithCooldown.py.py](leetcode/lc0309_BestTimeBuyAndSellStockWithCooldown.py.py)  
+[0312_BurstBalloons.py](leetcode/lc0312_BurstBalloons.py)  
 [0322_CoinChange.py](leetcode/lc0322_CoinChange.py)  
 [0329_LongestIncreasingPathInMatrix.py](leetcode/lc0329_LongestIncreasingPathInMatrix.py)  
 [0337_HouseRobber3.py](leetcode/lc0337_HouseRobber3.py)  
