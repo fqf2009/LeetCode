@@ -5,6 +5,10 @@
 # 1 <= s.length <= 1000
 # s consists of lowercase English letters.
 
+# Manacher's Algorithm - O(n)
+# maybe try this in the future - https://cp-algorithms.com/string/manacher.html
+
+
 # Expand around center: O(n^2)
 class Solution:
     def countSubstrings(self, s: str) -> int:
