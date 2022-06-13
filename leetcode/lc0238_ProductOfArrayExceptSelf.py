@@ -9,6 +9,7 @@
 # Constraints:
 #   2 <= nums.length <= 10^5
 #   -30 <= nums[i] <= 30
+from itertools import accumulate
 from typing import List
 
 
@@ -38,6 +39,14 @@ class Solution:
         return res
 
 
+# Prefix Product
+class Solution1:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        p1 = list(accumulate(nums[:-1], lambda x, y: x*y, initial = 1))
+        p2 = list(accumulate(reversed(nums[1:]), lambda x, y: x*y, initial = 1))
+        return [x*y for x, y in zip(p1, reversed(p2))]
+
+
 if __name__ == '__main__':
     def unitTest(sol):
         r = sol.productExceptSelf([1, 2, 3, 4])
@@ -49,3 +58,4 @@ if __name__ == '__main__':
         assert r == [0, 0, 9, 0, 0]
 
     unitTest(Solution())
+    unitTest(Solution1())
