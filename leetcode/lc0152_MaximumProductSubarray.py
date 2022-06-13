@@ -9,17 +9,18 @@
 from typing import List
 
 
-# DP
+# DP - O(n)
+# - always keep max and min among (v, v * prov_max, v * prev_min)
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
-        prev_min = prev_max = max_prod = nums[0]
+        max0 = min0 = res = nums[0]
         for v in nums[1:]:
-            curr_max = max(v, prev_max * v, prev_min * v)
-            curr_min = min(v, prev_max * v, prev_min * v)
-            prev_max, prev_min = curr_max, curr_min
-            max_prod = max(max_prod, curr_max)
-
-        return max_prod
+            max1 = max(v, max0*v, min0*v)            
+            min1 = min(v, max0*v, min0*v)
+            res = max(res, max1)
+            max0, min0 = max1, min1
+        
+        return res
 
 
 class Solution1:
