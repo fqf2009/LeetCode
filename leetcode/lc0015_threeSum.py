@@ -37,14 +37,16 @@ class Solution:
 
         target, res = 0, []
         for i in range(0, len(N) - 2):
-            if N[i] > target: break
+            if N[i] > target: break                 # prune path
             if i > 0 and N[i] == N[i-1]: continue   # skip the duplicates
             j, k = i + 1, len(N) - 1
             while j < k:
+                if j > i + 1 and N[j-1] == N[j]:    # skip duplicates
+                    j += 1
+                    continue
                 total = N[i] + N[j] + N[k]
                 if total == target:
-                    if j == i + 1 or N[j] != N[j-1]:    # skip the duplicates
-                        res.append([N[i], N[j], N[k]])
+                    res.append([N[i], N[j], N[k]])
                     j += 1
                     k -= 1
                 elif total < target:
