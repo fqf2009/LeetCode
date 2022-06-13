@@ -39,22 +39,22 @@ class Solution2:
 # - as long as the visited item can be marked, BFS/DFS will both work.
 class Solution1:
     def numIslands(self, grid: List[List[str]]) -> int:
-        def dfsVisit(x, y):
-            grid[x][y] = '-1'
-            for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
-                x1, y1 = x + dx, y + dy
-                if 0 <= x1 < m and 0 <= y1 < n:
-                    if grid[x1][y1] == '1':
-                        dfsVisit(x1, y1)
-
         m, n = len(grid), len(grid[0])
+        
+        def dfsVisit(i, j):
+            for x, y in ((i+1, j), (i-1, j), (i, j+1), (i, j-1)):
+                if 0 <= x < m and 0 <= y < n and grid[x][y] == "1":
+                    grid[x][y] = "2"
+                    dfsVisit(x, y)
+        
         res = 0
-        for i in range(m):
+        for i in range(m):        
             for j in range(n):
-                if grid[i][j] == '1':
-                    res += 1
+                if grid[i][j] == "1":
                     dfsVisit(i, j)
+                    res += 1
 
+        # restore grid if necessary
         return res
 
 
@@ -90,7 +90,10 @@ class Solution:
 
 
 if __name__ == '__main__':
-    def unitTest(sol):
+    def unitTest(solution):
+        print(solution.__name__)
+        sol = solution()
+
         grid = [['1','1','1','1','0'],
                 ['1','1','0','1','0'],
                 ['1','1','0','0','0'],
@@ -138,6 +141,6 @@ if __name__ == '__main__':
         print(r)
         assert(r == 1)
 
-    unitTest(Solution())
-    unitTest(Solution1())
-    unitTest(Solution2())
+    unitTest(Solution)
+    unitTest(Solution1)
+    unitTest(Solution2)
