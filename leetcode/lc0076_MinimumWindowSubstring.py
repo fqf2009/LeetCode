@@ -13,7 +13,7 @@ from collections import Counter
 
 
 # Counter + Sliding Window
-class Solution:
+class Solution1:
     def minWindow(self, s: str, t: str) -> str:
         target_counter = Counter(t)
         cnt_not_met = len(target_counter)  # number of unique chars not satisfied yet
@@ -38,11 +38,37 @@ class Solution:
         return min_str
 
 
+# practise
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        cntr = Counter(t)
+        minLen = len(s) + 1
+        res = ""
+        left = 0
+        for i, ch in enumerate(s):
+            if ch in cntr:
+                cntr[ch] -= 1
+                if max(cntr.values()) <= 0:
+                    while True:
+                        if s[left] not in cntr:
+                            left += 1
+                        elif cntr[s[left]] < 0:
+                            cntr[s[left]] += 1
+                            left += 1
+                        else:
+                            break
+                    if i - left + 1 < minLen:
+                        minLen = i - left + 1
+                        res = s[left: i+1]
+
+        return res
+        
+
 if __name__ == "__main__":
     from unittest import TestCase, main
     from parameterized import parameterized, parameterized_class
 
-    @parameterized_class(('solution',), [(Solution,)])
+    @parameterized_class(('solution',), [(Solution,), (Solution1,)])
     class TestSolution(TestCase):
         @parameterized.expand([
             ("ADOBECODEBANC", "ABC", "BANC"),
