@@ -23,12 +23,10 @@
 #   Node.val is unique for each node.
 #   There are no repeated edges and no self-loops in the graph.
 #   The Graph is connected and all nodes can be visited starting from the given node.
-
-
-# Definition for a Node.
 from typing import Optional
 
 
+# Definition for a Node.
 class Node:
     def __init__(self, val = 0, neighbors = None):
         self.val = val
@@ -75,6 +73,24 @@ class Solution:
         return dfs_clone(node)
 
 
+# practice
+class Solution1:
+    def cloneGraph(self, node: 'Node') -> 'Node':
+        map = {}
+        def dfsClone(node: Node) -> Node:
+            if not node: return node
+            if node.val in map: return map[node.val]
+            n1 = Node(node.val)
+            map[node.val] = n1
+            if node.neighbors:
+                n1.neighbors = []
+                for n2 in node.neighbors:
+                    n1.neighbors.append(dfsClone(n2))
+            return n1
+        
+        return dfsClone(node)
+
+
 if __name__ == '__main__':
     def unit_test(sol):
         adj_list1 = [[2,4],[1,3],[2,4],[1,3]]
@@ -98,3 +114,4 @@ if __name__ == '__main__':
         assert node2 is None
 
     unit_test(Solution())
+    unit_test(Solution1())
