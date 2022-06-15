@@ -36,7 +36,7 @@ class Codec:
 
         def dfs_serialize(root):
             if not root:
-                res.append("None")
+                res.append("")
             else:
                 res.append(str(root.val))
                 dfs_serialize(root.left)
@@ -56,7 +56,7 @@ class Codec:
             if i == len(lst):
                 return (None, i)
 
-            if lst[i] == "None":
+            if lst[i] == "":
                 return (None, i + 1)
             else:
                 root = TreeNode(int(lst[i]))
@@ -73,7 +73,7 @@ class Codec1:
 
         def dfs_serialize(root):
             if not root:
-                res.append("None")
+                res.append("")
             else:
                 res.append(str(root.val))
                 dfs_serialize(root.left)
@@ -84,7 +84,7 @@ class Codec1:
 
     def deserialize(self, data):
         def dfs_deserialize(dq):
-            if dq[0] == "None":
+            if dq[0] == "":
                 dq.popleft()
                 return None
             else:
