@@ -48,6 +48,16 @@ class Solution1:
         return root
 
 
+class Solution2:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if (root.val == p.val or root.val == q.val or 
+           p.val < root.val < q.val or q.val < root.val < p.val):
+            return root
+        if p.val < root.val and q.val < root.val:
+            return self.lowestCommonAncestor(root.left, p, q)   # type: ignore
+        return self.lowestCommonAncestor(root.right, p, q)      # type: ignore
+
+
 if __name__ == "__main__":
 
     def unitTest(sol):
@@ -81,3 +91,4 @@ if __name__ == "__main__":
 
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution2())
