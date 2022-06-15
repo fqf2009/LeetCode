@@ -15,10 +15,8 @@ from lib.TreeUtil import TreeNode, TreeNodeUtil
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
         def matchTree(r1: Optional[TreeNode], r2: Optional[TreeNode]) -> bool:
-            if not r1 and not r2:
-                return True
-            elif not r1 or not r2:
-                return False
+            if not r1 or not r2:
+                return type(r1) == type(r2)  # type: ignore
             return ( r1.val == r2.val and 
                           matchTree(r1.left, r2.left) and 
                           matchTree(r1.right, r2.right) )
