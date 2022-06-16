@@ -13,19 +13,31 @@ import heapq
 # - sort start and end time of all intervals together,
 # - scan through sorted array, increase the count when encountering
 #   start time, and decrease the count when encountering end time
+# - if end time and start time (from different intervals) are the same
+#   the end will be before the start, so this ensure the correct answer.
 class Solution:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         return max(accumulate(y for _, y in sorted(
             chain.from_iterable(((s, 1), (e, -1)) for s, e in intervals))))
 
 
-# Priority Queue - O(n*log(n)), O(n)
+# Priority Queue - O(n*(log(n)+log(k)), O(k), where k is min_required_meeting_rooms
 # - iterate over meeting intervals order by start time
 # - use priority queue (min heap) to keep all used rooms, sorted on end time
 # - if a new interval with start time >= min(end time in used rooms), meaning
 #   an old room is free to be reused, pop it out, replace it with new end time;
 #   otherwise, add end time to priority queue
 # - at the end, the size of priority queue is the minimum number of rooms required
+# - e.g.: existing  [----------]                    <---- at the top of PQ
+#                              ^ end time
+#                       [-----------]
+#                                   ^ end time
+#                           [----------]
+#         new                         [----------]      
+#                                     ^   <---- start >= PQ[0] (end time), pop
+#                                               start >= PQ[1] (end time), pop
+# - whether to use a loop to pop up all rooms available for reuse?
+#   does not matter, the result is the same.
 class Solution1:
     def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         rooms = []
