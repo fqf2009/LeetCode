@@ -1,7 +1,7 @@
+# Some utility functions to facilitate the code testing of the
+# algorithm using trees
 from collections import deque
 from typing import Optional
-
-# Some utility functions to facilitate the code testing of the algorithm using trees
 
 
 class TreeNode:
@@ -40,6 +40,46 @@ class TreeNodeUtil:
         res.extend(TreeNodeUtil.toPostorderList(root.right))
         res.append(root.val)
         return res
+
+    @staticmethod
+    def toInorderListIterative(root: Optional[TreeNode]) -> list:
+        stack, res = [], []
+        while root or stack:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            res.append(root.val)  # type: ignore
+            root = root.right  # type: ignore
+        return res
+
+    @staticmethod
+    def toPreorderListIterative(root: Optional[TreeNode]) -> list:
+        stack, res = [], []
+        while root or stack:
+            while root:
+                res.append(root.val)
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+            root = root.right  # type: ignore
+        return res
+
+    # 1. Push root to first stack.
+    # 2. Loop while first stack is not empty
+    #    2.1 Pop a node from first stack and push it to second stack
+    #    2.2 Push left and right children of the popped node to first stack
+    # 3. Print contents of second stack
+    @staticmethod
+    def toPostorderListIterative(root: Optional[TreeNode]) -> list:
+        stack, res = [root], []
+        while stack:
+            root = stack.pop()
+            if root:
+                res.append(root.val)
+                stack.append(root.left)
+                stack.append(root.right)
+        return res[::-1]
 
     @staticmethod
     def dfsFind(root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
@@ -131,48 +171,50 @@ class TreeNodeUtil:
 
 
 if __name__ == "__main__":
-    # test case
-    root = TreeNodeUtil.fromBfsList([1, None, 2, 3])
-    r = TreeNodeUtil.toInorderList(root)
-    print(r)
-    assert(r == [1, 3, 2])
 
-    root = TreeNodeUtil.fromBfsList([])
-    r = TreeNodeUtil.toInorderList(root)
-    print(r)
-    assert(r == [])
+    def test_toBfsList():
+        n1 = TreeNode(2)
+        n2 = TreeNode(5)
+        n3 = TreeNode(8)
+        n4 = TreeNode(6)
+        n5 = TreeNode(7)
+        n1.right = n2
+        n2.left = n3
+        n2.right = n4
+        n4.left = n5
 
-    root = TreeNodeUtil.fromBfsList([1])
-    r = TreeNodeUtil.toInorderList(root)
-    print(r)
-    assert(r == [1])
+        nums = TreeNodeUtil.toBfsList(n1)
+        print(nums)
+        assert nums == [2, None, 5, 8, 6, None, None, 7]
 
-    root = TreeNodeUtil.fromBfsList([1, 2])
-    r = TreeNodeUtil.toInorderList(root)
-    print(r)
-    assert(r == [2, 1])
+        root = TreeNodeUtil.fromBfsList(nums)
+        nums = TreeNodeUtil.toBfsList(root)
+        print(nums)
+        assert nums == [2, None, 5, 8, 6, None, None, 7]
 
-    root = TreeNodeUtil.fromBfsList([1, None, 2])
-    r = TreeNodeUtil.toInorderList(root)
-    print(r)
-    assert(r == [1, 2])
+    def test_toXorderList(bfsList, inorderExpected, preorderExpected, postorderExpected):
+        root = TreeNodeUtil.fromBfsList(bfsList)
 
-    # test case
-    n1 = TreeNode(2)
-    n2 = TreeNode(5)
-    n3 = TreeNode(8)
-    n4 = TreeNode(6)
-    n5 = TreeNode(7)
-    n1.right = n2
-    n2.left = n3
-    n2.right = n4
-    n4.left = n5
+        r1 = TreeNodeUtil.toInorderList(root)
+        r2 = TreeNodeUtil.toInorderListIterative(root)
+        print(r1)
+        assert r1 == inorderExpected
+        assert r2 == inorderExpected
 
-    nums = TreeNodeUtil.toBfsList(n1)
-    print(nums)
-    assert(nums == [2, None, 5, 8, 6, None, None, 7])
+        r1 = TreeNodeUtil.toPreorderList(root)
+        r2 = TreeNodeUtil.toPreorderListIterative(root)
+        print(r1)
+        assert r1 == preorderExpected
+        assert r2 == preorderExpected
 
-    root = TreeNodeUtil.fromBfsList(nums)
-    nums = TreeNodeUtil.toBfsList(root)
-    print(nums)
-    assert(nums == [2, None, 5, 8, 6, None, None, 7])
+        r1 = TreeNodeUtil.toPostorderList(root)
+        r2 = TreeNodeUtil.toPostorderListIterative(root)
+        print(r1)
+        assert r1 == postorderExpected
+        assert r2 == postorderExpected
+
+    test_toBfsList()
+    test_toXorderList([1, None, 2, 3], [1, 3, 2], [1, 2, 3], [3, 2, 1])
+    test_toXorderList([], [], [], [])
+    test_toXorderList([1], [1], [1], [1])
+    test_toXorderList([1, 2], [2, 1], [1, 2], [2, 1])
