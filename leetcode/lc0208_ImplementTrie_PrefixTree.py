@@ -38,8 +38,10 @@ class Trie:
     def startsWith(self, prefix: str) -> bool:
         branch = self.root
         for ch in prefix:
-            if ch not in branch: return False
-            branch = branch[ch]
+            # if ch not in branch: return False
+            # branch = branch[ch]
+            branch = branch.get(ch)
+            if not branch: return False
         return True
 
 
