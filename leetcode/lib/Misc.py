@@ -63,7 +63,12 @@ def getDivisors(n: int) -> List[int]:
     return div
 
 
+from itertools import chain
+
 def base62Encode(n: int, minlen: int = 1) -> str:
+    # ''.join(chr(x) for x in chain(range(ord('0'), ord('9')+1), 
+    #                               range(ord('A'), ord('Z')+1), 
+    #                               range(ord('a'), ord('z')+1)))
     charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
     chs = []
     while n > 0:
