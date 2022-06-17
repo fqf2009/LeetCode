@@ -11,6 +11,19 @@ from typing import List, Optional
 import bisect
 
 
+class Solution0:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        LIS = []
+        for v in nums:
+            if not LIS or v > LIS[-1]:
+                LIS.append(v)
+            else:
+                j = bisect.bisect_left(LIS, v)
+                LIS[j] = v
+        
+        return len(LIS)
+
+
 # use bisect to do binary search
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
@@ -70,6 +83,25 @@ class Solution1:
         return len(dp)
 
 
+class Solution11:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        LIS = []
+        for v in nums:
+            if not LIS or v > LIS[-1]:
+                LIS.append(v)
+            else:
+                i, j = 0, len(LIS) - 1
+                while i < j:
+                    k = (i + j) // 2
+                    if LIS[k] < v:
+                        i = k + 1
+                    else:
+                        j = k
+                LIS[i] = v
+
+        return len(LIS)
+
+
 # DP (Dynamic Porgramming) - T/S: O(n^2), O(n)
 # - dp[i] is LIS length with ending number of nums[i]
 # - if j < i and nums[j] < nums[i], then:
@@ -108,6 +140,8 @@ if __name__ == '__main__':
         print(r)
         assert(r == 1)
 
+    unitTest(Solution0())
     unitTest(Solution())
     unitTest(Solution1())
+    unitTest(Solution11())
     unitTest(Solution2())
