@@ -18,7 +18,7 @@ from typing import List
 from collections import defaultdict
 
 
-# DFS - to sort DG (Directed Graph) and detect cycle
+# Topology Sort using DFS - sort DG (Directed Graph) and detect cycle
 # Time:  O(V+E), where V is number of vertices (vertex)
 # Space: O(V+E)
 class Solution:
@@ -50,7 +50,7 @@ class Solution:
         return visitOrder
 
 
-# BFS and Node Indegree - to sort DG (Directed Graph) and detect cycle
+# Topology Sort using BFS & Node Indegree - sort DG (Directed Graph) and detect cycle
 # Time:  O(V+E), where V is number of vertices (vertex)
 # Space: O(V+E)
 class Solution1:

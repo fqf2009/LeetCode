@@ -21,6 +21,12 @@ from typing import Counter, List
 
 # Topology Sort + DFS (detect cycle in Directed Graph)
 # - T/S: O(V+E), O(V+E), or O(C), O(C), where C = all characters in words
+# - e.g.: ["wrt", "wrf", "er", "ett", "rftt"]
+#   graph (adj list):   f -> t
+#                       e -> w
+#                       t -> r
+#                       r -> e
+#   DFS topology sort:  [w, e, r, t, f]  
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
         adj_lst = defaultdict(set)
@@ -29,7 +35,7 @@ class Solution:
         for wd1, wd2 in zip(words, words[1:]):
             for ch1, ch2 in zip(wd1, wd2):
                 if ch1 != ch2:
-                    adj_lst[ch2].add(ch1)
+                    adj_lst[ch2].add(ch1)   # DFS has different direction from BFS
                     break  # word order determined
             else:  # check for ["aa", "a"] situation
                 if len(wd1) > len(wd2):
@@ -57,8 +63,50 @@ class Solution:
         return "".join(list(letters - set(ordered_letters)) + ordered_letters)
 
 
+# practice: DFS (topology sort + detect cycle)
+class Solution0:
+    def alienOrder(self, words: List[str]) -> str:
+        graph = {}
+        for w1, w2 in zip(words, words[1:]):
+            for ch1, ch2 in zip_longest(w1, w2):
+                if ch1 != ch2:
+                    if ch1 == None: break
+                    if ch2 == None: return ""
+                    graph.setdefault(ch2, set()).add(ch1)
+                    break
+        
+        def dfsDetectCircle(x):
+            if visited[x] == -1: return True
+            visited[x] = -1     # visiting
+            for y in graph[x]:
+                if y in visited and visited[y] != 1:
+                    if dfsDetectCircle(y):
+                        return True
+            visited[x] = 1
+            orderedLetters.append(x)
+            return False
+            
+        visited = {x: 0 for x in graph} # not visited yet
+        orderedLetters = []
+        for x in graph:
+            if visited[x] == 0 and dfsDetectCircle(x):
+                return ""
+
+        letters = set(ch for word in words for ch in word)
+        return "".join(list(letters - set(orderedLetters)) + orderedLetters)
+
+
 # Topology Sort + BFS (detect cycle in Directed Graph)
 # - T/S: O(V+E), O(V+E), or O(C), O(C), where C = all characters in words
+# - e.g.: ["wrt", "wrf", "er", "ett", "rftt"]
+#   graph (adj list):   f <- t     (reversed direction)
+#                       e <- w
+#                       t <- r
+#                       r <- e
+#   BFS topology sort:  [w, e, r, t, f]
+#   - starting from nodes with idegree == 0
+#   - each time a edge is removed, reduce indegree
+#   - when indegree reaches 0, add to deque.
 class Solution1:
     def alienOrder(self, words: List[str]) -> str:
         adj_lst = defaultdict(set)
@@ -69,7 +117,7 @@ class Solution1:
             for ch1, ch2 in zip(wd1, wd2):
                 if ch1 != ch2:
                     if ch2 not in adj_lst[ch1]:  # add indegree only once!
-                        adj_lst[ch1].add(ch2)
+                        adj_lst[ch1].add(ch2)    # BFS has different direction from DFS
                         indegree[ch2] += 1
                     break  # word order determined
             else:  # check for ["aa", "a"] situation !
@@ -92,7 +140,10 @@ class Solution1:
 
 if __name__ == "__main__":
 
-    def unitTest(sol):
+    def unitTest(solution):
+        print(solution.__name__)
+        sol = solution()
+
         r = sol.alienOrder(["ac", "ab", "zc", "zb"])
         print(r)
         assert r in ("acbz", "azcb", "aczb", "cbaz", "cabz", "cazb")
@@ -117,5 +168,6 @@ if __name__ == "__main__":
         print(r)
         assert r == ""
 
-    unitTest(Solution())
-    unitTest(Solution1())
+    unitTest(Solution)
+    unitTest(Solution0)
+    unitTest(Solution1)
