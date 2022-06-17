@@ -22,8 +22,8 @@ from collections import deque
 #   is fully connected and contains exactly n - 1 edges, it can't possibly 
 #   contain a cycle, and therefore must be a tree!
 # - check nodes == n, and edges = n-1
-# - then try to use DFS from any node to visit the entire tree/graph
-# - use stack to implement iterative DFS
+# - then try to use BFS/DFS from any node to visit the entire tree/graph
+# - use stack to implement iterative DFS!!!
 class Solution:
     def validTree(self, n: int, edges: List[List[int]]) -> bool:
         if n == 1: return True
@@ -33,6 +33,7 @@ class Solution:
             graph.setdefault(b, set()).add(a)
 
         if len(graph) < n or len(edges) != n - 1: return False
+
         stack = [0]
         visited = set()
         while len(stack) > 0:
@@ -43,6 +44,28 @@ class Solution:
                     stack.append(y)
         
         return len(visited) == n
+
+
+# Union Find: O(n), O(n)
+# - 3 conditions:
+#   - edges == n-1
+#   - all nodes are conected
+#   - only one network (graph)
+class Solution0:
+    def validTree(self, n: int, edges: List[List[int]]) -> bool:
+        if n == 1: return True
+        if not len(edges) == n-1: return False
+
+        uf = {}
+        def find(x):
+            if uf.setdefault(x, x) != x:
+                uf[x] = find(uf[x])
+            return uf[x]
+        
+        for x, y in edges:
+            uf[find(x)] = find(y)
+
+        return len(uf) == n and len(set(find(x) for x in uf.keys())) == 1
 
 
 # DFS, but avoid going backward, to see if there is circle
@@ -114,5 +137,6 @@ if __name__ == '__main__':
         assert r == True
 
     unitTest(Solution())
+    unitTest(Solution0())
     unitTest(Solution1())
     unitTest(Solution2())
