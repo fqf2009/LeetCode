@@ -11,7 +11,6 @@
 #   -1000 <= Node.val <= 1000
 from lib.TreeUtil import TreeNode, TreeNodeUtil
 from typing import List, Optional, Tuple
-from functools import cache
 
 
 # DFS: O(n)
@@ -29,6 +28,39 @@ class Solution:
             return (maxExtendable, maxNonExtendable)
 
         return max(dfs(root))
+
+
+class Solution1:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        res = -2**31
+        def maxDepthSum(root: Optional[TreeNode]):
+            nonlocal res
+            if not root: return -2**31
+            leftDepthSum = maxDepthSum(root.left)
+            rightDepthSum = maxDepthSum(root.right)
+            res = max(res, leftDepthSum + rightDepthSum + root.val,
+                     leftDepthSum, rightDepthSum, root.val,
+                      leftDepthSum + root.val, rightDepthSum + root.val)
+            return max(leftDepthSum + root.val, rightDepthSum + root.val, root.val)
+        
+        maxDepthSum(root)
+        return res
+
+
+# node has negative value!!!
+class Solution2:
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+        res = -2**31
+        def maxGain(root: Optional[TreeNode]):
+            nonlocal res
+            if not root: return 0
+            leftGain = max(maxGain(root.left), 0)   # <-- here!!!
+            rightGain = max(maxGain(root.right), 0)
+            res = max(res, leftGain + rightGain + root.val)
+            return max(leftGain, rightGain) + root.val
+
+        maxGain(root)
+        return res
 
 
 if __name__ == '__main__':
@@ -54,3 +86,5 @@ if __name__ == '__main__':
         assert r == 42
 
     unitTest(Solution())
+    unitTest(Solution1())
+    unitTest(Solution2())
