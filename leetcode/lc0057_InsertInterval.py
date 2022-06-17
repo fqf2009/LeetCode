@@ -18,6 +18,12 @@ from itertools import chain
 from typing import List
 
 
+# Analysis: O(n)
+# - e.g.: 
+#   intervals:      [1------]    [2-------]  [4-------]
+#   newInterval:                       [3---------]
+# - first append those intervals with start time earlier than new interval
+# - then merge new interval and all remaining intervals
 class Solution:
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         ns, ne = newInterval
