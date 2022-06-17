@@ -37,16 +37,17 @@ class Solution:
 
 
 # DP + Iteration - T/S: O(n*m), O(m), where n = len(coins), m = amount
+# - assume dp[amount] is minimum number of coins to make up amount
 class Solution1:
     def coinChange(self, coins: List[int], amount: int) -> int:
         if amount == 0: return 0
-        dp = [amount*10] * (amount + 1)
+        dp = [amount*2] * (amount + 1)
         dp[0] = 0
-        for i in range(amount):
-            if dp[i] > amount: continue
+        for amt in range(amount):  # do not use range(1, amount)
+            if dp[amt] > amount: continue   # no solution for this amount
             for c in coins:
-                if i + c <= amount:
-                    dp[i + c] = min(dp[i + c], dp[i] + 1)
+                if amt + c <= amount:
+                    dp[amt + c] = min(dp[amt + c], dp[amt] + 1)
 
         return dp[amount] if dp[amount] <= amount else -1
 
