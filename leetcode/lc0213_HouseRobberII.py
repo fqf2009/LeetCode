@@ -16,6 +16,20 @@ from typing import List
 from functools import cache
 
 
+class Solution0:
+    def rob(self, nums: List[int]) -> int:
+        def robNoCircle(N: List[int]) -> int:
+            @cache
+            def dp(i):
+                if i >= len(N): return 0
+                return max(N[i] + dp(i+2), dp(i+1))
+            
+            return dp(0)
+        
+        if len(nums) == 1: return nums[0]
+        return max(robNoCircle(nums[1:]), robNoCircle(nums[:-1]))
+
+
 # DP + Recursion - T/S: O(n), O(n)
 # dp[i] = max value at position i
 # dp[i] only rely on dp[i-1] and dp[i-2]
@@ -24,8 +38,7 @@ class Solution:
         def robNoCircle(N: List[int]) -> int:
             @cache
             def dp(i):
-                if i == 0: return N[0]
-                if i == 1: return max(N[:2])
+                if i < 0: return 0
                 return max(dp(i-1), dp(i-2) + N[i])
 
             return dp(len(N) - 1)
@@ -72,5 +85,6 @@ if __name__ == '__main__':
         print(r)
         assert r == 18
 
+    unitTest(Solution0())
     unitTest(Solution())
     unitTest(Solution1())
