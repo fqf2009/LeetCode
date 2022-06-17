@@ -11,15 +11,26 @@ from typing import List
 from functools import cache
 
 # DP + Memo + Recursion
-class Solution:
+class Solution0:
     def rob(self, nums: List[int]) -> int:
         @cache
         def dp(i: int) -> int:
-            if i < 0: return 0
-            if i == 0: return nums[0]
-            return max(dp(i-1), dp(i-2) + nums[i])
-        
+            if i < 0:
+                return 0
+            return max(dp(i - 1), dp(i - 2) + nums[i])
+
         return dp(len(nums) - 1)
+
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        @cache
+        def dp(i):
+            if i >= len(nums):
+                return 0
+            return max(nums[i] + dp(i + 2), dp(i + 1))
+
+        return dp(0)
 
 
 # DP + Memo + Iteration - T/S: O(n), O(1)
@@ -47,7 +58,7 @@ class Solution2:
         if len(nums) > 1:
             dp[1] = max(nums[:2])
         for i in range(2, len(nums)):
-            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+            dp[i] = max(dp[i - 1], dp[i - 2] + nums[i])
 
         return dp[-1]
 
@@ -65,12 +76,13 @@ class Solution3:
         if len(nums) > 2:
             dp[2] = nums[0] + nums[2]
         for i in range(3, len(nums)):
-            dp[i] = max(dp[i-2], dp[i-3]) + nums[i]
+            dp[i] = max(dp[i - 2], dp[i - 3]) + nums[i]
 
         return max(dp)  # this is difference
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
+
     def unitTest(sol):
         r = sol.rob(nums=[3, 2])
         print(r)
@@ -93,6 +105,7 @@ if __name__ == '__main__':
         assert r == 32
 
     unitTest(Solution())
+    unitTest(Solution0())
     unitTest(Solution1())
     unitTest(Solution2())
     unitTest(Solution3())

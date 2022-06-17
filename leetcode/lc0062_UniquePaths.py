@@ -13,7 +13,7 @@ import numpy as np
 from functools import cache
 
 
-# DP + Recursion + Memo
+# DP + Recursion + Memo - T/S: O(m*n), O(m*n)
 class Solution:
     def uniquePaths(self, m: int, n: int) -> int:
         @cache
@@ -23,6 +23,18 @@ class Solution:
             return dp(i-1, j) + dp(i, j-1)
 
         return dp(m-1, n-1)
+
+
+# practise
+class Solution0:
+    def uniquePaths(self, m: int, n: int) -> int:
+        @cache
+        def dp(i, j):
+            if i >= m or j >= n: return 0
+            if i == m-1 or j == n-1: return 1
+            return dp(i+1, j) + dp(i, j+1)
+        
+        return dp(0, 0)
 
 
 # BFS Search - Utilize NumPy's fast mathematical operations over arrays
@@ -45,7 +57,7 @@ class Solution1:
                 return res
 
 
-# Math: O(min(m,n))
+# Math: T/S: O(min(m,n)), O(1)
 # Analysis:
 # - in (m-1) down steps and (n-1) right steps, to pick either down or right step;
 # - total unique pathes are Combination(m+n-2, n-1)

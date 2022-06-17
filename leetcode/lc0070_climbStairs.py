@@ -15,11 +15,12 @@ class Solution:
 # DP + Interative: T/S: O(n), O(1)
 class Solution1:
     def climbStairs(self, n: int) -> int:
-        dp0, dp1, dp2 = 1, 1 ,1
-        for _ in range(1, n):
-            dp2 = dp0 + dp1
-            dp1, dp0 = dp2, dp1
-        return dp2
+        dp0, dp1 = 1, 1
+        res = 1     # if n <= 1
+        for _ in range(2, n+1):
+            res = dp0 + dp1
+            dp1, dp0 = res, dp1
+        return res
 
 
 # Actually this is Fibonacci problem in disguise.

@@ -52,4 +52,8 @@ if __name__ == '__main__':
         print(r)
         assert r == 0
 
+        r = sol.numDecodings("0")
+        print(r)
+        assert r == 0
+
     numDecodings(Solution())

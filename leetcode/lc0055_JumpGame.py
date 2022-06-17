@@ -12,13 +12,13 @@ from typing import List
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
         n = len(nums)
-        dp = 0
+        maxDistance = 0
         for i, v in enumerate(nums):
-            if dp < i: return False
-            dp = max(dp, i + v)
-            if dp >= n - 1: return True
+            if maxDistance < i: return False
+            maxDistance = max(maxDistance, i + v)
+            if maxDistance >= n - 1: break
 
-        return False
+        return True
 
 
 # DP + Iteration - T/S: O(n*V), O(n), where V = avg(nums)
