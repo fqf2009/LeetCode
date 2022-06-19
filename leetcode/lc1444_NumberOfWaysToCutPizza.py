@@ -20,6 +20,7 @@ from typing import List
 
 
 # 2-D, prefix(actually postfix) Sum + DP
+# T/S: O(m*n*(m+n)*k), O(m*n*k)
 class Solution:
     def ways(self, pizza: List[str], k: int) -> int:
         m, n, modulo = len(pizza), len(pizza[0]), 10**9 + 7
