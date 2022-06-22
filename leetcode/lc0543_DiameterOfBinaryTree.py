@@ -27,6 +27,21 @@ class Solution:
         return diameter
 
 
+class Solution0:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        res = 0
+        def dfsVisit(root):     # return depth
+            nonlocal res
+            if not root: return 0
+            ldepth = dfsVisit(root.left)
+            rdepth = dfsVisit(root.right)
+            res = max(res, ldepth + rdepth)
+            return max(ldepth, rdepth) + 1
+
+        dfsVisit(root)
+        return res
+
+
 # Binary Tree + DFS: O(n)
 class Solution1:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
@@ -45,7 +60,7 @@ if __name__ == "__main__":
     from unittest import TestCase, main
     from parameterized import parameterized, parameterized_class
 
-    @parameterized_class(('solution',), [(Solution,), (Solution1,)])
+    @parameterized_class(('solution',), [(Solution,), (Solution0,), (Solution1,)])
     class TestSolution(TestCase):
         @parameterized.expand([
             ([1, 2, 3, 4, 5], 3),
