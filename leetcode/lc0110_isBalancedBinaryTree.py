@@ -9,16 +9,18 @@ from typing import Optional
 # Recursion
 class Solution:
     def isBalanced(self, root: Optional[TreeNode]) -> bool:
-        def heightAndBalance(root: Optional[TreeNode]) -> tuple:
-            if root == None:
-                return (0, True)
-            h1, b1 = heightAndBalance(root.left)
-            if not b1:
-                return (h1 + 1, b1)
-            h2, b2 = heightAndBalance(root.right)
-            return (max(h1, h2) + 1, abs(h1 - h2) <= 1 and b2)
+        def balanced(root: Optional[TreeNode]) -> tuple:
+            if root == None: return (True, 0)   # balanced and height
 
-        return heightAndBalance(root)[1]
+            b1, h1 = balanced(root.left)
+            if not b1: return (b1, -1)
+
+            b2, h2 = balanced(root.right)
+            if not b2: return (b2, -1)
+
+            return (abs(h1 - h2) <= 1, max(h1, h2) + 1)
+
+        return balanced(root)[0]
 
 
 # test case
