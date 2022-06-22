@@ -1,9 +1,12 @@
 # Given the head of a singly linked list, return the middle
 # node of the linked list.
 # If there are two middle nodes, return the second middle node.
-
+# Constraints:
+#   The number of nodes in the list is in the range [1, 100].
+#   1 <= Node.val <= 100
 from typing import Optional
 from lib.ListUtil import ListNode, ListNodeUtil
+
 
 # Scan twice: more clear, easier to write
 class Solution:
@@ -29,6 +32,16 @@ class Solution1:
             p1, p2 = p1.next, p2.next
             if p2:
                 p2 = p2.next
+        
+        return p1
+
+
+class Solution2:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        p1 = p2 = head
+        while p2 and p2.next:
+            p1 = p1.next    # type: ignore
+            p2 = p2.next.next
         
         return p1
 
