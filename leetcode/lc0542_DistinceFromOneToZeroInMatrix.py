@@ -41,6 +41,52 @@ class Solution:
         return dis
 
 
+# BFS
+class Solution1:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        m, n = len(mat), len(mat[0])
+        res = [[-1]*n for _ in range(m)]    # also act as visited[][]
+        dq = deque()
+        for i in range(m):
+            for j in range(n):
+                if mat[i][j] == 0:
+                    dq.append([i, j, 0])
+        
+        while dq:
+            i, j, dist = dq.popleft()
+            if res[i][j] >= 0: continue # visited
+            res[i][j] = dist
+            for x, y in ((i+1, j), (i-1, j), (i, j+1), (i, j-1)):
+                if 0 <= x < m and 0 <= y < n and res[x][y] < 0:
+                    dq.append([x, y, dist+1])
+        
+        return res
+
+
+# BFS
+# - slightly different, actually faster
+class Solution2:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        m, n = len(mat), len(mat[0])
+        res = [[-1]*n for _ in range(m)]    # also act as visited[][]
+        dq = deque()
+        for i in range(m):
+            for j in range(n):
+                if mat[i][j] == 0:
+                    dq.append([i, j])
+                    res[i][j] = 0
+
+        while dq:
+            i, j = dq.popleft()
+            dist = res[i][j]
+            for x, y in ((i+1, j), (i-1, j), (i, j+1), (i, j-1)):
+                if 0 <= x < m and 0 <= y < n and res[x][y] < 0:
+                    res[x][y] = dist + 1
+                    dq.append([x, y])
+        
+        return res
+
+
 if __name__ == '__main__':
     def unitTest(sol):
         r = sol.updateMatrix([[0,0,0],
@@ -60,3 +106,5 @@ if __name__ == '__main__':
                      [1,2,1]]
 
     unitTest(Solution())
+    unitTest(Solution1())
+    unitTest(Solution2())
