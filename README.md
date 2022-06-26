@@ -66,10 +66,7 @@
 [1011_CapacityToShipPackagesWithinDays.py](leetcode/lc1011_CapacityToShipPackagesWithinDays.py)  
 [1044_LongestDuplicateSubstring.py](leetcode/lc1044_LongestDuplicateSubstring.py)  
 [1268_SearchSuggestionsSystem.py](leetcode/lc1268_SearchSuggestionsSystem.py)  
-[2187_MinimumTimeToCompleteTrips.py](leetcode/lc2187_MinimumTimeToCompleteTrips.py)  
 [0235_LowestCommonAncestorOfBinarySearchTree.py](leetcode/lc0235_LowestCommonAncestorOfBinarySearchTree.py)  
-[1891_CuttingRibbons.py](leetcode/lc1891_CuttingRibbons.py)  
-[2226_MaximumCandiesAllocatedToKChildren.py](leetcode/lc2226_MaximumCandiesAllocatedToKChildren.py)  
 
 ### Binary Search (Template 1) (exact match)
 [0033_searchInRotatedSorted.py](leetcode/lc0033_searchInRotatedSorted.py) ***  
@@ -93,6 +90,12 @@
 ### Binary Search (Template 3) (more items between left and right bounds)
 [0658_FindKClosestElements.py](leetcode/lc0658_FindKClosestElements.py)  
 
+### Binary Search (un-ordered or un-sorted)
+[0973_KClosestPointsToOrigin.py](leetcode/lc0973_KClosestPointsToOrigin.py)  
+[1891_CuttingRibbons.py](leetcode/lc1891_CuttingRibbons.py)  
+[2187_MinimumTimeToCompleteTrips.py](leetcode/lc2187_MinimumTimeToCompleteTrips.py)  
+[2226_MaximumCandiesAllocatedToKChildren.py](leetcode/lc2226_MaximumCandiesAllocatedToKChildren.py)  
+
 ### Bitwise or Bitmask Operation (Bit Manipulation)
 [0029_divide.py](leetcode/lc0029_divide.py)  
 [0050_pow.py](leetcode/lc0050_pow.py)***  
@@ -103,6 +106,7 @@
 [0191_nbOneBit.py](leetcode/lc0191_nbOneBit.py)  
 [0201_BitwiseANDofNumbersRange.py](leetcode/lc0201_BitwiseANDofNumbersRange.py)  
 [0231_PowerOfTwo.py](leetcode/lc0231_PowerOfTwo.py)  
+[0338_CountingBits.py](leetcode/lc0338_CountingBits.py)  
 [0461_hammingDistance.py](leetcode/lc0461_hammingDistance.py)  
 [1386_CinemaSeatAllocation.py](leetcode/lc1386_CinemaSeatAllocation.py)  
 [2151_MaximumGoodPeopleBasedOnStatements.py](leetcode/lc2151_MaximumGoodPeopleBasedOnStatements.py)  
@@ -126,7 +130,6 @@
 [0437_PathSumIII.py](leetcode/lc0437_PathSumIII.py)  
 [0472_ConcatenatedWords.py](leetcode/lc0472_ConcatenatedWords.py)  
 [0515_FindLargestValueInEachTreeRow.py](leetcode/lc0515_FindLargestValueInEachTreeRow.py)  
-[0542_DistinceFromOneToZeroInMatrix.py](leetcode/lc0542_DistinceFromOneToZeroInMatrix.py)  
 [0572_SubtreeOfAnotherTree.py](leetcode/lc0572_SubtreeOfAnotherTree.py)  
 [0617_MergeTwoBinaryTrees.py](leetcode/lc0617_MergeTwoBinaryTrees.py)  
 [0695_MaxAreaOfIsland.py](leetcode/lc0695_MaxAreaOfIsland.py)  
@@ -149,6 +152,7 @@
 ### BFS and DFS (Matrix)
 [0286_WallsAndGates.py](leetcode/lc0286_WallsAndGates.py)  
 [0417_PacificAtlanticWaterFlow.py](leetcode/lc0417_PacificAtlanticWaterFlow.py)  
+[0542_DistinceFromOneToZeroInMatrix.py](leetcode/lc0542_DistinceFromOneToZeroInMatrix.py)  
 
 ### BFS and DFS (Matrix + Conditional Revisiting)
 [1293_ShortestPathInGridWithObstaclesElimination.py](leetcode/lc1293_ShortestPathInGridWithObstaclesElimination.py)  
@@ -219,7 +223,6 @@
 [0265_PaintHouseII.py](leetcode/lc0265_PaintHouseII.py)  
 [0279_PerfectSquares.py](leetcode/lc0279_PerfectSquares.py)  
 [0300_LongestIncreasingSubsequence.py](leetcode/lc0300_LongestIncreasingSubsequence.py)  
-[0304_sumRegion.py](leetcode/lc0304_sumRegion.py)  
 [0309_BestTimeBuyAndSellStockWithCooldown.py.py](leetcode/lc0309_BestTimeBuyAndSellStockWithCooldown.py.py)  
 [0312_BurstBalloons.py](leetcode/lc0312_BurstBalloons.py)  
 [0329_LongestIncreasingPathInMatrix.py](leetcode/lc0329_LongestIncreasingPathInMatrix.py)  
@@ -255,6 +258,10 @@
 [2262_TotalAppealOfAString.py](leetcode/lc2262_TotalAppealOfAString.py)
 [2267_CheckIfThereIsValidParenthesesStringPath.py](leetcode/lc2267_CheckIfThereIsValidParenthesesStringPath.py)  
 
+### DP (2D)
+[1444_NumberOfWaysToCutPizza.py](leetcode/lc1444_NumberOfWaysToCutPizza.py)  
+[2312_SellingPiecesOfWood.py](leetcode/lc2312_SellingPiecesOfWood.py)  
+
 ### DP (Fibonacci, Coins, Stairs)
 [0070_climbStairs.py](leetcode/lc0070_climbStairs.py)  
 [0322_CoinChange.py](leetcode/lc0322_CoinChange.py)  
@@ -265,6 +272,7 @@
 [1230_TossStrangeCoins.py](leetcode/lc1230_TossStrangeCoins.py)  
 [2218_MaximumValueOfKCoinsFromPiles.py](leetcode/lc2218_MaximumValueOfKCoinsFromPiles.py)  
 [2266_CountNumberOfTexts.py](leetcode/lc2266_CountNumberOfTexts.py)  
+[2320_CountWaysToPlaceHouses.py](leetcode/lc2320_CountWaysToPlaceHouses.py)  
 
 ### Generator
 [0341_FlattenNestedListIterator.py](leetcode/lc0341_FlattenNestedListIterator.py)  
@@ -291,7 +299,8 @@
 [1514_PathwithMaximumProbability.py](leetcode/lc1514_PathwithMaximumProbability.py)  
 [2290_MinimumObstacleRemoval.py](leetcode/lc2290_MinimumObstacleRemoval.py)  
 
-### Graph (Prim's algorithm)
+### Graph (MST - Minimus Spanning Tree) (Prim's algorithm)
+[1168_OptimizeWaterDistributionInVillage.py](leetcode/lc1168_OptimizeWaterDistributionInVillage.py)  
 [1584_MinCostToConnectAllPoints.py](leetcode/lc1584_MinCostToConnectAllPoints.py)  
 
 ### Greedy
@@ -381,6 +390,9 @@
 [2210_CountHillsAndValleysInArray.py](leetcode/lc2210_CountHillsAndValleysInArray.py)  
 [2211_CountCollisionsOnRoad.py](leetcode/lc2211_CountCollisionsOnRoad.py)  
 [2225_FindPlayersWithZeroOrOneLosses.py](leetcode/lc2225_FindPlayersWithZeroOrOneLosses.py)  
+[2309_GreatestLetterInUpperAndLowerCase.py](leetcode/lc2309_GreatestLetterInUpperAndLowerCase.py)  
+[2310_SumOfNumbersWithUnitsDigitK.py](leetcode/lc2310_SumOfNumbersWithUnitsDigitK.py)  
+[2311_LongestBinarySubsequenceLessThanOrEqualToK.py](leetcode/lc2311_LongestBinarySubsequenceLessThanOrEqualToK.py)  
 
 ### Math
 [0007_reverseInt32.py](leetcode/lc0007_reverseInt32.py)  
@@ -453,7 +465,7 @@
 [0234_isPalindromeLinkedList.py](leetcode/lc0234_isPalindromeLinkedList.py)  
 [0246_StrobogrammaticNumber.py](leetcode/lc0246_StrobogrammaticNumber.py)(leetcode/lcsimilar)  
 [0336_PalindromePairs.py](leetcode/lc0336_PalindromePairs.py)  
-[0409_LongestPalindrome.py](leetcode/lc0409_LongestPalindrome.py)  
+[0409_LongestPalindrome.py](leetcode/lc0409_LongestPalindrome.py)**  
 [0516_LongestPalindromicSubsequence.py](leetcode/lc0516_LongestPalindromicSubsequence.py)  
 [0647_PalindromicSubstrings.py](leetcode/lc0647_PalindromicSubstrings.py)  
 [0680_ValidPalindromeII.py](leetcode/lc0680_ValidPalindromeII.py)  
@@ -468,6 +480,11 @@
 [0930_BinarySubarraysWithSum.py](leetcode/lc0930_BinarySubarraysWithSum.py)  
 [1546_MaxNumberOfNonOverlappingSubarraysWithSumEqualsTarget.py](leetcode/lc1546_MaxNumberOfNonOverlappingSubarraysWithSumEqualsTarget.py)  
 [2245_MaximumTrailingZerosInCorneredPath.py](leetcode/lc2245_MaximumTrailingZerosInCorneredPath.py)  
+[2321_MaxScoreOfSplicedArray.py](leetcode/lc2321_MaxScoreOfSplicedArray.py)  
+
+### Prefix Sum (2D)
+[0304_sumRegion.py](leetcode/lc0304_sumRegion.py)  
+[1444_NumberOfWaysToCutPizza.py](leetcode/lc1444_NumberOfWaysToCutPizza.py)  
 
 ### Prefix Sum of Prefix Sum
 [2281_SumOfTotalStrengthOfWizards.py](leetcode/lc2281_SumOfTotalStrengthOfWizards.py)  
@@ -500,6 +517,7 @@
 
 ### Quickselect
 [0215_KthLargestElementInArray.py](leetcode/lc0215_KthLargestElementInArray.py)  
+[0973_KClosestPointsToOrigin.py](leetcode/lc0973_KClosestPointsToOrigin.py)  
 
 ### Recursion
 [0339_NestedListWeightSum.py](leetcode/lc0339_NestedListWeightSum.py)  
@@ -595,8 +613,6 @@
 [1854_MaximumPopulationYear.py](leetcode/lc1854_MaximumPopulationYear.py)  
 [2251_NumberOfFlowersInFullBloom.py](leetcode/lc2251_NumberOfFlowersInFullBloom.py)  
 
-### Topological Sort
-
 ### Tree
 [0094_inorderTraversal.py](leetcode/lc0094_inorderTraversal.py)  
 [0100_isSameTree.py](leetcode/lc0100_isSameTree.py)  
@@ -618,6 +634,9 @@
 [2096_StepByStepDirectionsFromBinaryTreeNodeToAnother.py](leetcode/lc2096_StepByStepDirectionsFromBinaryTreeNodeToAnother.py)  
 [2196_CreateBinaryTreeFromDescriptions.py](leetcode/lc2196_CreateBinaryTreeFromDescriptions.py)  
 [2265_CountNodesEqualToAverageOfSubtree.py](leetcode/lc2265_CountNodesEqualToAverageOfSubtree.py)  
+
+### Tree (use graph to build tree, use time in/out to determine ancestor/descendant relationship)
+[lc2322_MinScoreAfterRemovalsTwoEdgesFromTree.py](leetcode/lc2322_MinScoreAfterRemovalsTwoEdgesFromTree.py)  
 
 ### Tree (Binary Tree + Vertical Traversal)
 [0987_VerticalOrderTraversalOfBinaryTree.py](leetcode/lc0987_VerticalOrderTraversalOfBinaryTree.py)  

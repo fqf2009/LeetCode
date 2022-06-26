@@ -38,6 +38,20 @@ class Solution1:
 
         return ''.join(reversed(res))
 
+class Solution2:
+    def addBinary(self, a: str, b: str) -> str:
+        res = []
+        carry = 0
+        for x, y in zip_longest(a[::-1], b[::-1]):
+            v1 = 0 if x == None else int(x)
+            v2 = 0 if y == None else int(y)
+            res.append((v1 + v2 + carry) % 2)
+            carry = (v1 + v2) // 2
+        
+        if carry > 0:
+            res.append(carry)
+        return "".join(str(x) for x in res[::-1])
+
 
 if __name__ == '__main__':
     def unitTest(sol):
@@ -50,4 +64,4 @@ if __name__ == '__main__':
         assert r == '10101'
 
     unitTest(Solution())
-    unitTest(Solution1())
+    unitTest(Solution2())

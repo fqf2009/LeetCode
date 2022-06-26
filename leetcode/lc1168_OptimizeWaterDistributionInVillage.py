@@ -24,6 +24,9 @@ from typing import List
 
 
 # MST (Minimus Spanning Tree) - Prim's Algorithm
+# T/S: O((V+E)*log(V+E)), O(V+E), V=>Vertices(houses), E=>Edges(Pipes)
+#      - build graph: O(V+E)
+#      - traversal: O(V*log(V+E)), where E>=(V+E), due to virtual node
 # - Build a graph (undirected or bidirectional), each house is a node,
 #   pipe cost is edge weight;
 # - Use one virtual node representing all wells in each house,
