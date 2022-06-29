@@ -13,7 +13,7 @@ from functools import cache
 from typing import DefaultDict, List
 
 
-# DFS + DP + Memo
+# Backtrack + DFS + DP + Memo
 # Time Complexity: O(W + w^n) on average
 # - where W = len(wordDict), N = len(s),
 #         w = on average the number of words for each initial letter
@@ -35,7 +35,9 @@ class Solution:
                 if s[pos:].startswith(word):
                     success, sntn = dp_break(pos + len(word))
                     if success:
-                        sentences.extend([word] + x for x in sntn)
+                        sentences.extend([word] + x for x in sntn)  # extend(Iterable)
+                        # for x in sntn:                            # equivalence
+                        #   sentences.append([word] + x)
             if len(sentences) > 0:
                 return (True, sentences)
             else:
@@ -46,6 +48,44 @@ class Solution:
             return [' '.join(x) for x in sntn]
         else:
             return []
+
+
+# backtrack template
+class Solution00:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        words = []
+        res = []
+
+        def backtrack(pos):
+            if pos == len(s):
+                res.append(' '.join(words))
+            for word in wordDict:
+                if s[pos:].startswith(word):
+                    words.append(word)
+                    backtrack(pos + len(word))
+                    words.pop()
+
+        backtrack(0)
+        return res
+
+
+# backtrack + dp + memo
+class Solution01:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        @cache
+        def backtrack(pos):
+            if (pos == len(s)):
+                return [[]]             # success, reutnrn [[]]
+            sentences = []              # not success, return []
+            for word in wordDict:
+                if s[pos:].startswith(word):
+                    stnts = backtrack(pos + len(word))
+                    for x in stnts:
+                        sentences.append([word] + x)
+
+            return sentences
+        
+        return [' '.join(x) for x in backtrack(0)]
 
 
 # DFS, DP, Memorization
@@ -131,5 +171,7 @@ if __name__ == "__main__":
         assert sorted(r) == sorted(expected)
 
     unit_test(Solution())
+    unit_test(Solution00())
+    unit_test(Solution01())
     unit_test(Solution1())
     unit_test(Solution2())
