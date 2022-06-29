@@ -47,6 +47,19 @@ class Solution:
         return dfs_lca(root)     # type: ignore
 
 
+# sub-function is not necessary
+class Solution0:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+            if not root or root in (p, q): return root
+            left_lca = self.lowestCommonAncestor(root.left, p, q)   # type: ignore
+            right_lca = self.lowestCommonAncestor(root.right, p, q) # type: ignore
+
+            if left_lca and right_lca:
+                return root
+            else:
+                return left_lca if left_lca else right_lca
+
+
 # Binary Tree + DFS - T/S: O(n), O(n)
 class Solution1:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
@@ -108,4 +121,5 @@ if __name__ == '__main__':
         assert r.val == 1
 
     unitTest(Solution())
+    unitTest(Solution0())
     unitTest(Solution1())
