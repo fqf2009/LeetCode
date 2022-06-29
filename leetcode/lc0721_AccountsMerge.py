@@ -14,7 +14,8 @@
 #   1 <= accounts[i][j] <= 30
 #   accounts[i][0] consists of English letters.
 #   accounts[i][j] (for j > 0) is a valid email.
-from typing import List, Optional
+from collections import defaultdict
+from typing import List
 
 
 # Disjoint Set Union (DSU) a.k.a. Union Find
@@ -23,18 +24,18 @@ from typing import List, Optional
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
         n = len(accounts)
-        uf = list(range(n))
+        uf = list(range(n))             # list of account id
 
         def find(id: int) -> int:
             if uf[id] != id:
-                uf[id] = find(uf[id])
+                uf[id] = find(uf[id])   # compress the path
             return uf[id]
 
         email_map = {}
         for id, acc in enumerate(accounts):
             for email in acc[1:]:       # acc[0] is name, acc[1:] are emails
-                if email in email_map:  # redirect all existing emails to this account
-                    uf[find(email_map[email])] = id
+                if email in email_map:  # email already related to other id
+                    uf[find(email_map[email])] = id     # union other id to this id
                 email_map[email] = id
 
         email_list = [[] for _ in range(n)]
@@ -43,7 +44,7 @@ class Solution:
 
         res = []
         for i, acc in enumerate(accounts):
-            if len(email_list[i]) > 0:
+            if email_list[i]:
                 res.append([acc[0]] + sorted(email_list[i]))
 
         return res
@@ -95,6 +96,37 @@ class Solution1:
         return res
 
 
+class Solution2:
+    def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
+        graph = defaultdict(set)  # adjacency list
+        email_to_user = {}
+        for acc in accounts:
+            username = acc[0]
+            email0 = acc[1]
+            email_to_user[email0] = username
+            for email in acc[1:]:
+                graph[email0].add(email)
+                graph[email].add(email0)
+                email_to_user[email] = username
+        
+        def dfs_visit(email, related_emails):
+            related_emails.append(email)
+            visited.add(email)
+            for e in graph[email]:
+                if e not in visited:
+                    dfs_visit(e, related_emails)
+            
+        visited = set()
+        res = []
+        for email, username in email_to_user.items():
+            if email not in visited:
+                related_emails = []
+                dfs_visit(email, related_emails)
+                res.append([username] + sorted(related_emails))
+
+        return res
+
+
 if __name__ == '__main__':
     def unit_test(sol):
         accounts = [["David","David0@m.co","David1@m.co"],
@@ -135,3 +167,4 @@ if __name__ == '__main__':
 
     unit_test(Solution())
     unit_test(Solution1())
+    unit_test(Solution2())
