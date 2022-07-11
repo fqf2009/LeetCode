@@ -38,6 +38,8 @@ import math
 #   https://baike.baidu.com/item/%E6%94%BE%E7%90%83%E9%97%AE%E9%A2%98/12740706
 #   假设m个球和n-1个板放到n+m-1个位置，第1个板前的放进第一个盒子，第i-1个版和第i个版
 #   之间的球放进第i个盒子，则共有C(m+n-1,m)种放法。
+# - https://en.wikipedia.org/wiki/Stars_and_bars_(combinatorics)
+# - https://zh.wikipedia.org/wiki/%E9%9A%94%E6%9D%BF%E6%B3%95
 # - To put m identical balls into n numbered boxes:
 #   imagine there are n-1 identical separators and m identical balls, put them
 #   into total m+n-1 places, the balls with pos relative to separators will go
@@ -111,15 +113,58 @@ class Solution2:
         mod = 10**9 + 7
 
         @cache
-        def dp_count(start, n) -> int:
-            if n == 1:
+        def dp_count(start, pos) -> int:
+            if pos == n - 1:
                 return maxValue // start
             res = 0
             for i in range(start, maxValue + 1, start):
-                res = (res + dp_count(i, n - 1)) % mod
+                res = (res + dp_count(i, pos + 1)) % mod
             return res % mod
 
-        return dp_count(1, n) % mod
+        return dp_count(1, 0) % mod
+
+
+# DP + Backtracking (Top-down)
+# - improved, no performance issue!
+# - start from first item in array, the value (v[0]) could be 1..maxValue
+# - move to next item in array, set the value (v[1]) to be multiple of v[0],
+#   i.e., 2*v[0], 3*v[0], ..., x*v[0] <= maxValue
+# - continue ...
+# - in this process, for any intermediate value v[p], it comes
+#   from all distinct values: v[0], v[1], ..., v[p];
+# - if we stop multiply them and let them to be spreaded out, and let the
+#   last v[n-1] be the value of current v[p], how many ways are there?
+#   e.g.: prefix is [1,2,6,12,...], and, n = 10, if we want v[9] = 12:
+#   possible way to spread: [1, 1, 1, 2, 2, 6, 6, 6, 12, 12]
+#                                     ^     ^        ^
+#                           [1, 1, 2, 2, 2, 6, 6, 6, 12, 12]
+#                                  ^        ^        ^
+#                           [1, 2, 2, 2, 2, 2, 6, 6, 12, 12]
+#                               ^              ^     ^
+#                           ...
+# - here v[0] cannot move, p == 3, we can move (pick) the first pos
+#   for p (3) items in the remaining n-1 (9) places, the possible ways:
+#   combination(n-1, p) = comb(9, 3) = 84
+# - since all the values keep increasing, so no duplicate counting
+class Solution3:
+    @cache
+    def comb(self, n: int, m: int) -> int:
+        mod = 10**9 + 7
+        return math.comb(n, m) % mod
+
+    def idealArrays(self, n: int, maxValue: int) -> int:
+        mod = 10**9 + 7
+
+        @cache
+        def dp(v, pos) -> int:
+            res = self.comb(n-1, pos)
+            if pos == n-1 or v * 2 > maxValue:
+                return res
+            for v1 in range(v * 2, maxValue + 1, v):
+                res += dp(v1, pos + 1)
+            return res % mod
+
+        return sum(dp(i, 0) for i in range(1, maxValue + 1)) % mod
 
 
 if __name__ == "__main__":
@@ -141,7 +186,7 @@ if __name__ == "__main__":
         print(r)
         assert r == 3001269
 
-        r = sol.idealArrays(n = 5878, maxValue = 2900)
+        r = sol.idealArrays(n=5878, maxValue=2900)
         print(r)
         assert r == 465040898
 
@@ -151,3 +196,5 @@ if __name__ == "__main__":
 
     unit_test(Solution())
     # unit_test(Solution1())
+    # unit_test(Solution2())
+    unit_test(Solution3())
