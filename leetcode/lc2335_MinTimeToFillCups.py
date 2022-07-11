@@ -37,6 +37,14 @@ class Solution:
 #   and biggest stacks!
 # - e.g.: [1, 3, 5] => [0, 4, 5]
 #         [3, 4, 4] => [0, 5, 6]
+# - Think of that the 3 numbers are length of 3 line segment:
+#   Can they form a triangle?
+# - How about there are n stacks?
+#   e.g. a: _____________________________________________
+#           _____ _______ ________ _______ ___
+#   e.g. b: _____________________________________________
+#           ________ _______________ _______ ___ ______________
+#   still the same things: max(max(amount), (total + 1) // 2)
 class Solution1:
     def fillCups(self, amount: List[int]) -> int:
         return max(max(amount), (sum(amount) + 1) // 2)
